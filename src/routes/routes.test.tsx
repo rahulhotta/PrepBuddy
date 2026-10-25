@@ -2,7 +2,6 @@ import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
-import { useProgress } from "../features/progress/store";
 import { AppRoutes } from "./AppRoutes";
 
 const renderAt = (path: string) =>
@@ -19,7 +18,6 @@ describe("routes", () => {
     await Promise.all([import("./HomePage"), import("./TopicPage"), import("./SubjectPage"), import("./NotFoundPage")]);
   }, 60_000);
   beforeEach(() => {
-    useProgress.getState().reset();
     consoleError = vi.spyOn(console, "error");
   });
   afterEach(() => {
@@ -27,11 +25,12 @@ describe("routes", () => {
     consoleError.mockRestore();
   });
 
-  it("home lists topic sheets with progress and the sources footer", async () => {
+  it("home lists topic sheets without progress and retains the sources footer", async () => {
     renderAt("/");
     const sheet = await screen.findByRole("link", { name: /SHEET 01/ });
     expect(sheet).toHaveAttribute("href", "/low-level-design");
-    expect(within(sheet).getByText(/items covered/)).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "PREPBUDDY" })).toHaveAttribute("href", "/");
+    expect(within(sheet).queryByText(/items covered/)).not.toBeInTheDocument();
     expect(screen.getByText(/Syllabus inspired by Awesome Low Level Design\./)).toBeInTheDocument();
     expect(await screen.findByText("NOTE 1, QUESTION OF THE DAY")).toBeInTheDocument();
   });
@@ -44,6 +43,7 @@ describe("routes", () => {
     expect(within(behavioral).getByRole("link", { name: /Strategy/ })).toBeInTheDocument();
     expect(screen.queryByRole("region", { name: /Clean Code/ })).not.toBeInTheDocument();
     expect(screen.getByRole("button", { name: "START MOCK INTERVIEW" })).toBeInTheDocument();
+    expect(screen.queryByText(/items covered/)).not.toBeInTheDocument();
   });
 
   it("subject URL without a material redirects to the first tab", async () => {
@@ -62,22 +62,24 @@ describe("routes", () => {
     expect(crumbs.getByText("DESIGN A PARKING LOT")).toHaveAttribute("aria-current", "page");
   });
 
-  it("marks a Q&A understood", async () => {
+  it("reveals Q&A answers without tracking understanding", async () => {
     const user = userEvent.setup();
     renderAt("/low-level-design/observer/qa");
     await user.click(await screen.findByText("What is the Observer pattern?"));
-    const [button] = screen.getAllByRole("button", { name: "MARK UNDERSTOOD" });
-    await user.click(button);
-    expect(useProgress.getState().qa.observer).toEqual({ "observer-qa-01": true });
+    expect(screen.getByText("What is the Observer pattern?").closest("details")).toHaveAttribute("open");
+    expect(screen.queryByRole("button", { name: /UNDERSTOOD/ })).not.toBeInTheDocument();
+    expect(screen.queryByText(/QUESTIONS, .* UNDERSTOOD/)).not.toBeInTheDocument();
+    expect(localStorage.length).toBe(0);
   });
 
-  it("toggles case-study steps as covered", async () => {
-    const user = userEvent.setup();
+  it("renders case-study steps as a read-only ordered list", async () => {
     renderAt("/low-level-design/parking-lot/case-study");
-    const step = await screen.findByRole("button", { name: /Clarify the rules/ });
-    await user.click(step);
-    expect(step).toHaveAttribute("aria-pressed", "true");
-    expect(useProgress.getState().steps["parking-lot"]).toEqual({ "0": true });
+    const step = await screen.findByText("Clarify the rules");
+    expect(step.closest("ol")).toHaveClass("steps");
+    expect(step.closest("li")).not.toHaveAttribute("aria-pressed");
+    expect(screen.queryByRole("button")).not.toBeInTheDocument();
+    expect(screen.queryByText(/SELECT A STEP/)).not.toBeInTheDocument();
+    expect(localStorage.length).toBe(0);
   });
 
   it("renders the diagram", async () => {

@@ -82,14 +82,15 @@ python-examples/<subject_id_with_underscores>/{__init__.py, example.py, test_exa
 
 ## Mock interviews
 
-Each topic sheet offers a mock interview using Q&A from its subjects. Adding Q&A automatically makes those questions available; no separate interview question bank is needed. Questions are shuffled once per interview and presented without repeats in sets of up to 10. Answers stay hidden until revealed. After a set, the learner can continue or end the interview. Mock interviews do not change saved study progress.
+Each topic sheet offers a mock interview using Q&A from its subjects. Adding Q&A automatically makes those questions available; no separate interview question bank is needed. Questions are shuffled once per interview and presented without repeats in sets of up to 10. Answers stay hidden until revealed. After a set, the learner can continue or end the interview. Interview sessions are not saved.
 
 Keep questions self-contained: an interview can show them without surrounding notes or earlier questions. Model answers support Markdown, just like the Q&A tab. Shared interview labels and instructions live in `src/content/mock-interview.json`.
 
-## IDs and progress
+## IDs and study interactions
 
-- Q&A ids: `<subject>-qa-NN`; card ids: `<subject>-card-NN`. Never reuse or renumber an id once published: saved progress is keyed by it. Append new items with the next number.
-- Case-study progress is keyed by step index; append new steps at the end.
+- Q&A ids: `<subject>-qa-NN`; card ids: `<subject>-card-NN`. Keep published ids stable and append new items with the next number.
+- Study progress is not tracked or saved. Q&A answers expand, flashcards flip and support previous/next/shuffle, and case-study steps are a read-only ordered list.
+- Syllabus coverage remains a separate authoring check in `docs/SYLLABUS_COVERAGE.md`.
 
 ## notes.mdx
 

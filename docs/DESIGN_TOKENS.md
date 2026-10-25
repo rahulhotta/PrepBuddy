@@ -50,13 +50,13 @@ Google Fonts: `Barlow:wght@400;500;600`, `Barlow+Condensed:wght@500;600;700`, `S
 - **Button** (`.btn`): 36px tall, `padding:0 16px`, 1.5px accent border, accent fill, on-accent text. Outline variant: transparent with line border and text colour. Hover: `translate(-2px,-2px)` and `3px 3px 0 var(--ln)` shadow. Disabled: opacity .7, no hover.
 - **Sheet card** (`.s`): 1.5px line outline, `6px` accent top border, `padding:36px 22px 20px`, panel bg. Tag overhangs at `left:-1.5px; top:-6px`. Line-art icon top-right (70×46, stroke accent 1.8). Subject list rows with 8×8 accent square bullets, 16px, line-height 1.9. Hover: `translateY(-4px)` plus `0 0 0 1.5px accent, 6px 6px 0 accent`.
 - **Drawing card** (`.dw`): same frame as sheet; label `DWG 01-1` in accent, name, muted tag, material chips (Space Mono 11px, 1.5px line border).
-- **Progress ticks** (`.k`): 10 segments, 14×8px, 1.5px line border, gap 4px; filled = accent. Caption Space Mono 11px muted: "N of M items covered".
 - **Breadcrumb**: Space Mono label style; links underlined (offset 3px). Format `INDEX / LOW LEVEL DESIGN / OBSERVER`.
 - **Tabs**: `padding:9px 16px`, 1.5px line border, transparent; hover `rgba(255,255,255,.1)`; selected = accent fill + on-accent text.
 - **Panel**: 1.5px line border, 6px accent top border, panel bg, `padding:28px`, min-height 280px.
 - **Q&A item**: `details` with 1.5px border; summary 20px 600, 28×28 accent badge "Q" that becomes "A" when open; answer indented 58px.
 - **Flashcard**: scene perspective 1200px, max-width 520px, height 260px. Flip `rotateY(180deg)` over .6s `cubic-bezier(.3,1.2,.5,1)`. Front `#072a63` with accent top border, "QUESTION" label, question in Barlow Condensed 32px uppercase. Back accent fill, on-accent text, "ANSWER" label.
-- **Case-study step**: full-width button, 1.5px border, 42×42 accent number; hover `translateX(6px)`; done = accent fill, number inverted, "COVERED" label top right.
+- **Case-study step**: read-only item in an ordered list, 1.5px border, 42×42 accent number. No completion toggle or hover movement.
+- **Study progress**: no progress bars, mastery counts, or completion controls. Flashcards retain flip, previous, next, and shuffle actions.
 - **Inline code**: Space Mono .85em, yellow background, on-accent text.
 - **Diagram**: node stroke line 2px; edges line 2px `stroke-dasharray:6 5` animated `stroke-dashoffset` to -22 over 1s; node text Space Mono 700 13px on-accent; edge labels line colour 12px. Wrapper scrolls horizontally; min-width 440px.
 - **Footer**: label style, colour swatches 10×10, "SCALE 1:1, REV B" plus sources line.

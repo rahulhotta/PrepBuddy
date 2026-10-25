@@ -5,7 +5,6 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import * as content from "../../content";
 import copy from "../../content/mock-interview.json";
 import type { SubjectIndex, TopicIndex } from "../../content/schema";
-import { useProgress } from "../progress/store";
 import { InterviewSession, loadInterviewQuestions, MockInterview, type InterviewQuestion } from "./MockInterview";
 
 const subject: SubjectIndex = {
@@ -46,7 +45,6 @@ describe("InterviewSession", () => {
 
   it("pauses after each set of ten and exhausts the pool without repeats", async () => {
     const user = userEvent.setup();
-    const before = useProgress.getState();
     renderSession(23);
     const visited: string[] = [];
     for (let i = 0; i < 23; i++) {
@@ -64,7 +62,7 @@ describe("InterviewSession", () => {
     expect(screen.getByRole("heading", { name: copy.complete })).toHaveFocus();
     expect(screen.getByText(`${copy.reviewed}: 23. ${copy.remaining}: 0.`)).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: copy.continue })).not.toBeInTheDocument();
-    expect(useProgress.getState()).toBe(before);
+    expect(localStorage.length).toBe(0);
   });
 
   it.each([1, 10])("finishes a pool of %i without offering another set", async (count) => {

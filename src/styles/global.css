@@ -86,11 +86,6 @@ h1, h2, h3 { font-family: var(--cond); font-weight: 700; text-transform: upperca
 .i { display: block; }
 .i span { display: block; font-size: 16px; color: #e3edfd; line-height: 1.9; }
 .i span::before { content: ""; display: inline-block; width: 8px; height: 8px; background: var(--a); margin-right: 10px; }
-.k { display: flex; gap: 4px; margin-top: 18px; }
-.k.c { justify-content: center; }
-.k b { width: 14px; height: 8px; border: 1.5px solid var(--ln); }
-.k b.f { background: var(--a); border-color: var(--a); }
-.sm { display: block; font: 400 11px var(--mono); color: var(--mu); margin-top: 8px; }
 
 /* Topic */
 .th { margin: 30px 0 28px; }
@@ -178,16 +173,10 @@ pre code { background: none; color: inherit; padding: 0; font: inherit; }
 .step {
   position: relative; display: flex; gap: 16px; align-items: flex-start; width: 100%; text-align: left;
   margin: 0 0 14px; padding: 16px 18px; border: 1.5px solid var(--ln); background: var(--pn-strong);
-  transition: background 0.2s, transform 0.15s;
 }
-.step:hover { transform: translateX(6px); }
 .step .no { flex: none; width: 42px; height: 42px; display: grid; place-items: center; background: var(--a); color: var(--on); font: 700 15px var(--mono); }
 .step-h { display: block; font: 700 26px/1.02 var(--cond); text-transform: uppercase; }
 .step-p { display: block; margin: 4px 0 0; font-size: 16px; color: var(--mu); }
-.step[aria-pressed="true"] { background: var(--a); color: var(--on); }
-.step[aria-pressed="true"] .step-p { color: var(--on); }
-.step[aria-pressed="true"] .no { background: var(--on); color: var(--a); }
-.step[aria-pressed="true"]::after { content: "COVERED"; position: absolute; right: 14px; top: 12px; font: 700 11px var(--mono); }
 
 /* Footer */
 .ft { margin-top: auto; padding-top: 34px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 20px; }
@@ -197,7 +186,6 @@ pre code { background: none; color: inherit; padding: 0; font: inherit; }
 @media (max-width: 640px) {
   .frame { margin: 10px; padding: 18px; min-height: calc(100vh - 20px); }
   .panel { padding: 16px; }
-  .step[aria-pressed="true"]::after { position: static; margin-left: auto; }
   .mini { display: none; }
   details .a { padding-left: 16px; }
 }

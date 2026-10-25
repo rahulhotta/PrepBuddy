@@ -1,6 +1,6 @@
 # Syllabus coverage
 
-Outline: *Awesome Low Level Design*. The source is used only as a syllabus; all Prepbook content is original.
+Outline: *Awesome Low Level Design*. The source is used only as a syllabus; all PrepBuddy content is original.
 
 `npm run validate:coverage` reads the table below:
 - every row must have a subject id (several rows may share one subject, e.g. a topic listed in two chapters);

@@ -4,41 +4,30 @@ import { loadCards } from "../../content";
 import type { Card, SubjectIndex } from "../../content/schema";
 import { useAsync } from "../../lib/useAsync";
 import { shuffled } from "../../lib/shuffle";
-import { ProgressTicks } from "../progress/ProgressTicks";
-import { useProgress } from "../progress/store";
 
 export default function FlashcardsView({ subject }: { subject: SubjectIndex }) {
   const state = useAsync(() => loadCards(subject), subject.id);
-  return <AsyncView state={state}>{(cards) => <Flashcards subjectId={subject.id} cards={cards} />}</AsyncView>;
+  return <AsyncView state={state}>{(cards) => <Flashcards cards={cards} />}</AsyncView>;
 }
 
 export function Flashcards({
-  subjectId,
   cards,
   random = Math.random,
 }: {
-  subjectId: string;
   cards: Card[];
   random?: () => number;
 }) {
   const [order, setOrder] = useState(() => cards.map((_, i) => i));
   const [pos, setPos] = useState(0);
   const [flipped, setFlipped] = useState(false);
-  const mastered = useProgress((s) => s.cards[subjectId]);
-  const setCardMastered = useProgress((s) => s.setCardMastered);
 
   if (!cards.length) return <p className="l">NO CARDS YET.</p>;
 
   const card = cards[order[pos]];
-  const masteredCount = cards.filter((c) => mastered?.[c.id]).length;
 
   const move = (delta: number) => {
     setPos((p) => (p + delta + cards.length) % cards.length);
     setFlipped(false);
-  };
-  const mark = (ok: boolean) => {
-    setCardMastered(subjectId, card.id, ok);
-    move(1);
   };
   const shuffle = () => {
     setOrder(shuffled(cards.map((_, i) => i), random));
@@ -49,9 +38,8 @@ export function Flashcards({
   return (
     <>
       <p className="l" style={{ textAlign: "center", margin: 0 }} aria-live="polite">
-        CARD {pos + 1} OF {cards.length}, MASTERED {masteredCount}
+        CARD {pos + 1} OF {cards.length}
       </p>
-      <ProgressTicks done={masteredCount} total={cards.length} center />
       <div className="scene">
         <button
           type="button"
@@ -73,12 +61,6 @@ export function Flashcards({
       <div className="row">
         <button type="button" className="btn o" onClick={() => move(-1)}>
           PREVIOUS
-        </button>
-        <button type="button" className="btn o" onClick={() => mark(false)}>
-          AGAIN
-        </button>
-        <button type="button" className="btn" onClick={() => mark(true)}>
-          GOT IT
         </button>
         <button type="button" className="btn o" onClick={() => move(1)}>
           NEXT
