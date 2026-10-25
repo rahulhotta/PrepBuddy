@@ -1,0 +1,11 @@
+{
+  "id": "object-collaboration",
+  "title": "Object collaboration and message passing",
+  "tag": "OOD Fundamentals",
+  "section": "ood-fundamentals",
+  "category": "concept",
+  "order": 304,
+  "materials": ["explanation", "qa", "flashcards"],
+  "example": false,
+  "status": "complete"
+}

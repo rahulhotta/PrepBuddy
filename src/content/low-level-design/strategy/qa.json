@@ -1,0 +1,44 @@
+[
+  {
+    "id": "strategy-qa-01",
+    "question": "What is the Strategy pattern?",
+    "answer": "Strategy puts each variant of an algorithm behind one shared interface, so the object that uses it can swap variants without changing its own code.\n\nThe object that does the work (the **context**) holds a reference to a strategy and calls it. Each **concrete strategy** implements the same method in its own way.\n\nExample: a `Checkout` holds a `FeePolicy`. Card, bank transfer and wallet payments each have their own policy class. Adding a new payment method means adding a class, not editing `Checkout`.",
+    "difficulty": 1
+  },
+  {
+    "id": "strategy-qa-02",
+    "question": "What problem does Strategy solve that an if/elif chain does not?",
+    "answer": "It stops one class from growing a branch for every new variant, which keeps that class closed for modification and each variant testable on its own.\n\nWith a chain like `if method == \"card\": ... elif method == \"bank\": ...`, every new rule edits the same function. The function gets long, every change risks breaking the other branches, and you cannot test one rule in isolation.\n\nWith Strategy, each branch becomes a small class (or function) and the choice becomes a lookup, for example a dictionary from method name to policy.",
+    "difficulty": 1
+  },
+  {
+    "id": "strategy-qa-03",
+    "question": "How is Strategy different from State?",
+    "answer": "They have the same class diagram, but in Strategy the **client** chooses the behaviour, while in State the **object itself** switches behaviour as its internal state changes.\n\n- Strategy: the checkout is given a fee policy from outside. The policies do not know about each other.\n- State: a ride moves from `Requested` to `EnRoute` to `Completed`. Each state object decides which state comes next.\n\nA quick test in an interview: if the variants trigger transitions between each other, it is State.",
+    "difficulty": 2
+  },
+  {
+    "id": "strategy-qa-04",
+    "question": "Strategy or Template Method: how do you choose?",
+    "answer": "Use Template Method when the steps of an algorithm are fixed and only some steps vary; use Strategy when the whole algorithm varies or must be swapped at runtime.\n\nTemplate Method uses **inheritance**: a base class defines the skeleton and subclasses fill in steps. The choice is fixed when you pick the subclass.\n\nStrategy uses **composition**: the context holds a strategy object that can be replaced at any time and shared between contexts.\n\nIf you find yourself creating subclasses only to change one calculation, Strategy is usually the lighter choice.",
+    "difficulty": 2
+  },
+  {
+    "id": "strategy-qa-05",
+    "question": "When should you not use Strategy?",
+    "answer": "Skip it when there is only one algorithm, or two that will never change; the extra interface and classes add indirection without benefit.\n\nOther warning signs:\n\n- Clients must know the details of every strategy to choose one, so the coupling just moves elsewhere.\n- Strategies need lots of data from the context, which leads to wide method signatures or strategies reaching back into the context.\n- A simple parameter (a rate, a threshold) would do. A `percent` field is configuration, not a new algorithm.",
+    "difficulty": 2
+  },
+  {
+    "id": "strategy-qa-06",
+    "question": "Scenario: a ride-booking app prices trips differently for peak hours, airport runs and subscribers. How would you design it?",
+    "answer": "Define a `PricingStrategy` interface with `price(trip) -> Money`, give each rule its own implementation, and let a small selector pick one per trip.\n\n1. `StandardPricing`, `PeakPricing`, `AirportFlatRate` and `SubscriberDiscount` each implement `price()`.\n2. A selector (a dictionary or a short function) chooses the strategy from trip data and the rider's plan.\n3. The `Trip` or `Quote` service holds the chosen strategy and calls it.\n\nTalk about combinations too: a subscriber on an airport run may need a discount *on top of* a flat rate. That is a hint to wrap one strategy in another (a Decorator) rather than multiplying classes.",
+    "difficulty": 3
+  },
+  {
+    "id": "strategy-qa-07",
+    "question": "In Python, do you need a class for each strategy?",
+    "answer": "No. When a strategy is a single operation with no state, a plain function is the strategy, because functions are first-class values in Python.\n\n```python\nFunctionCheckout(fee=lambda amount: Decimal(\"0\"))\n```\n\nPrefer classes when a strategy:\n\n- carries configuration (a rate, a threshold) that you want to see and test,\n- needs more than one method (`fee()` and `describe()`),\n- must be registered, serialised or introspected by name.\n\nIn an interview, show the class version first (it is what the interviewer expects to discuss), then mention the function version as the idiomatic shortcut.",
+    "difficulty": 2
+  }
+]

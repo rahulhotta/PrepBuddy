@@ -1,0 +1,13 @@
+{
+  "title": "The LLD interview checklist",
+  "steps": [
+    { "heading": "Clarify the problem", "body": "Ask what the system must do, who will use it, and what is out of scope. Repeat the agreed requirements back to the interviewer." },
+    { "heading": "List the main things", "body": "Write down the important people and objects in the problem. Mark which ones need their own identity and which are just values, such as a time slot." },
+    { "heading": "Give each class a job", "body": "For every class, say what information it holds and what work it does. Note which behaviours may need different versions." },
+    { "heading": "Show how the parts connect", "body": "Draw the main classes and show which ones contain or use others. Include only the methods needed to explain the design." },
+    { "heading": "Trace one complete task", "body": "Follow the main use case from the first call to the final result. Add any missing class or method you discover." },
+    { "heading": "Code the essential path", "body": "Write the central classes and one working use case with clear names and type hints. Leave less important details for later." },
+    { "heading": "Check failures and unusual cases", "body": "Consider invalid input, two people acting at once, empty or full states, and cancellations. Decide how the code reports each problem." },
+    { "heading": "Explain changes and choices", "body": "Describe how you would add a feature and why you kept some possibilities out of the design." }
+  ]
+}

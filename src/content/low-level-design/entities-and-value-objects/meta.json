@@ -1,0 +1,11 @@
+{
+  "id": "entities-and-value-objects",
+  "title": "Identifying entities and value objects",
+  "tag": "OOD Fundamentals",
+  "section": "ood-fundamentals",
+  "category": "concept",
+  "order": 303,
+  "materials": ["explanation", "qa", "flashcards"],
+  "example": false,
+  "status": "complete"
+}

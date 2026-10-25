@@ -1,0 +1,49 @@
+## Overview
+
+Abstraction gives callers a simple way to use something without making them learn its inner steps.
+
+**Abstraction** means exposing *what* something does while hiding *how* it does it. Checkout code should be able to say "take this payment" without knowing whether a card network, a gift-card ledger or a bank transfer is involved.
+
+In Python, the standard tool for declaring an abstraction in a class hierarchy is an **abstract base class (ABC)** from the `abc` module. An ABC defines methods that subclasses **must** implement. Python refuses to create an instance of any class that still has unimplemented abstract methods, so mistakes surface immediately instead of at the first call.
+
+## Key ideas
+
+- Inherit from `abc.ABC` and mark required methods with `@abstractmethod`.
+- **You cannot instantiate an ABC**, or a subclass that has not implemented every abstract method: Python raises `TypeError` at construction.
+- **Abstract properties** combine `@property` and `@abstractmethod`.
+- **ABCs can contain concrete methods.** A common shape is a concrete public method that defines the workflow and calls abstract "steps" (this is the Template Method pattern): `pay()` validates the amount, calls the abstract `authorize()`, and builds a receipt.
+- **Abstraction is about the caller's view.** Callers depend on `PaymentMethod`, not on `CardPayment`, so they keep working when new payment types are added.
+- **ABC vs Protocol**: an ABC requires explicit inheritance and can share code; a `Protocol` matches by structure and shares no code. Use an ABC when you own the hierarchy and want shared behaviour or enforced registration.
+- The standard library's `collections.abc` (for example `Mapping`, `Iterable`) offers ready-made ABCs that also supply mixin methods.
+
+## Example
+
+`PaymentMethod` is an ABC with:
+
+- an abstract property `name`;
+- an abstract method `authorize(amount) -> bool`;
+- a concrete method `pay(amount)` that rejects non-positive amounts, calls `authorize`, and returns a receipt string.
+
+`CardPayment` and `GiftCard` implement the abstract parts. `GiftCard` tracks its remaining balance. An `IncompletePayment` that forgets `authorize` cannot even be created.
+
+## Common mistakes
+
+- **Abstract classes with one implementation forever**: an abstraction nobody else implements is just indirection.
+- **Leaking details into the abstraction**: `authorize(amount, card_number)` makes every payment type pretend to have a card number.
+- **Raising `NotImplementedError` in a normal base class** instead of using `@abstractmethod`; the error only appears at call time, possibly in production.
+- **Huge ABCs** forcing subclasses to implement methods they do not need (see Interface Segregation).
+- **Putting state that only some subclasses need** into the base class.
+
+## Interview angle
+
+Define abstraction precisely ("hide implementation details behind a stable interface") and distinguish it from encapsulation ("protect an object's data and invariants"). They work together but are not the same.
+
+In design problems, introduce an ABC where the requirements show several interchangeable implementations (payment types, vehicles, notification channels) and explain what the caller gains: "Checkout depends only on `PaymentMethod`, so adding wallets later doesn't touch it."
+
+## Related topics
+
+- Interfaces and Protocols
+- Inheritance and method overriding
+- The four pillars of OOP
+- Interface Segregation Principle
+- Template Method

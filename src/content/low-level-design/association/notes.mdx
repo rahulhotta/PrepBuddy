@@ -1,0 +1,33 @@
+## Overview
+
+Association means that two objects know about or use one another. It does not, by itself, say who owns whom or how long either object lives.
+
+## Key ideas
+
+- A customer can be associated with several orders, and each order can refer to a customer.
+- Associations can be one-way or two-way.
+- Multiplicity describes how many objects can be connected, such as one customer to many orders.
+- An association does not imply shared lifetime or ownership.
+- Add only the links that the application needs; extra references make designs harder to change.
+
+## Example
+
+A `Doctor` and a `Patient` can be associated through `Appointment` objects. The appointment records which doctor and patient are involved and when they meet. Ending an appointment does not mean either person stops existing.
+
+## Common mistakes
+
+- Assuming every association is ownership.
+- Making every relationship bidirectional when one direction is enough.
+- Forgetting to state whether the relationship is one-to-one, one-to-many, or many-to-many.
+- Keeping references that no use case needs.
+
+## Interview angle
+
+Describe what each side can access and how many objects can be linked. Then clarify whether the relationship represents ownership or simply a connection.
+
+## Related topics
+
+- Aggregation
+- Composition
+- Dependency
+- UML relationships and multiplicity

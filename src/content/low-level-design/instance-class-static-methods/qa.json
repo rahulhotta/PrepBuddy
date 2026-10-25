@@ -1,0 +1,26 @@
+[
+  {
+    "id": "instance-class-static-methods-qa-01",
+    "question": "What is the difference between instance, class and static methods?",
+    "answer": "An instance method receives the object (`self`), a class method receives the class (`cls`), and a static method receives neither.\n\nUse instance methods for behaviour on one object's state, class methods for alternative constructors or class-wide state, and static methods for small helpers that belong with the class but need no state.",
+    "difficulty": 1
+  },
+  {
+    "id": "instance-class-static-methods-qa-02",
+    "question": "Why should alternative constructors be class methods rather than static methods?",
+    "answer": "Because a class method receives the class it was called on, so `cls(...)` builds the correct subclass.\n\nA static method that returns `Temperature(...)` always returns the base class, even when called as `LabTemperature.from_fahrenheit(32)`. With `@classmethod` and `return cls(...)`, subclasses get instances of themselves for free.",
+    "difficulty": 2
+  },
+  {
+    "id": "instance-class-static-methods-qa-03",
+    "question": "When is a static method the right choice, and when is a module-level function better?",
+    "answer": "A static method fits a small helper that is conceptually part of the class's API, such as a validation rule used by its constructor.\n\nIf the helper is general-purpose or used by unrelated code, a module-level function is clearer: Python modules already act as namespaces, so you do not need a class for grouping.",
+    "difficulty": 2
+  },
+  {
+    "id": "instance-class-static-methods-qa-04",
+    "question": "Scenario: you need to build `Order` objects from a shopping cart and from a stored JSON document. How do you design the constructors?",
+    "answer": "Keep `__init__` taking the core fields, and add class methods for each source.\n\n```python\nclass Order:\n    def __init__(self, items: list[Line], customer_id: str) -> None: ...\n\n    @classmethod\n    def from_cart(cls, cart: Cart) -> Self:\n        return cls(list(cart.lines), cart.customer_id)\n\n    @classmethod\n    def from_json(cls, data: dict[str, Any]) -> Self: ...\n```\n\nEach creation path is named and testable, and `__init__` stays simple.",
+    "difficulty": 2
+  }
+]

@@ -1,0 +1,19 @@
+{
+  "title": "Strategy class diagram",
+  "description": "Checkout holds a reference to the FeePolicy interface and calls fee() when computing a total. CardFee, BankTransferFee and TieredWalletFee each implement FeePolicy with their own pricing rule, so Checkout can be given any of them, or a new one, without changing.",
+  "width": 800,
+  "height": 350,
+  "nodes": [
+    { "id": "checkout", "kind": "class", "x": 20, "y": 30, "width": 230, "name": "Checkout", "fields": ["- policy: FeePolicy"], "methods": ["+ total(amount) -> Decimal"] },
+    { "id": "policy", "kind": "class", "x": 390, "y": 20, "width": 200, "name": "FeePolicy", "stereotype": "interface", "methods": ["+ fee(amount) -> Decimal"] },
+    { "id": "card", "kind": "class", "x": 200, "y": 220, "width": 180, "name": "CardFee", "fields": ["- percent: Decimal", "- fixed: Decimal"], "methods": ["+ fee(amount)"] },
+    { "id": "bank", "kind": "class", "x": 400, "y": 220, "width": 180, "name": "BankTransferFee", "fields": ["- flat: Decimal"], "methods": ["+ fee(amount)"] },
+    { "id": "wallet", "kind": "class", "x": 600, "y": 220, "width": 180, "name": "TieredWalletFee", "fields": ["- free_up_to: Decimal", "- percent: Decimal"], "methods": ["+ fee(amount)"] }
+  ],
+  "edges": [
+    { "from": "checkout", "to": "policy", "type": "aggregation", "label": "uses" },
+    { "from": "card", "to": "policy", "type": "implements" },
+    { "from": "bank", "to": "policy", "type": "implements" },
+    { "from": "wallet", "to": "policy", "type": "implements" }
+  ]
+}

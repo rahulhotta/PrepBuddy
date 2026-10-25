@@ -1,0 +1,15 @@
+{
+  "title": "Employee inheritance",
+  "description": "Manager and Intern both inherit from Employee. Manager extends monthly_pay by adding a bonus to the parent's result; Intern replaces monthly_pay with a fixed stipend. describe is inherited unchanged and calls whichever monthly_pay the object has.",
+  "width": 640,
+  "height": 330,
+  "nodes": [
+    { "id": "emp", "kind": "class", "x": 180, "y": 20, "width": 280, "name": "Employee", "fields": ["- name: str", "- salary: Decimal"], "methods": ["+ monthly_pay() -> Decimal", "+ describe() -> str"] },
+    { "id": "mgr", "kind": "class", "x": 20, "y": 220, "width": 260, "name": "Manager", "fields": ["- bonus: Decimal"], "methods": ["+ monthly_pay()  # extends"] },
+    { "id": "intern", "kind": "class", "x": 360, "y": 220, "width": 260, "name": "Intern", "methods": ["+ monthly_pay()  # replaces"] }
+  ],
+  "edges": [
+    { "from": "mgr", "to": "emp", "type": "inheritance" },
+    { "from": "intern", "to": "emp", "type": "inheritance" }
+  ]
+}

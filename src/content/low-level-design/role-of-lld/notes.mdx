@@ -1,0 +1,50 @@
+## Overview
+
+LLD is a practical sketch of how a feature's code will fit together before the team writes it.
+
+Low-level design sits between "we know what to build" and "we are writing code". Its job in a real team is to **reduce the cost of building and changing software**: it turns requirements into a structure that several people can implement, test and extend without constantly breaking each other's work.
+
+It is rarely a separate phase with a thick document. In most teams it shows up as a short design note or diagram before a feature, a discussion in a pull request, or a whiteboard session when a piece of code has become hard to change.
+
+## Key ideas
+
+- **Bridges requirements and code.** HLD and product requirements say *what*; LLD decides the classes, contracts and flows that say *how*.
+- **Makes change cheap.** Clear responsibilities and interfaces mean a new payment method or report format is an addition, not a rewrite.
+- **Enables parallel work.** Once interfaces are agreed, one developer can build the `NotificationSender` while another builds the code that calls it.
+- **Enables testing.** Code designed around interfaces and injected dependencies can be unit-tested with fakes; code with hard-wired dependencies cannot.
+- **Shares understanding.** A diagram and a few signatures let reviewers spot problems before hundreds of lines exist, when fixes are cheap.
+- **Controls technical debt.** Regular small design decisions (and refactoring when they turn out wrong) stop codebases from drifting into tangled modules.
+- **Proportional effort.** A one-off script needs almost no design; a core billing module deserves careful thought. Over-designing is a cost too.
+
+## Example
+
+A team adds "export invoices as PDF and CSV". Without design, someone adds two `if format == ...` branches inside the invoice controller, each with its own copy of the totals logic. Next quarter, "Excel export" adds a third branch and a bug in the copied totals.
+
+With a short LLD step first, the team agrees on:
+
+- an `InvoiceExporter` interface with `export(invoice) -> bytes`;
+- `PdfExporter` and `CsvExporter` implementations, built by two developers in parallel;
+- totals computed once by the `Invoice` itself, so exporters only format.
+
+Adding Excel later is one new class. Reviewers check one small interface instead of a large diff, and each exporter has its own tests.
+
+## Common mistakes
+
+- **Big design up front**: weeks of diagrams that go stale before code is written.
+- **No design at all**: "we will refactor later" without ever making time to do it.
+- **Designing alone**: a design nobody else has reviewed hides misunderstandings until integration.
+- **Confusing design with documentation**: the value is in the decisions, not the length of the document.
+- **Ignoring the existing codebase**: a design that fights the current structure creates two styles side by side.
+
+## Interview angle
+
+You may be asked "why does LLD matter?" or "how do you design in your team?". Good answers are concrete: mention reduced change cost, parallel work through agreed interfaces, testability, and catching problems in review. Show balance: "I spend design effort proportional to how central and long-lived the code is."
+
+It also explains *why* interviews test LLD at all: they are a proxy for whether your code will be easy for teammates to work with.
+
+## Related topics
+
+- What is Low-Level Design?
+- Maintainability, extensibility and reusability
+- Avoiding overengineering
+- Dependency injection for testability

@@ -1,0 +1,29 @@
+/* Blueprint tokens. Source: reference/blueprint-prototype.html, docs/DESIGN_TOKENS.md */
+:root {
+  --bg: #0a3b7f;
+  --pn: rgba(6, 36, 84, 0.5);
+  --pn-strong: rgba(6, 36, 84, 0.4);
+  --card-front: #072a63;
+  --ln: #e8f0ff;
+  --tx: #f2f7ff;
+  --mu: #c4d6f5;
+  --on: #0b2f66;
+  --grid: rgba(255, 255, 255, 0.1);
+
+  --yellow: #ffd23f;
+  --coral: #ff8f70;
+  --mint: #5eead4;
+  --lilac: #c4a7ff;
+  --a: var(--yellow);
+
+  --mono: "Space Mono", ui-monospace, monospace;
+  --cond: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --body: "Barlow", system-ui, sans-serif;
+
+  color-scheme: dark;
+}
+
+.accent-yellow { --a: var(--yellow); }
+.accent-coral { --a: var(--coral); }
+.accent-mint { --a: var(--mint); }
+.accent-lilac { --a: var(--lilac); }

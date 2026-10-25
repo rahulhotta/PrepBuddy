@@ -1,0 +1,17 @@
+{
+  "title": "Document composed of parts",
+  "description": "Document owns a History (composition) and delegates undo to it. It receives a SpellChecker from outside (aggregation) and delegates typos to it. AuditedDocument wraps a Document and forwards calls to it.",
+  "width": 720,
+  "height": 350,
+  "nodes": [
+    { "id": "doc", "kind": "class", "x": 230, "y": 20, "width": 260, "name": "Document", "fields": ["- text: str", "- _history: History", "- _checker: SpellChecker"], "methods": ["+ write(more)", "+ undo()", "+ typos() -> list[str]"] },
+    { "id": "hist", "kind": "class", "x": 20, "y": 230, "width": 200, "name": "History", "methods": ["+ save(text)", "+ undo() -> str | None"] },
+    { "id": "spell", "kind": "class", "x": 260, "y": 230, "width": 200, "name": "SpellChecker", "methods": ["+ unknown(text) -> list"] },
+    { "id": "audit", "kind": "class", "x": 500, "y": 230, "width": 200, "name": "AuditedDocument", "fields": ["- _inner: Document"], "methods": ["+ write(more)", "+ __getattr__(name)"] }
+  ],
+  "edges": [
+    { "from": "doc", "to": "hist", "type": "composition", "label": "owns" },
+    { "from": "doc", "to": "spell", "type": "aggregation", "label": "injected" },
+    { "from": "audit", "to": "doc", "type": "association", "label": "delegates" }
+  ]
+}

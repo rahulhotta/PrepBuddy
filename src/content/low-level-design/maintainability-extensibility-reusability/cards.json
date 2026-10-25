@@ -1,0 +1,7 @@
+[
+  { "id": "maintainability-extensibility-reusability-card-01", "front": "Maintainability?", "back": "How easily code can be understood, fixed and safely changed." },
+  { "id": "maintainability-extensibility-reusability-card-02", "front": "Extensibility?", "back": "How easily new behaviour can be added, ideally by adding code instead of editing it." },
+  { "id": "maintainability-extensibility-reusability-card-03", "front": "Reusability?", "back": "How easily code can be used in another context without copying it." },
+  { "id": "maintainability-extensibility-reusability-card-04", "front": "Quick extensibility test?", "back": "Can a new case be added as a new class, with no edits to existing tested code?" },
+  { "id": "maintainability-extensibility-reusability-card-05", "front": "Cost of extension points?", "back": "More indirection to read. Add them where change is likely, not everywhere." }
+]

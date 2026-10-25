@@ -1,0 +1,11 @@
+{
+  "id": "properties-enums-dataclasses",
+  "title": "Properties, enums and dataclasses",
+  "tag": "Python fundamentals",
+  "section": "python-fundamentals",
+  "category": "concept",
+  "order": 210,
+  "materials": ["explanation", "qa", "flashcards"],
+  "example": true,
+  "status": "complete"
+}

@@ -1,0 +1,8 @@
+[
+  { "id": "lld-vs-hld-card-01", "front": "HLD unit of design?", "back": "Services, databases, queues and caches, and how they communicate." },
+  { "id": "lld-vs-hld-card-02", "front": "LLD unit of design?", "back": "Classes, interfaces, methods and object relationships inside one component." },
+  { "id": "lld-vs-hld-card-03", "front": "HLD optimises for?", "back": "Scalability, availability, latency, consistency and cost." },
+  { "id": "lld-vs-hld-card-04", "front": "LLD optimises for?", "back": "Correctness, readability, extensibility and testability." },
+  { "id": "lld-vs-hld-card-05", "front": "Typical HLD artefact vs LLD artefact?", "back": "HLD: architecture diagram. LLD: class and sequence diagrams plus code." },
+  { "id": "lld-vs-hld-card-06", "front": "First move when the level is unclear?", "back": "Ask the interviewer which level they want, then state your assumptions." }
+]

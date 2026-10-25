@@ -1,0 +1,7 @@
+[
+  { "id": "classes-and-objects-card-01", "front": "Class vs object?", "back": "A class is the blueprint; an object is one instance of it with its own state." },
+  { "id": "classes-and-objects-card-02", "front": "What is self?", "back": "The instance the method was called on, passed as the first argument." },
+  { "id": "classes-and-objects-card-03", "front": "is vs ==?", "back": "is checks identity (same object); == checks equality via __eq__." },
+  { "id": "classes-and-objects-card-04", "front": "Instance vs class attribute?", "back": "Instance attributes belong to one object; class attributes are shared by all instances." },
+  { "id": "classes-and-objects-card-05", "front": "Why define __repr__?", "back": "It gives a clear description of the object for debugging, logs and test failures." }
+]

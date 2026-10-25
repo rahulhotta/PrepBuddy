@@ -1,0 +1,66 @@
+## Overview
+
+Functional requirements say what the system should do. Non-functional requirements say how well it should do it or what limits it must meet.
+
+Requirements come in two kinds:
+
+- **Functional requirements** describe **what the system does**: the features and behaviours a user can observe. "A rider can request a ride." "A driver can accept or decline a request."
+- **Non-functional requirements** (NFRs, sometimes called quality attributes) describe **how well it does it**: speed, reliability, security, maintainability and similar qualities. "Fare quotes return within 200 ms." "Payment data is never logged."
+
+In LLD, functional requirements tell you which classes and methods you need. Non-functional requirements shape *how* you build them: which data structures, where to lock, what to validate, which parts must be pluggable.
+
+## Key ideas
+
+- **Functional** requirements map to **use cases** and then to methods: `request_ride()`, `accept()`, `cancel()`.
+- **Non-functional** requirements that matter most at LLD level:
+  - *Correctness under concurrency*: two drivers must not accept the same ride.
+  - *Performance*: O(1) cache lookups, avoiding repeated database calls in a loop.
+  - *Extensibility*: new vehicle types or pricing rules without editing existing classes.
+  - *Testability*: dependencies can be replaced with fakes.
+  - *Security and privacy*: validation of all input, no secrets in logs.
+  - *Observability*: meaningful errors and logging hooks.
+- **Make them measurable** where possible: "fast" is not a requirement; "p95 under 200 ms" is.
+- **Trade-offs**: NFRs often conflict (strong consistency vs speed, flexibility vs simplicity). Saying which one wins, and why, is part of the design.
+- **Constraints** are a third group: fixed decisions such as "must run on Python 3.12" or "must use the existing payments API".
+
+## Example
+
+Problem: a vending machine.
+
+Functional:
+
+1. A customer selects a product by code.
+2. The customer inserts coins or taps a card.
+3. The machine dispenses the product and returns change.
+4. An operator restocks products and collects cash.
+
+Non-functional, and what each one changes in the design:
+
+- *The machine must never dispense without payment, even if power fails mid-transaction.* Model the flow as an explicit state machine (`Idle`, `HasMoney`, `Dispensing`) and persist the state.
+- *New payment methods will be added.* Put payment behind a `PaymentMethod` interface.
+- *Change must use the fewest coins.* Choose a change-making algorithm and test it with boundary cases.
+- *Operators must not see customer card numbers.* Store only a token and the last four digits.
+
+## Common mistakes
+
+- **Only listing features** and never asking about scale, failure, concurrency or extensibility.
+- **Vague NFRs** ("should be fast", "should be secure") that cannot guide a decision or be tested.
+- **Gold-plating**: designing for a million requests per second when the problem is a single machine.
+- **Mixing levels**: in an LLD interview, focusing on data-centre redundancy instead of class-level concerns such as thread safety and extensibility.
+
+## Interview angle
+
+Spend the first few minutes listing both kinds, briefly, then confirm with the interviewer:
+
+- "Functionally, I'll support A, B and C; D is out of scope."
+- "Non-functionally, I'll make sure X is thread-safe and Y is easy to extend; I won't design for distribution."
+
+Then refer back to them: "Because new payment types are expected, I'm putting payment behind an interface." Linking design choices to stated requirements is one of the strongest signals you can give.
+
+## Related topics
+
+- Gathering requirements
+- Clarifying scope and assumptions
+- Identifying actors and use cases
+- Maintainability, extensibility and reusability
+- Race conditions

@@ -1,0 +1,8 @@
+[
+  { "id": "composition-and-delegation-card-01", "front": "Composition?", "back": "Building an object from other objects it holds as parts: has-a." },
+  { "id": "composition-and-delegation-card-02", "front": "Delegation?", "back": "Forwarding work to a held object instead of doing it yourself." },
+  { "id": "composition-and-delegation-card-03", "front": "Explicit vs automatic delegation?", "back": "Explicit: write forwarding methods. Automatic: __getattr__ forwards missing attributes." },
+  { "id": "composition-and-delegation-card-04", "front": "Owned vs injected part?", "back": "Owned: created and controlled by the outer object. Injected: passed in, swappable, maybe shared." },
+  { "id": "composition-and-delegation-card-05", "front": "Problem composition avoids?", "back": "Class explosion from one subclass per combination of behaviours." },
+  { "id": "composition-and-delegation-card-06", "front": "Patterns built on composition plus delegation?", "back": "Strategy, Decorator, Proxy, Adapter, State." }
+]

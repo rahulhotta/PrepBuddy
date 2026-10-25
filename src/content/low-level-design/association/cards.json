@@ -1,0 +1,6 @@
+[
+  { "id": "association-card-01", "front": "What does association show?", "back": "A connection between objects or classes." },
+  { "id": "association-card-02", "front": "Does association mean ownership?", "back": "No. It only shows that objects are connected or used." },
+  { "id": "association-card-03", "front": "What is multiplicity?", "back": "How many objects can take part in a relationship." },
+  { "id": "association-card-04", "front": "Can an association be one-way?", "back": "Yes. Only one object needs to know about the other." }
+]

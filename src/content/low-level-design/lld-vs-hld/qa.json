@@ -1,0 +1,26 @@
+[
+  {
+    "id": "lld-vs-hld-qa-01",
+    "question": "What is the difference between High-Level Design and Low-Level Design?",
+    "answer": "HLD decides the components of a system and how they interact; LLD designs the classes and interactions inside one component.\n\n- HLD: services, databases, queues, caches; optimises for scalability, availability and latency.\n- LLD: classes, interfaces, methods; optimises for correctness, readability, extensibility and testability.\n\nThey are two zoom levels of the same system.",
+    "difficulty": 1
+  },
+  {
+    "id": "lld-vs-hld-qa-02",
+    "question": "Which comes first, HLD or LLD?",
+    "answer": "Usually HLD, because it fixes the boundaries and contracts that each component's LLD must respect.\n\nBut the process is iterative. Detailed design can reveal problems in the high-level split, for example two services that need to share most of their logic, or a component whose responsibilities are too broad. Good teams feed those findings back into the HLD.",
+    "difficulty": 1
+  },
+  {
+    "id": "lld-vs-hld-qa-03",
+    "question": "How does \"caching\" differ between an HLD and an LLD discussion?",
+    "answer": "In HLD, caching is an infrastructure decision; in LLD, it is a class you design and implement.\n\n- HLD: where to put a cache (CDN, Redis in front of the database), what to cache, invalidation strategy, consistency trade-offs.\n- LLD: an `LRUCache` class with `get(key)` and `put(key, value)` in O(1), its internal data structures (hash map plus doubly linked list), thread safety and eviction hooks.",
+    "difficulty": 2
+  },
+  {
+    "id": "lld-vs-hld-qa-04",
+    "question": "Scenario: the interviewer says \"Design a parking lot.\" How do you know whether they want HLD or LLD?",
+    "answer": "Ask. Then default to LLD for this kind of problem, because a parking lot is mostly about object modelling, not scale.\n\nYou might say: \"I'll treat this as a low-level design: the classes, their responsibilities and the main flows such as parking and paying. I'll assume a single service and in-memory storage unless you want me to discuss persistence or multiple sites.\"\n\nProblems like URL shorteners or news feeds usually lean HLD; parking lots, vending machines and games lean LLD.",
+    "difficulty": 2
+  }
+]

@@ -1,0 +1,33 @@
+## Overview
+
+Prefer building an object from smaller parts when that gives you more flexibility than making it a subclass. Use inheritance when the child truly is a kind of the parent and can keep the parent's promises.
+
+## Key ideas
+
+- Inheritance means “is-a”; composition means “has-a” or “uses.”
+- A composed object can often swap one part for another while running.
+- Inheritance can expose methods that do not make sense for the child.
+- Composition may require a few forwarding methods, but makes behaviour easier to combine.
+- This is a guideline, not an absolute rule. A clear, shallow hierarchy can be the right model.
+
+## Example
+
+A text editor may need different spell-checking rules. Instead of creating `DocumentWithEnglishChecker` and `DocumentWithFrenchChecker` subclasses, give `Document` a `SpellChecker` collaborator. The checker can be selected when the document is created or changed later.
+
+## Common mistakes
+
+- Replacing every inheritance relationship even when the child is clearly substitutable for its parent.
+- Inheriting from a class only to reuse code, creating a false “is-a” relationship.
+- Adding too many tiny collaborators that make simple behaviour difficult to trace.
+- Treating composition as automatically better without checking the real requirements.
+
+## Interview angle
+
+Explain the relationship in the problem. If it is “has a” or behaviour must change independently, composition is a strong option. If it is a genuine “is a” relationship with compatible behaviour, inheritance may fit.
+
+## Related topics
+
+- Composition and delegation
+- Inheritance and method overriding
+- Dependency injection
+- Coupling and cohesion

@@ -1,0 +1,10 @@
+{
+  "title": "Walk through it in this order",
+  "steps": [
+    { "heading": "Clarify the rules", "body": "Ask which vehicles and parking spaces are supported, how payment works, and whether there are multiple floors or gates. Confirm what is outside the problem." },
+    { "heading": "List the main objects", "body": "Start with ParkingLot, Floor, Spot, Vehicle, Ticket, and Payment. A spot can have a size such as compact, regular, or large." },
+    { "heading": "Show how they connect", "body": "A parking lot contains floors. Each floor contains spaces. A ticket records which vehicle is using which space." },
+    { "heading": "Choose a design only when it helps", "body": "Use a separate pricing rule if prices can change. Use a vehicle creator if vehicle setup has different rules. Pass the shared parking lot to the objects that need it." },
+    { "heading": "Check unusual cases", "body": "Think about a full lot, a lost ticket, two cars arriving at once, and spaces reserved for electric vehicles." }
+  ]
+}

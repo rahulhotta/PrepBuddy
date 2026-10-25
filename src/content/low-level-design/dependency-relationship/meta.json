@@ -1,0 +1,11 @@
+{
+  "id": "dependency-relationship",
+  "title": "Dependency",
+  "tag": "OOD Fundamentals",
+  "section": "ood-fundamentals",
+  "category": "concept",
+  "order": 308,
+  "materials": ["explanation", "qa", "flashcards"],
+  "example": false,
+  "status": "complete"
+}

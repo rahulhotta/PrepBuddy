@@ -1,0 +1,11 @@
+{
+  "id": "abstraction-and-abcs",
+  "title": "Abstraction and abstract base classes",
+  "tag": "Python fundamentals",
+  "section": "python-fundamentals",
+  "category": "concept",
+  "order": 207,
+  "materials": ["explanation", "qa", "flashcards", "diagram"],
+  "example": true,
+  "status": "complete"
+}

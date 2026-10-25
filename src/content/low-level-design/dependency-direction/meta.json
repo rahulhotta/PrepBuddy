@@ -1,0 +1,11 @@
+{
+  "id": "dependency-direction",
+  "title": "Dependency direction",
+  "tag": "OOD Fundamentals",
+  "section": "ood-fundamentals",
+  "category": "principle",
+  "order": 311,
+  "materials": ["explanation", "qa", "flashcards"],
+  "example": false,
+  "status": "complete"
+}

@@ -1,0 +1,77 @@
+## Intent
+
+In simple terms, Strategy lets you swap one way of doing a task for another without rewriting the code that uses it.
+
+Define a family of interchangeable algorithms, give each one its own object, and let the code that uses them switch between them without knowing which one it has.
+
+## Problem
+
+A checkout charges a processing fee that depends on how the customer pays. Cards cost a percentage plus a fixed amount, bank transfers cost a flat amount, and a wallet is free for small payments.
+
+The first version puts all of this in one method with an `if`/`elif` branch per payment method. Each new method, promotion or partner deal edits that same method. It grows, its branches start sharing temporary variables, and a change for one payment method can break another. You also cannot test the card rule without building a whole checkout.
+
+## Solution
+
+Pull each rule out into its own object that follows one small interface, `fee(amount)`. The checkout keeps a reference to "some fee policy" and calls it. It never asks which policy it holds.
+
+- New payment method: add a class and register it. `Checkout` does not change.
+- Promotion for one week: hand the checkout a different policy at runtime.
+- Testing: each policy is tested on its own; the checkout is tested with a fake policy.
+
+Choosing the policy becomes a lookup (`POLICIES["card"]`), not a branch.
+
+## Structure
+
+- **Context** (`Checkout`): holds a strategy and delegates the varying work to it.
+- **Strategy** (`FeePolicy`): the interface every variant implements. In Python this is a `typing.Protocol`, so any object with a matching `fee()` method qualifies.
+- **Concrete strategies** (`CardFee`, `BankTransferFee`, `TieredWalletFee`): one rule each, with their own configuration.
+- **Client**: picks a strategy, often from configuration or user input, and gives it to the context.
+
+## When to use
+
+- Several variants of one operation exist and more will be added.
+- The variant must be chosen or changed at runtime, per request, per user or per tenant.
+- You want to test each variant in isolation.
+- A class has a growing conditional that selects behaviour by type or mode.
+
+## Trade-offs
+
+Gains: each rule is small and isolated, new rules do not touch existing code (open/closed), and behaviour can change at runtime.
+
+Costs: more types to name and find, one more level of indirection when reading the code, and the client must know enough about the strategies to choose one. If strategies need a lot of the context's data, the interface gets wide or the strategy starts reaching back into the context, which brings the coupling back.
+
+## Interview pitfalls
+
+- **Confusing it with State.** Same diagram, different intent: in State the object changes its own behaviour as it moves between states. Say who triggers the switch.
+- **Making every parameter a strategy.** A different rate is configuration; a different formula is a strategy.
+- **Leaving the selection as a big conditional.** Moving the `if`/`elif` from the context to the client gains little. Show a registry or factory.
+- **Strategies with hidden state.** If one strategy instance is shared between contexts, it must not hold per-request data.
+- **Forgetting the null case.** A "no fee" strategy is often cleaner than `if policy is None`.
+
+## Related patterns
+
+- **State**: same structure; the object switches implementations itself.
+- **Template Method**: varies parts of an algorithm through inheritance rather than swapping the whole thing through composition.
+- **Decorator**: wraps a strategy to add behaviour, such as a discount on top of any fee.
+- **Factory Method / Simple Factory**: often used to pick and create the right strategy.
+- **Command**: also wraps behaviour in an object, but represents a request to run later, not an interchangeable algorithm.
+
+## Pythonic note
+
+Functions are first-class values in Python, so a strategy with one method and no state is just a function. You can store it in a dataclass field, pass it as an argument, or keep a dictionary of them:
+
+```python
+FeeFunction = Callable[[Decimal], Decimal]
+
+@dataclass
+class FunctionCheckout:
+    fee: FeeFunction
+
+FunctionCheckout(fee=lambda amount: Decimal("0"))
+```
+
+The standard library does this everywhere: `sorted(items, key=...)` takes a function that decides how items are compared.
+
+Use `typing.Protocol` rather than an abstract base class for the interface. Strategies then match by shape (structural typing), so a test double or a third-party object works without inheriting from anything.
+
+Stay with classes when a strategy has configuration (the card's percent and fixed fee), more than one method, or needs a readable name in logs and settings. In an interview, present the class-based version first because it makes the roles explicit and is what the question is testing. Then mention that in Python a function often replaces the class, and say when you would choose each.

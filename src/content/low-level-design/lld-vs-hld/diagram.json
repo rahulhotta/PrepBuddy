@@ -1,0 +1,27 @@
+{
+  "title": "HLD and LLD zoom levels",
+  "description": "Top row, the high-level design: a client calls an API gateway, which routes to a Booking service backed by a database. Bottom row, the low-level design of the Booking service: BookingController calls BookingService, which uses SeatHoldManager, PricingPolicy and BookingRepository.",
+  "width": 780,
+  "height": 300,
+  "nodes": [
+    { "id": "client", "kind": "box", "x": 20, "y": 30, "width": 110, "height": 50, "label": ["Client"], "color": 2 },
+    { "id": "gw", "kind": "box", "x": 190, "y": 30, "width": 130, "height": 50, "label": ["API Gateway"], "color": 3 },
+    { "id": "svc", "kind": "box", "x": 380, "y": 30, "width": 150, "height": 50, "label": ["Booking service"], "color": 0 },
+    { "id": "db", "kind": "box", "x": 600, "y": 30, "width": 140, "height": 50, "label": ["Database"], "color": 1 },
+    { "id": "ctrl", "kind": "box", "x": 20, "y": 200, "width": 160, "height": 50, "label": ["BookingController"], "color": 0 },
+    { "id": "bs", "kind": "box", "x": 230, "y": 200, "width": 140, "height": 50, "label": ["BookingService"], "color": 0 },
+    { "id": "hold", "kind": "box", "x": 420, "y": 140, "width": 160, "height": 44, "label": ["SeatHoldManager"], "color": 1 },
+    { "id": "price", "kind": "box", "x": 420, "y": 200, "width": 160, "height": 44, "label": ["PricingPolicy"], "color": 1 },
+    { "id": "repo", "kind": "box", "x": 420, "y": 255, "width": 160, "height": 40, "label": ["BookingRepository"], "color": 1 }
+  ],
+  "edges": [
+    { "from": "client", "to": "gw", "type": "flow" },
+    { "from": "gw", "to": "svc", "type": "flow" },
+    { "from": "svc", "to": "db", "type": "flow" },
+    { "from": "svc", "to": "bs", "type": "dependency", "label": "zoom in" },
+    { "from": "ctrl", "to": "bs", "type": "flow" },
+    { "from": "bs", "to": "hold", "type": "flow" },
+    { "from": "bs", "to": "price", "type": "flow" },
+    { "from": "bs", "to": "repo", "type": "flow" }
+  ]
+}

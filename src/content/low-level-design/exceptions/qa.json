@@ -1,0 +1,26 @@
+[
+  {
+    "id": "exceptions-qa-01",
+    "question": "Why define custom exceptions instead of raising `Exception` or returning error codes?",
+    "answer": "Custom exceptions let callers handle specific failures precisely and make the failure modes part of the class's documented contract.\n\nA hierarchy such as `InventoryError` with subclasses `OutOfStock` and `UnknownSku` lets one caller catch only `OutOfStock` (to suggest alternatives) and another catch the base. Error codes and `None` returns are easy to forget and carry no detail.",
+    "difficulty": 1
+  },
+  {
+    "id": "exceptions-qa-02",
+    "question": "What is the difference between `else` and `finally` in a try statement?",
+    "answer": "`else` runs only when the `try` block raised no exception; `finally` always runs, whether an exception occurred or not.\n\nPut the code that should only run on success in `else`, so the `try` block contains just the operation that may fail. Use `finally` (or a `with` statement) for cleanup such as releasing locks or closing files.",
+    "difficulty": 2
+  },
+  {
+    "id": "exceptions-qa-03",
+    "question": "What does `raise ... from ...` do?",
+    "answer": "It chains exceptions: the new exception's `__cause__` is set to the original, and tracebacks show both.\n\nUse `raise InvalidQuantity(text) from exc` when translating a low-level error into a domain error but keeping the root cause for debugging. Use `from None` to deliberately hide an irrelevant cause, such as the `KeyError` behind an `UnknownSku`.",
+    "difficulty": 2
+  },
+  {
+    "id": "exceptions-qa-04",
+    "question": "Scenario: an order reserves three items; the third is out of stock. What should the system do, and how would you implement it?",
+    "answer": "Fail the whole order and release the two items already reserved, so stock is never left half-reserved.\n\nTrack what you reserved, catch the domain base exception, roll back in reverse order, and report the failure:\n\n```python\nreserved = []\ntry:\n    for sku, qty in items.items():\n        inventory.reserve(sku, qty)\n        reserved.append((sku, qty))\nexcept InventoryError:\n    for sku, qty in reversed(reserved):\n        inventory.release(sku, qty)\n    raise\n```\n\nAn alternative design checks all lines first and reserves only if all pass, ideally under a lock.",
+    "difficulty": 3
+  }
+]

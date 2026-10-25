@@ -1,0 +1,48 @@
+## Overview
+
+A class describes the kind of thing to create. An object is one actual thing created from that description.
+
+A **class** is a blueprint that describes what data an object holds and what it can do. An **object** (or instance) is one concrete thing built from that blueprint, with its own data.
+
+`class Wallet:` defines the idea of a wallet. `Wallet("ana")` and `Wallet("ben")` are two separate wallet objects. They share the same methods (defined once on the class) but each has its own balance.
+
+In Python, everything is an object, including classes themselves, functions and modules. That is why you can pass classes and functions around like any other value.
+
+## Key ideas
+
+- **Attributes** are the data stored on an object (`wallet.owner`); **methods** are functions defined on the class that receive the object as their first argument, conventionally named `self`.
+- `obj.method(x)` is shorthand for `Class.method(obj, x)`. That is all `self` is: the object the method was called on.
+- **Instance attributes** live on each object (set via `self.x = ...`); **class attributes** live on the class and are shared by all instances.
+- **Identity vs equality**: `a is b` asks "same object?"; `a == b` asks "equal value?". By default `==` falls back to identity unless the class defines `__eq__`.
+- **Special ("dunder") methods** such as `__init__`, `__repr__`, `__eq__` and `__len__` let your objects work with Python syntax and built-ins.
+- **`__repr__`** should give an unambiguous, developer-friendly description. It makes debugging and test failures far easier.
+- In LLD, each class should model **one concept** from the domain with a clear responsibility.
+
+## Example
+
+A `Wallet` holds an owner and a balance and can be topped up or charged. The example shows:
+
+- two instances with independent state;
+- a method call and its equivalent explicit form;
+- a useful `__repr__`;
+- identity vs equality: two wallets with the same owner and balance are equal (because the class defines `__eq__`) but are not the same object.
+
+## Common mistakes
+
+- **Forgetting `self`** in a method definition, or using a local variable where an attribute was meant (`balance = 0` instead of `self.balance = 0`).
+- **Shared mutable class attributes**: a class-level `items = []` is shared by every instance, so one object's append appears in all of them.
+- **Using `is` for value comparison** (`if name is "x"`); use `==`. Reserve `is` for `None` and identity checks.
+- **Classes with no behaviour** that are only dictionaries in disguise; a `dataclass` may be clearer, or the behaviour that uses the data should move in.
+
+## Interview angle
+
+You may be asked to explain `self`, the difference between a class and an instance, or `is` vs `==`. Keep answers precise: "`self` is the instance the method was called on; Python passes it explicitly as the first argument."
+
+In design problems, show that each class you introduce corresponds to a real concept with data and behaviour, and that you give it a helpful `__repr__` when debugging matters.
+
+## Related topics
+
+- Constructors and instance attributes
+- Instance, class and static methods
+- Encapsulation and access conventions
+- Properties, enums and dataclasses

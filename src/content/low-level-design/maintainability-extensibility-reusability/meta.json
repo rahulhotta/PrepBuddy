@@ -1,0 +1,11 @@
+{
+  "id": "maintainability-extensibility-reusability",
+  "title": "Maintainability, extensibility and reusability",
+  "tag": "Introduction",
+  "section": "introduction",
+  "category": "concept",
+  "order": 106,
+  "materials": ["explanation", "qa", "flashcards"],
+  "example": true,
+  "status": "complete"
+}

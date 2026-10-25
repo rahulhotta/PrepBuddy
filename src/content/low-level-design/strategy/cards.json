@@ -1,0 +1,11 @@
+[
+  { "id": "strategy-card-01", "front": "Strategy: intent?", "back": "Put each variant of an algorithm behind one interface so the user of it can swap variants at runtime." },
+  { "id": "strategy-card-02", "front": "The three roles in Strategy?", "back": "Context (uses the strategy), Strategy (the shared interface), Concrete strategies (the variants)." },
+  { "id": "strategy-card-03", "front": "Which principle does Strategy apply most directly?", "back": "Encapsulate what varies, and favour composition over inheritance." },
+  { "id": "strategy-card-04", "front": "Who chooses the strategy?", "back": "The client or a configuration, from outside the context. The context only calls it." },
+  { "id": "strategy-card-05", "front": "Strategy vs State in one line?", "back": "Strategy: the client picks the behaviour. State: the object switches its own behaviour as it changes." },
+  { "id": "strategy-card-06", "front": "Strategy vs Template Method in one line?", "back": "Strategy swaps the whole algorithm by composition. Template Method varies steps by inheritance." },
+  { "id": "strategy-card-07", "front": "Pythonic Strategy?", "back": "Pass a function. A one-method, stateless strategy does not need a class." },
+  { "id": "strategy-card-08", "front": "How to pick a strategy without if/elif?", "back": "Look it up in a dictionary keyed by name, or use a small factory." },
+  { "id": "strategy-card-09", "front": "Main cost of Strategy?", "back": "More small types and one extra level of indirection; clients must know which strategy to choose." }
+]

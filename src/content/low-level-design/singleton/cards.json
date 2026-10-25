@@ -1,0 +1,12 @@
+[
+  { "id": "singleton-card-01", "front": "Singleton: intent?", "back": "Ensure a class has exactly one instance and provide one global way to reach it." },
+  { "id": "singleton-card-02", "front": "Where does a Python Singleton control creation?", "back": "In __new__, which returns the stored instance after the first call." },
+  { "id": "singleton-card-03", "front": "Why avoid __init__ in a __new__ Singleton?", "back": "__init__ runs on every construction and would reset the shared state." },
+  { "id": "singleton-card-04", "front": "Double-checked locking?", "back": "Check for the instance, take the lock, check again, then create. Safe and cheap after the first call." },
+  { "id": "singleton-card-05", "front": "Simplest Pythonic Singleton?", "back": "A module-level instance. Modules are imported once and shared through sys.modules." },
+  { "id": "singleton-card-06", "front": "Lazy Pythonic Singleton?", "back": "A factory decorated with functools.cache. Reset it in tests with cache_clear()." },
+  { "id": "singleton-card-07", "front": "Main criticism of Singleton?", "back": "Hidden global mutable state: hidden dependencies, tight coupling and tests that leak into each other." },
+  { "id": "singleton-card-08", "front": "Usual replacement for Singleton?", "back": "Create one instance at startup and inject it where needed." },
+  { "id": "singleton-card-09", "front": "Is a Singleton one per machine?", "back": "No. It is one per process (and per class); worker processes each get their own." },
+  { "id": "singleton-card-10", "front": "Lazy vs eager Singleton?", "back": "Lazy builds on first use and needs locking. Eager builds at import and is simpler and thread-safe." }
+]

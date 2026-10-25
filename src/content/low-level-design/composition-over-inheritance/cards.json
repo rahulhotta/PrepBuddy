@@ -1,0 +1,6 @@
+[
+  { "id": "composition-over-inheritance-card-01", "front": "What relationship does inheritance model?", "back": "“Is-a”: the child is a kind of the parent." },
+  { "id": "composition-over-inheritance-card-02", "front": "What relationship often suggests composition?", "back": "“Has-a” or “uses”: an object works with a collaborator." },
+  { "id": "composition-over-inheritance-card-03", "front": "Can composition support swapping behaviour?", "back": "Yes. A collaborator can often be replaced without making a new subclass." },
+  { "id": "composition-over-inheritance-card-04", "front": "Is composition always better?", "back": "No. Choose based on the relationship and the flexibility the design needs." }
+]

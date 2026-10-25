@@ -1,0 +1,8 @@
+[
+  { "id": "properties-enums-dataclasses-card-01", "front": "Read-only property?", "back": "@property with no setter, usually over an internal _field." },
+  { "id": "properties-enums-dataclasses-card-02", "front": "Why Enum for states?", "back": "One closed set of valid values; typos fail fast; easy to iterate and map transitions." },
+  { "id": "properties-enums-dataclasses-card-03", "front": "What does @dataclass generate?", "back": "__init__, __repr__ and __eq__ from annotated fields (more with options)." },
+  { "id": "properties-enums-dataclasses-card-04", "front": "frozen=True gives?", "back": "Immutability and, with eq, hashability. Ideal for value objects." },
+  { "id": "properties-enums-dataclasses-card-05", "front": "Validate a dataclass?", "back": "In __post_init__." },
+  { "id": "properties-enums-dataclasses-card-06", "front": "Exclude a field from __init__?", "back": "field(init=False), usually with a default." }
+]

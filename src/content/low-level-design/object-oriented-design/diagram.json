@@ -1,0 +1,17 @@
+{
+  "title": "Library object model",
+  "description": "Library holds the members and active loans and coordinates borrowing and returning. Each Loan refers to one Book and one Member, and computes whether it is overdue and its own late fee. Member knows its borrowing limit.",
+  "width": 780,
+  "height": 330,
+  "nodes": [
+    { "id": "library", "kind": "class", "x": 20, "y": 20, "width": 300, "name": "Library", "fields": ["- loans: list[Loan]"], "methods": ["+ borrow(member, book, today) -> Loan", "+ give_back(loan, today) -> Decimal"] },
+    { "id": "loan", "kind": "class", "x": 400, "y": 20, "width": 260, "name": "Loan", "fields": ["- book: Book", "- member: Member", "- due: date", "- returned: date | None"], "methods": ["+ is_overdue(today) -> bool", "+ late_fee(today) -> Decimal"] },
+    { "id": "book", "kind": "class", "x": 320, "y": 230, "width": 180, "name": "Book", "fields": ["- isbn: str", "- title: str"] },
+    { "id": "member", "kind": "class", "x": 560, "y": 230, "width": 200, "name": "Member", "fields": ["- name: str", "- limit: int"] }
+  ],
+  "edges": [
+    { "from": "library", "to": "loan", "type": "composition", "label": "creates" },
+    { "from": "loan", "to": "book", "type": "association" },
+    { "from": "loan", "to": "member", "type": "association" }
+  ]
+}

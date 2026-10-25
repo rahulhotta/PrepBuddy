@@ -1,0 +1,8 @@
+[
+  { "id": "type-hints-and-generics-card-01", "front": "Who enforces type hints?", "back": "Static checkers and editors, not the Python runtime." },
+  { "id": "type-hints-and-generics-card-02", "front": "Generic class syntax in 3.12?", "back": "class Repository[T]: ... (older: T = TypeVar('T') and Generic[T])." },
+  { "id": "type-hints-and-generics-card-03", "front": "Bound type parameter?", "back": "[T: HasId] means T must satisfy HasId." },
+  { "id": "type-hints-and-generics-card-04", "front": "Parameter types: broad or narrow?", "back": "Accept broad abstract types (Iterable, Sequence); return concrete ones (list)." },
+  { "id": "type-hints-and-generics-card-05", "front": "Type alias in 3.12?", "back": "type UserId = str, or generic: type Pair[K, V] = tuple[K, V]." },
+  { "id": "type-hints-and-generics-card-06", "front": "Optional value hint?", "back": "X | None." }
+]

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "inheritance-and-overriding-qa-01",
+    "question": "What is method overriding?",
+    "answer": "Overriding is defining a method in a subclass with the same name as one in its parent, so instances of the subclass use the new version.\n\nThe override can replace the behaviour completely or extend it by calling `super().method(...)` and adding to the result.",
+    "difficulty": 1
+  },
+  {
+    "id": "inheritance-and-overriding-qa-02",
+    "question": "What does `super()` do, and why prefer it over naming the parent class?",
+    "answer": "`super()` returns a proxy that finds the next class in the method resolution order (MRO), so `super().method()` calls the next implementation in the chain.\n\nNaming the parent (`Employee.method(self)`) skips classes in the MRO under multiple inheritance and breaks cooperative designs. `super()` also keeps working if you later change the parent.",
+    "difficulty": 2
+  },
+  {
+    "id": "inheritance-and-overriding-qa-03",
+    "question": "Does Python support method overloading?",
+    "answer": "Not by parameter types or counts; defining a method twice simply replaces the first definition.\n\nUse default and keyword arguments for optional parameters, `*args`/`**kwargs` for flexible signatures, `typing.overload` for type-checker signatures, or `functools.singledispatchmethod` to dispatch on the type of the first argument.",
+    "difficulty": 2
+  },
+  {
+    "id": "inheritance-and-overriding-qa-04",
+    "question": "Scenario: a teammate makes `Stack` inherit from `list` to reuse `append` and `pop`. What is wrong, and what would you do?",
+    "answer": "A stack is not a list: inheriting exposes `insert`, `sort`, indexing and slicing, so callers can break the last-in-first-out rule.\n\nUse composition: `Stack` holds a private list and exposes only `push`, `pop`, `peek` and `__len__`. This reuses the list's implementation without inheriting its whole interface.",
+    "difficulty": 2
+  }
+]

@@ -1,0 +1,20 @@
+[
+  {
+    "id": "coupling-and-cohesion-qa-01",
+    "question": "What is cohesion?",
+    "answer": "Cohesion describes how closely the work in a class supports one purpose.\n\nA notifier that focuses on sending messages has a clearer purpose than a class that also calculates invoice totals.",
+    "difficulty": 1
+  },
+  {
+    "id": "coupling-and-cohesion-qa-02",
+    "question": "What is coupling?",
+    "answer": "Coupling describes how much one part depends on another part.\n\nA class that reaches into a database client's internal fields is more tied to that implementation than one that calls a small storage interface.",
+    "difficulty": 1
+  },
+  {
+    "id": "coupling-and-cohesion-qa-03",
+    "question": "Scenario: changing an email provider requires editing invoice calculations. What could improve the design?",
+    "answer": "Separate notification from invoice calculations and depend on a small notifier contract.\n\nThen a provider change can stay within the notification code instead of affecting invoice rules.",
+    "difficulty": 2
+  }
+]

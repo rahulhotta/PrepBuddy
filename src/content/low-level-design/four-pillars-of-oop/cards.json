@@ -1,0 +1,6 @@
+[
+  { "id": "four-pillars-of-oop-card-01", "front": "Name the four OOP pillars.", "back": "Encapsulation, abstraction, inheritance, and polymorphism." },
+  { "id": "four-pillars-of-oop-card-02", "front": "What does encapsulation protect?", "back": "An object's data and the rules for changing it." },
+  { "id": "four-pillars-of-oop-card-03", "front": "What does abstraction hide?", "back": "Implementation details that callers do not need to use an object." },
+  { "id": "four-pillars-of-oop-card-04", "front": "What does polymorphism allow?", "back": "Different objects to be used through the same operations." }
+]

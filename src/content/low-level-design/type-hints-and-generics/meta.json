@@ -1,0 +1,11 @@
+{
+  "id": "type-hints-and-generics",
+  "title": "Type hints and generics",
+  "tag": "Python fundamentals",
+  "section": "python-fundamentals",
+  "category": "concept",
+  "order": 212,
+  "materials": ["explanation", "qa", "flashcards"],
+  "example": true,
+  "status": "complete"
+}

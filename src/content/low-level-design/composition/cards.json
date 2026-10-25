@@ -1,0 +1,6 @@
+[
+  { "id": "composition-card-01", "front": "What does composition express?", "back": "Strong ownership between a whole and its parts." },
+  { "id": "composition-card-02", "front": "Who usually manages composed parts?", "back": "The whole that owns them." },
+  { "id": "composition-card-03", "front": "How is UML composition drawn?", "back": "With a filled diamond on the whole side." },
+  { "id": "composition-card-04", "front": "What should you explain about a part?", "back": "Whether it can exist independently of its whole." }
+]

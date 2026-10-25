@@ -1,0 +1,26 @@
+[
+  {
+    "id": "abstraction-and-abcs-qa-01",
+    "question": "What is abstraction in object-oriented design?",
+    "answer": "Abstraction is exposing what an object does through a stable interface while hiding how it does it.\n\nCheckout code calls `payment.pay(amount)` and never sees card networks or gift-card ledgers. Implementations can change or multiply without affecting callers.",
+    "difficulty": 1
+  },
+  {
+    "id": "abstraction-and-abcs-qa-02",
+    "question": "What does `@abstractmethod` actually enforce in Python?",
+    "answer": "It prevents instantiation: a class that inherits from `ABC` and still has any unimplemented abstract method raises `TypeError` when you try to create it.\n\nIt does not check signatures or behaviour; a subclass can implement the method with different parameters. Type checkers catch signature mismatches; tests catch behavioural ones.",
+    "difficulty": 2
+  },
+  {
+    "id": "abstraction-and-abcs-qa-03",
+    "question": "What is the difference between abstraction and encapsulation?",
+    "answer": "Abstraction hides *implementation* behind an interface so callers depend only on what something does; encapsulation hides *data* and protects invariants so state changes only through controlled methods.\n\nA `PaymentMethod` ABC is abstraction. A `GiftCard` keeping its `_balance` private and only changing it in `authorize()` is encapsulation.",
+    "difficulty": 2
+  },
+  {
+    "id": "abstraction-and-abcs-qa-04",
+    "question": "Scenario: you are designing notifications that can go by email, SMS or push, and each must log delivery the same way. ABC or Protocol?",
+    "answer": "An ABC fits, because the implementations share behaviour (delivery logging) and you own the hierarchy.\n\n`Notifier(ABC)` has a concrete `notify(user, message)` that calls the abstract `_send(user, message)` and then logs the result. Email, SMS and push subclasses only implement `_send`. If you only needed a shape to type-check against, with no shared code, a `Protocol` would be lighter.",
+    "difficulty": 2
+  }
+]

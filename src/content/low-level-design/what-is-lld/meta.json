@@ -1,0 +1,11 @@
+{
+  "id": "what-is-lld",
+  "title": "What is Low-Level Design?",
+  "tag": "Introduction",
+  "section": "introduction",
+  "category": "concept",
+  "order": 101,
+  "materials": ["explanation", "qa", "flashcards", "diagram"],
+  "example": false,
+  "status": "complete"
+}

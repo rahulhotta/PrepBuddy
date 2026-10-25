@@ -1,0 +1,11 @@
+{
+  "id": "instance-class-static-methods",
+  "title": "Instance, class and static methods",
+  "tag": "Python fundamentals",
+  "section": "python-fundamentals",
+  "category": "concept",
+  "order": 203,
+  "materials": ["explanation", "qa", "flashcards"],
+  "example": true,
+  "status": "complete"
+}

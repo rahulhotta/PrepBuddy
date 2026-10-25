@@ -1,0 +1,11 @@
+{
+  "id": "four-pillars-of-oop",
+  "title": "The four pillars of OOP",
+  "tag": "OOD Fundamentals",
+  "section": "ood-fundamentals",
+  "category": "concept",
+  "order": 301,
+  "materials": ["explanation", "qa", "flashcards"],
+  "example": false,
+  "status": "complete"
+}

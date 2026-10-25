@@ -1,0 +1,11 @@
+{
+  "id": "aggregation",
+  "title": "Aggregation",
+  "tag": "OOD Fundamentals",
+  "section": "ood-fundamentals",
+  "category": "concept",
+  "order": 306,
+  "materials": ["explanation", "qa", "flashcards"],
+  "example": false,
+  "status": "complete"
+}

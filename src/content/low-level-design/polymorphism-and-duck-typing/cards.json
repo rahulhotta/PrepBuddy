@@ -1,0 +1,8 @@
+[
+  { "id": "polymorphism-and-duck-typing-card-01", "front": "Polymorphism?", "back": "One interface, many implementations: the same call behaves according to the object's type." },
+  { "id": "polymorphism-and-duck-typing-card-02", "front": "Duck typing?", "back": "If an object has the needed methods, it can be used, whatever its class." },
+  { "id": "polymorphism-and-duck-typing-card-03", "front": "EAFP?", "back": "Easier to ask forgiveness than permission: try the operation and handle failure instead of checking types first." },
+  { "id": "polymorphism-and-duck-typing-card-04", "front": "Make len(obj) work?", "back": "Implement __len__ on the class." },
+  { "id": "polymorphism-and-duck-typing-card-05", "front": "Static checking for duck types?", "back": "typing.Protocol: structural typing without inheritance." },
+  { "id": "polymorphism-and-duck-typing-card-06", "front": "Smell that polymorphism fixes?", "back": "isinstance or type-switch chains that grow with every new type." }
+]

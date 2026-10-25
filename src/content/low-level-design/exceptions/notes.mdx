@@ -1,0 +1,52 @@
+## Overview
+
+An exception is Python's way to report that an operation failed. It lets the caller handle the problem instead of treating it like a normal result.
+
+Exceptions are how Python code reports that it **cannot do what was asked**. Instead of returning special values (`-1`, `None`, `False`) that callers can forget to check, a function raises an exception that stops normal flow until some caller handles it.
+
+In LLD, exceptions are part of a class's contract. A well-designed module defines a small **hierarchy of custom exceptions** for its domain failures (`OutOfStock`, `UnknownSku`), so callers can handle exactly the cases they care about and let the rest propagate.
+
+## Key ideas
+
+- **`try` / `except` / `else` / `finally`**:
+  - `except` handles specific errors;
+  - `else` runs only if no exception occurred (keeps the "happy path" out of the `try`);
+  - `finally` always runs, for cleanup (or use a `with` block).
+- **Catch narrowly.** `except OutOfStock:` is a decision; `except Exception:` usually hides bugs.
+- **Custom exception hierarchy**: one base class per module or domain (`InventoryError`), with specific subclasses. Callers can catch the base to handle "any inventory problem", or a subclass for one case.
+- **Carry useful data**: give exceptions attributes (`sku`, `requested`, `available`) as well as a readable message, so handlers can act without parsing strings.
+- **Domain errors vs programming errors**: invalid business situations (stock ran out) get custom exceptions; misuse of an API (negative quantity) is usually `ValueError` or `TypeError`.
+- **Chaining**: `raise NewError(...) from exc` records the original cause (`__cause__`), keeping debugging information while translating low-level errors into domain ones. `from None` hides an irrelevant cause.
+- **Leave objects consistent**: if an operation fails halfway, roll back partial changes (or design operations to validate everything before changing anything).
+- **EAFP**: in Python it is normal to attempt an operation and handle the exception rather than pre-checking every condition.
+
+## Example
+
+An `Inventory` reserves stock for orders.
+
+- `InventoryError` is the base; `UnknownSku`, `OutOfStock` and `InvalidQuantity` are specific failures. `OutOfStock` carries the SKU, requested and available quantities.
+- A missing SKU's `KeyError` is translated to `UnknownSku` with `from None`, because the dictionary detail is irrelevant to callers.
+- `place_order()` reserves each line; if any line fails it **rolls back** the earlier reservations, so stock is never left half-reserved.
+- `parse_quantity()` translates a `ValueError` from `int()` into `InvalidQuantity` with `from exc`, keeping the cause.
+
+## Common mistakes
+
+- **Bare `except:` or `except Exception: pass`**, silently swallowing bugs, including `KeyboardInterrupt` in the bare case.
+- **Using exceptions for normal control flow** in hot loops where a simple check is clearer.
+- **Returning error codes or `None`** for failures, which callers forget to check.
+- **Losing the original error** by raising a new exception without `from`.
+- **One giant custom exception** for everything, forcing callers to inspect messages.
+- **Partial updates**: state changed before the error, never restored.
+
+## Interview angle
+
+Interviewers notice whether your code handles failure. In LLD solutions, define a few domain exceptions early (`SpotUnavailable`, `InsufficientFunds`, `InvalidMove`), raise them from the class that owns the rule, and show where they are handled. Mention consistency: "if payment fails, the seat hold is released."
+
+Common questions: difference between `else` and `finally`, why catching `Exception` is risky, and when to define a custom exception.
+
+## Related topics
+
+- Handling validation and errors
+- Testing error cases
+- Error handling and response contracts
+- Transactions and consistency

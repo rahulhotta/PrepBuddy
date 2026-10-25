@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Prepbook: Interview Prep Sheets</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a3b7f;--pn:rgba(6,36,84,.5);--ln:#e8f0ff;--tx:#f2f7ff;--mu:#c4d6f5;--on:#0b2f66;--y:#ffd23f;--a:#ffd23f;--mono:"Space Mono",ui-monospace,monospace;--cond:"Barlow Condensed","Arial Narrow",sans-serif;color-scheme:dark;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background-color:var(--bg);background-image:linear-gradient(rgba(255,255,255,.1) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.1) 1px,transparent 1px);background-size:32px 32px;color:var(--tx);font:400 18px/1.55 "Barlow",system-ui,sans-serif}
+a{color:inherit}button{font:inherit;color:inherit;cursor:pointer}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--y);outline-offset:3px}
+h1,h2,h3{font-family:var(--cond);font-weight:700;text-transform:uppercase;margin:0;line-height:1.02}
+.frame{margin:28px;min-height:calc(100vh - 56px);border:2px solid var(--ln);padding:28px 40px 20px;display:flex;flex-direction:column}
+.l{font:400 12px var(--mono);letter-spacing:.06em;color:var(--mu)}
+.hd{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:10px 24px}
+.logo{font:700 20px var(--mono);letter-spacing:.14em;text-decoration:none}
+.logo i{display:inline-block;width:14px;height:14px;background:var(--y);margin-right:10px}
+#crumbs a{color:var(--tx);text-decoration:underline;text-underline-offset:3px}
+.hero{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:28px 40px;margin:34px 0 30px}
+.hero h1{font-size:clamp(2.6rem,7vw,4.75rem);max-width:740px}
+.hl{background:var(--y);color:var(--on);padding:0 10px}
+.note{border:2px dashed var(--y);padding:14px 18px;max-width:340px;background:var(--pn);font-size:16px;line-height:1.5}
+.note b{display:block;color:var(--y);font:700 12px var(--mono);letter-spacing:.06em;margin-bottom:6px}
+.note .ans{border-top:1px solid var(--mu);margin-top:8px;padding-top:8px}
+.btn{height:36px;padding:0 16px;margin:10px 8px 0 0;border:1.5px solid var(--a);background:var(--a);color:var(--on);font:700 12px var(--mono);letter-spacing:.04em;transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:3px 3px 0 var(--ln)}
+.btn:active{transform:none;box-shadow:none}
+.btn.o{background:transparent;color:var(--tx);border-color:var(--ln)}
+.btn:disabled{opacity:.7;cursor:default;transform:none;box-shadow:none}
+.row{display:flex;flex-wrap:wrap;justify-content:center}
+.sheets,.dws{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:24px}
+.s,.dw{position:relative;display:block;width:100%;text-align:left;border:1.5px solid var(--ln);border-top:6px solid var(--a);padding:36px 22px 20px;background:var(--pn);transition:transform .2s,box-shadow .2s}
+.s:hover,.dw:hover{transform:translateY(-4px);box-shadow:0 0 0 1.5px var(--a),6px 6px 0 var(--a)}
+.tag{position:absolute;left:-1.5px;top:-6px;background:var(--a);color:var(--on);font:700 12px var(--mono);letter-spacing:.08em;padding:5px 12px}
+.mini{position:absolute;right:18px;top:24px}
+.n{display:block;font:600 34px/1 var(--cond);text-transform:uppercase;margin-bottom:14px}
+.i div{font-size:16px;color:#e3edfd;line-height:1.9}
+.i div::before{content:"";display:inline-block;width:8px;height:8px;background:var(--a);margin-right:10px}
+.k{display:flex;gap:4px;margin-top:18px}.k.c{justify-content:center}
+.k b{width:14px;height:8px;border:1.5px solid var(--ln)}.k b.f{background:var(--a);border-color:var(--a)}
+.sm{font:400 11px var(--mono);color:var(--mu);margin-top:8px}
+.th{margin:30px 0 28px}
+.tag2{display:inline-block;background:var(--a);color:var(--on);font:700 12px var(--mono);letter-spacing:.08em;padding:5px 12px}
+.th h1{font-size:clamp(2.6rem,7vw,4.5rem);margin:14px 0 10px}.th p{max-width:56ch;color:var(--mu);margin:0}
+.dw .l{display:block;color:var(--a)}
+.n2{display:block;font:600 30px/1.05 var(--cond);text-transform:uppercase;margin:8px 0 4px}
+.mu{display:block;color:var(--mu);font-size:16px;margin-bottom:10px}
+.chip{display:inline-block;font:400 11px var(--mono);padding:3px 8px;border:1.5px solid var(--ln);margin:3px 6px 3px 0}
+.back{background:none;border:0;padding:0;font:700 12px var(--mono);color:var(--tx);text-decoration:underline;text-underline-offset:3px;margin:26px 0 12px}
+.st{font-size:clamp(2.4rem,6vw,4rem);margin:12px 0 6px}
+.tabs{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 22px}
+.tab{padding:9px 16px;border:1.5px solid var(--ln);background:transparent;font:700 12px var(--mono);letter-spacing:.04em}
+.tab:hover{background:rgba(255,255,255,.1)}
+.tab[aria-selected="true"]{background:var(--a);color:var(--on);border-color:var(--a)}
+.panel{border:1.5px solid var(--ln);border-top:6px solid var(--a);background:var(--pn);padding:28px;min-height:280px}
+details{border:1.5px solid var(--ln);margin-bottom:14px;background:rgba(6,36,84,.4)}
+summary{cursor:pointer;font-weight:600;font-size:20px;padding:12px 16px;list-style:none;display:flex;gap:14px;align-items:center}
+summary::before{content:"Q";flex:none;width:28px;height:28px;display:grid;place-items:center;background:var(--a);color:var(--on);font:700 12px var(--mono)}
+details[open] summary::before{content:"A"}
+details .a{padding:0 16px 16px 58px}
+.scene{perspective:1200px;max-width:520px;height:260px;margin:14px auto 22px}
+.c3d{position:relative;width:100%;height:100%;display:block;padding:0;border:0;background:none;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.3,1.2,.5,1)}
+.c3d.flip{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:26px;border:1.5px solid var(--ln);font-size:20px}
+.face.f{background:#072a63;border-top:6px solid var(--a)}
+.face.b{background:var(--a);color:var(--on);transform:rotateY(180deg);font-weight:500}
+.face .q{font:600 32px/1.1 var(--cond);text-transform:uppercase}
+.face .l{position:absolute;top:12px;left:14px;color:inherit;opacity:.85}
+.face small{position:absolute;bottom:10px;font:400 11px var(--mono);opacity:.8}
+.svgw{overflow-x:auto}
+svg{max-width:100%;height:auto}
+svg.dg{min-width:440px}
+svg.dg text{font:700 13px var(--mono);fill:var(--on);text-anchor:middle}
+svg .nd{stroke:var(--ln);stroke-width:2}
+svg .ed{stroke:var(--ln);stroke-width:2;stroke-dasharray:6 5;fill:none;animation:dash 1s linear infinite}
+@keyframes dash{to{stroke-dashoffset:-22}}
+.ex h3{font-size:30px;margin:22px 0 6px}.ex p,.ex li{max-width:64ch}
+code{font:400 .85em var(--mono);background:var(--y);color:var(--on);padding:1px 6px}
+.step{position:relative;display:flex;gap:16px;align-items:flex-start;width:100%;text-align:left;margin:0 0 14px;padding:16px 18px;border:1.5px solid var(--ln);background:rgba(6,36,84,.4);transition:background .2s,transform .15s}
+.step:hover{transform:translateX(6px)}
+.step .no{flex:none;width:42px;height:42px;display:grid;place-items:center;background:var(--a);color:var(--on);font:700 15px var(--mono)}
+.step h3{font-size:26px}.step p{margin:4px 0 0;font-size:16px;color:var(--mu)}
+.step.done{background:var(--a);color:var(--on)}.step.done p{color:var(--on)}.step.done .no{background:var(--on);color:var(--a)}
+.step.done::after{content:"COVERED";position:absolute;right:14px;top:12px;font:700 11px var(--mono)}
+.ft{margin-top:auto;padding-top:34px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 20px}
+.sw{display:inline-block;width:10px;height:10px;margin:0 6px 0 16px}
+@media (max-width:640px){.frame{margin:10px;padding:18px;min-height:calc(100vh - 20px)}.panel{padding:16px}.step.done::after{position:static;margin-left:auto}.mini{display:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="frame">
+<header class="hd"><a class="logo" href="#"><i></i>PREPBOOK</a><nav class="l" id="crumbs"></nav></header>
+<main id="app"></main>
+<footer class="ft l"><span>FIG. A: HOME INDEX<span class="sw" style="background:#ffd23f"></span>LLD<span class="sw" style="background:#ff8f70"></span>SYSTEM<span class="sw" style="background:#5eead4"></span>ANGULAR<span class="sw" style="background:#c4a7ff"></span>DSA</span><span>SCALE 1:1, REV B</span></footer>
+</div>
+<script>
+var D=[
+{id:"lld",ic:"🧩",name:"Low Level Design",blurb:"Classes, patterns and clean object models.",r:"-1.5deg",subs:[
+{id:"observer",name:"Observer Pattern",tag:"Behavioral pattern",
+qa:[["What problem does Observer solve?","One object (the subject) notifies many dependents when its state changes, without knowing who they are. That keeps coupling loose."],["Push vs pull model?","Push sends the changed data with the notification. Pull only says “something changed” and observers ask for what they need. Pull is more flexible; push is cheaper."],["Real-world examples?","DOM event listeners, RxJS observables, Angular’s EventEmitter, stock tickers, YouTube subscriptions."],["Common pitfall?","Memory leaks from observers that never unsubscribe (the lapsed listener problem)."]],
+cards:[["Observer: intent?","One-to-many dependency. Dependents are notified automatically on change."],["Subject vs Observer?","The subject holds state and a list of observers. An observer exposes update()."],["Biggest risk?","Forgotten unsubscribes, which leak memory."]],
+ex:"<p>Think of a newsletter. The publisher keeps a list of subscribers and sends every one of them an email when something new is out. The publisher never needs to know what each subscriber does with it.</p><h3>Pieces</h3><ul><li><code>Subject</code> keeps observers, with <code>attach()</code>, <code>detach()</code> and <code>notify()</code>.</li><li><code>Observer</code> is an interface with <code>update()</code>.</li><li>Concrete observers react in their own way.</li></ul><h3>Use it when</h3><p>A change in one object must update others, and you don’t know up front how many others there are.</p>",
+dia:{w:520,h:250,n:{s:[185,20,150,62,"Subject|(Publisher)",0],a:[20,170,130,56,"Observer A",1],b:[195,170,130,56,"Observer B",1],c:[370,170,130,56,"Observer C",1]},e:[["s","a","notify()"],["s","b",""],["s","c",""]]}},
+{id:"singleton",name:"Singleton",tag:"Creational pattern",
+qa:[["What is a Singleton?","A class that allows exactly one instance and gives a global access point to it."],["How do you make it thread-safe?","Create the instance eagerly, use double-checked locking, or use a holder class or enum (in Java). In JavaScript, a module is already a singleton."],["Why do people dislike it?","Hidden global state, hard-to-mock tests and tight coupling. Prefer dependency injection with a single-scope provider. Angular’s <code>providedIn: 'root'</code> does this."]],
+cards:[["Singleton: two rules?","Private constructor, plus a static getInstance()."],["Lazy vs eager?","Lazy builds on first use. Eager builds at class load, which is simpler and thread-safe."]],
+ex:"<p>Use a Singleton for things where a second copy would be a bug: a config registry, a logger, a connection pool manager.</p><h3>Trade-off</h3><p>You gain a guaranteed single instance. You pay with global state that makes unit tests harder.</p>",
+dia:{w:480,h:210,n:{c:[120,10,240,190,"Singleton|– – – – – – – –|- instance: Singleton|– – – – – – – –|- Singleton()|+ getInstance()|+ doWork()",3]},e:[]}},
+{id:"parking",name:"Design a Parking Lot",tag:"Classic LLD problem",
+cs:{t:"Walk through it in this order",s:[["Clarify requirements","Vehicle types, multiple floors, pricing model, entry and exit gates. Confirm what is out of scope."],["List the entities","ParkingLot, Floor, Spot (compact, regular, large), Vehicle, Ticket, Payment."],["Define the relationships","A lot has many floors, a floor has many spots, and a ticket links a vehicle to a spot."],["Pick the patterns","Strategy for pricing, Factory for vehicles, Singleton for the lot."],["Cover the edge cases","Lot full, lost ticket, concurrent entry at two gates, EV charging spots."]]}}
+]},
+{id:"hld",ic:"🏗️",name:"System Design",blurb:"Scale, storage, caching and trade-offs.",r:"1.2deg",subs:[
+{id:"urlshort",name:"URL Shortener",tag:"Case study",
+qa:[["How do you generate short codes?","Base62-encode a unique ID from a counter service, or hash the URL and keep the first 7 characters, checking for collisions."],["301 or 302 redirect?","301 is cached by browsers, which cuts load. 302 lets you count every click. Pick by whether analytics matter."],["How do you scale reads?","Reads far outnumber writes, so put a cache in front of the database and use read replicas."]],
+dia:{w:580,h:300,n:{cl:[15,125,90,50,"Client",2],lb:[150,125,100,50,"Load|Balancer",0],ap:[300,40,110,50,"App Server",1],ca:[300,210,110,50,"Redis Cache",3],db:[460,125,100,50,"Database",2]},e:[["cl","lb",""],["lb","ap",""],["ap","ca","hot links"],["ap","db","miss"],["ca","db",""]]},
+cs:{t:"Interview flow",s:[["Requirements","Shorten, redirect, optional custom alias and expiry. Roughly 100M new URLs per month, with reads 100 times writes."],["Estimate","About 40 writes per second and 4,000 reads per second. Seven Base62 characters give 3.5 trillion codes."],["High-level design","Clients hit an app tier behind a load balancer. The app tier uses a cache and a key-value store."],["Deep dive","ID generation, cache eviction (LRU), database sharding by code."],["Trade-offs","Hash collisions vs a central counter, 301 vs 302, SQL vs NoSQL."]]}},
+{id:"caching",name:"Caching",tag:"Building block",
+cards:[["Cache-aside?","The app checks the cache first, and on a miss reads the database and fills the cache."],["Write-through?","Writes go to the cache and database together. Reads are fast and consistent, writes are slower."],["Common eviction policies?","LRU, LFU and TTL-based expiry."]],
+ex:"<p>A cache keeps copies of expensive-to-fetch data close to where it is used. The hard part is not adding a cache, it is deciding <b>when a copy is stale</b>.</p><h3>Watch out for</h3><ul><li>Cache stampede when a hot key expires, fixed with locking or jittered TTLs.</li><li>Stale reads after writes.</li></ul>",
+dia:{w:520,h:210,n:{cl:[15,80,100,50,"Client",2],ap:[190,80,110,50,"App",1],ca:[380,15,120,50,"Cache|(Redis)",0],db:[380,145,120,50,"Database",3]},e:[["cl","ap",""],["ap","ca","1. check"],["ap","db","2. on miss"]]}},
+{id:"lb",name:"Load Balancing",tag:"Building block",
+qa:[["Layer 4 vs Layer 7?","L4 routes on IP and port and is very fast. L7 reads HTTP, so it can route by path or header."],["Common algorithms?","Round robin, least connections, IP hash and weighted variants."]],
+cards:[["Sticky sessions?","Send a user to the same server each time. Simple, but it hurts even distribution and failover."],["Health checks?","The balancer pings servers and stops routing to unhealthy ones."]]}
+]},
+{id:"ang",ic:"🅰️",name:"Angular",blurb:"Framework questions you will actually get asked.",r:"-.8deg",subs:[
+{id:"cd",name:"Change Detection",tag:"Core concept",
+qa:[["Default vs OnPush?","Default checks every component on every event. OnPush checks a component only when an input reference changes, an event fires inside it, or an async pipe emits."],["What do signals change?","Signals let Angular update only the views that read them, which makes fine-grained updates possible."]],
+cards:[["What triggers change detection?","Browser events, timers, XHR and fetch, patched by Zone.js."],["Why OnPush is faster?","It skips whole subtrees that cannot have changed."]],
+ex:"<p>Angular walks the component tree and compares template bindings with their previous values. <code>OnPush</code> plus immutable data lets it skip most of that walk.</p>"},
+{id:"rxjs",name:"RxJS Basics",tag:"Streams",
+qa:[["switchMap vs mergeMap?","switchMap cancels the previous inner stream, good for search typeahead. mergeMap runs them all in parallel."],["How do you avoid leaks?","Use the async pipe, <code>takeUntilDestroyed()</code> or <code>take(1)</code>."]],
+cards:[["Cold vs hot observable?","Cold starts a producer per subscriber. Hot shares one producer."],["debounceTime?","Waits for a quiet period before emitting the latest value."]]}
+]},
+{id:"dsa",ic:"🌳",name:"DSA Patterns",blurb:"Recognise the pattern, then code it.",r:"1.6deg",subs:[
+{id:"twoptr",name:"Two Pointers",tag:"Array pattern",
+qa:[["When should I use it?","Sorted arrays or strings where you look for pairs, or need to partition or shrink a window from both ends."],["Complexity?","Usually O(n) time and O(1) extra space."]],
+cards:[["Two-sum on a sorted array?","Left and right pointers. If the sum is too big, move right in. If too small, move left up."],["Signal words?","Sorted, pair, palindrome, in-place."]],
+ex:"<p>Instead of checking every pair (O(n²)), place one pointer at each end and move them based on what you see. Each step discards at least one candidate for good.</p>"}
+]}
+];
+var C={lld:"#ffd23f",hld:"#ff8f70",ang:"#5eead4",dsa:"#c4a7ff"},NC=["#ffd23f","#5eead4","#c4a7ff","#ff8f70"];
+var ML={qa:"Q&amp;A",cards:"Flashcards",dia:"Diagram",ex:"Explain",cs:"Case study"};
+var MI={lld:'<rect x="2" y="2" width="22" height="14" style="fill:var(--a)"/><rect x="2" y="30" width="22" height="14"/><rect x="46" y="16" width="22" height="14"/><path d="M24 9h10v14h12M24 37h10V23"/>',hld:'<rect x="2" y="16" width="16" height="14"/><rect x="27" y="2" width="16" height="14" style="fill:var(--a)"/><rect x="27" y="30" width="16" height="14"/><rect x="52" y="16" width="16" height="14"/><path d="M18 23h5l4-14M18 23h5l4 14M43 9l5 14M43 37l5-14"/>',ang:'<circle cx="12" cy="23" r="9" style="fill:var(--a)"/><circle cx="58" cy="10" r="8"/><circle cx="58" cy="36" r="8"/><path d="M21 23h12l16-13M33 23l16 13"/>',dsa:'<path d="M2 42h66M10 42V22M26 42V10M42 42V30M58 42V16"/><circle cx="10" cy="18" r="4" style="fill:var(--a)"/><circle cx="58" cy="12" r="4" style="fill:var(--a)"/>'};
+var S={known:{},done:{},seen:{}};
+try{var sv=JSON.parse(localStorage.getItem("bp"));if(sv&&sv.known)S=sv}catch(e){}
+function save(){try{localStorage.setItem("bp",JSON.stringify(S))}catch(e){}}
+var $=function(i){return document.getElementById(i)},tab="",ci=0,fl=false,qd=null;
+function T(h){return D.filter(function(x){return x.id===h})[0]}
+function sub(t,s){return t.subs.filter(function(x){return x.id===s})[0]}
+function cur(){var h=location.hash.slice(1).split(".");return sub(T(h[0]),h[1])}
+function pad(n){return n<10?"0"+n:""+n}
+function mats(s){return["qa","cards","dia","ex","cs"].filter(function(k){return s[k]})}
+function chips(s){return mats(s).map(function(k){return '<span class="chip">'+ML[k]+'</span>'}).join("")}
+function mini(id){return '<svg class="mini" aria-hidden="true" width="70" height="46" viewBox="0 0 70 46" style="fill:none;stroke:var(--a);stroke-width:1.8">'+MI[id]+'</svg>'}
+function allQ(){var a=[];D.forEach(function(t){t.subs.forEach(function(s){(s.qa||[]).forEach(function(q){a.push({q:q[0],a:q[1],p:t.id+"."+s.id,n:s.name})})})});return a}
+function newQ(){var a=allQ();qd=a[Math.floor(Math.random()*a.length)];qd.show=false}
+function prog(t){var k=0,n=0;t.subs.forEach(function(s){var kn=S.known[s.id]||{};if(s.cards){n+=s.cards.length;for(var i in kn)if(kn[i])k++}if(s.qa)s.qa.forEach(function(q,i){n++;if(S.seen[s.id+"q"+i])k++});if(s.cs)s.cs.s.forEach(function(x,i){n++;if(S.done[s.id+i])k++})});return[k,n]}
+function ticks(k,n,c){var f=n?Math.round(k/n*10):0,o='<div class="k'+(c?' c':'')+'">';for(var i=0;i<10;i++)o+='<b'+(i<f?' class="f"':'')+'></b>';return o+'</div>'}
+function render(){
+ var h=location.hash.slice(1).split("."),t=T(h[0]),s=t&&h[1]?sub(t,h[1]):null,c='<a href="#">INDEX</a>';
+ if(t)c+=' / '+(s?'<a href="#'+t.id+'">'+t.name.toUpperCase()+'</a> / '+s.name.toUpperCase():t.name.toUpperCase());
+ $("crumbs").innerHTML=c;
+ $("app").innerHTML=!t?home():!s?topic(t):material(t,s);
+ if($("qd"))$("qd").innerHTML=qdHtml();window.scrollTo(0,0)}
+function home(){
+ if(!qd)newQ();
+ var o='<div class="hero"><h1>Study sheets for people who <span class="hl">build systems</span></h1><div class="note" id="qd"></div></div><div class="sheets">';
+ D.forEach(function(t,i){var p=prog(t);o+='<button class="s" style="--a:'+C[t.id]+'" onclick="location.hash=\''+t.id+'\'"><span class="tag">SHEET '+pad(i+1)+'</span>'+mini(t.id)+'<span class="n">'+t.name+'</span><span class="i">'+t.subs.map(function(s){return'<div>'+s.name+'</div>'}).join("")+'</span>'+ticks(p[0],p[1])+'<div class="sm">'+p[0]+' of '+p[1]+' items covered</div></button>'});
+ return o+'</div>'}
+function qdHtml(){return '<b>NOTE 1, QUESTION OF THE DAY</b>'+qd.q+(qd.show?'<div class="ans">'+qd.a+' <a href="#'+qd.p+'">Open '+qd.n+'</a></div>':'')+'<div><button class="btn" onclick="qd.show=!qd.show;$(\'qd\').innerHTML=qdHtml()">'+(qd.show?'HIDE':'REVEAL')+'</button><button class="btn o" onclick="newQ();$(\'qd\').innerHTML=qdHtml()">ANOTHER</button></div>'}
+function topic(t){
+ var i=D.indexOf(t),p=prog(t),o='<div style="--a:'+C[t.id]+'"><div class="th"><span class="tag2">SHEET '+pad(i+1)+'</span><h1>'+t.name+'</h1><p>'+t.blurb+' Choose a drawing to open its notes.</p>'+ticks(p[0],p[1])+'<div class="sm">'+p[0]+' of '+p[1]+' items covered</div></div><div class="dws">';
+ t.subs.forEach(function(s,j){o+='<button class="dw" onclick="location.hash=\''+t.id+'.'+s.id+'\'"><span class="l">DWG '+pad(i+1)+'-'+(j+1)+'</span><span class="n2">'+s.name+'</span><span class="mu">'+s.tag+'</span><span>'+chips(s)+'</span></button>'});
+ return o+'</div></div>'}
+function material(t,s){
+ var m=mats(s);if(!tab||m.indexOf(tab)<0)tab=m[0];
+ var o='<div style="--a:'+C[t.id]+'"><button class="back" onclick="location.hash=\''+t.id+'\'">BACK TO '+t.name.toUpperCase()+'</button><div class="l">DWG '+pad(D.indexOf(t)+1)+'-'+pad(t.subs.indexOf(s)+1)+' / '+s.tag.toUpperCase()+'</div><h2 class="st">'+s.name+'</h2><div class="tabs" role="tablist">';
+ m.forEach(function(k){o+='<button class="tab" role="tab" aria-selected="'+(tab===k)+'" onclick="tab=\''+k+'\';ci=0;fl=false;sw()">'+ML[k].toUpperCase()+'</button>'});
+ return o+'</div><div class="panel" id="panel">'+panel(s)+'</div></div>'}
+function sw(){var h=location.hash.slice(1).split("."),t=T(h[0]);$("app").innerHTML=material(t,sub(t,h[1]))}
+function panel(s){
+ if(tab==="qa")return s.qa.map(function(q,i){var k=s.id+"q"+i,d=S.seen[k];return '<details><summary>'+q[0]+'</summary><div class="a">'+q[1]+'<div><button class="btn" id="b'+k+'" onclick="seen(\''+k+'\')"'+(d?' disabled':'')+'>'+(d?'UNDERSTOOD':'MARK UNDERSTOOD')+'</button></div></div></details>'}).join("");
+ if(tab==="ex")return '<div class="ex">'+s.ex+'</div>';
+ if(tab==="dia")return '<div class="svgw">'+dia(s.dia)+'</div><p class="l" style="margin:12px 0 0">FIG. '+s.name.toUpperCase()+': FOLLOW THE DASHES FOR DIRECTION OF FLOW</p>';
+ if(tab==="cs")return '<p class="l" style="margin:0 0 16px">'+s.cs.t.toUpperCase()+'. SELECT A STEP WHEN YOU CAN EXPLAIN IT OUT LOUD.</p>'+s.cs.s.map(function(x,i){var k=s.id+i;return '<button class="step'+(S.done[k]?' done':'')+'" onclick="stp(this,\''+k+'\')"><span class="no">'+pad(i+1)+'</span><span><h3>'+x[0]+'</h3><p>'+x[1]+'</p></span></button>'}).join("");
+ var kn=S.known[s.id]||(S.known[s.id]={}),n=s.cards.length,c=s.cards[ci],g=0;for(var i in kn)if(kn[i])g++;
+ return '<div class="l" style="text-align:center">CARD '+(ci+1)+' OF '+n+', MASTERED '+g+'</div>'+ticks(g,n,1)+'<div class="scene"><button class="c3d'+(fl?' flip':'')+'" aria-label="Flip card" onclick="fl=!fl;this.classList.toggle(\'flip\')"><div class="face f"><span class="l">QUESTION</span><span class="q">'+c[0]+'</span><small>SELECT TO FLIP</small></div><div class="face b"><span class="l">ANSWER</span>'+c[1]+'</div></button></div><div class="row"><button class="btn o" onclick="mv(-1)">PREVIOUS</button><button class="btn o" onclick="mark(false)">AGAIN</button><button class="btn" onclick="mark(true)">GOT IT</button><button class="btn o" onclick="mv(1)">NEXT</button><button class="btn o" onclick="shuf()">SHUFFLE</button></div>'}
+function seen(k){S.seen[k]=1;save();var b=$("b"+k);b.disabled=true;b.textContent="UNDERSTOOD"}
+function stp(b,k){S.done[k]=!S.done[k];b.classList.toggle("done",!!S.done[k]);save()}
+function mv(d){var s=cur();ci=(ci+d+s.cards.length)%s.cards.length;fl=false;$("panel").innerHTML=panel(s)}
+function mark(ok){var s=cur();S.known[s.id][ci]=ok;save();mv(1)}
+function shuf(){var s=cur();s.cards.sort(function(){return Math.random()-.5});S.known[s.id]={};save();ci=0;fl=false;$("panel").innerHTML=panel(s)}
+function dia(d){
+ var s='<svg class="dg" viewBox="0 0 '+d.w+' '+d.h+'" role="img" aria-label="Diagram"><defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#e8f0ff"/></marker></defs>';
+ d.e.forEach(function(e){var A=d.n[e[0]],B=d.n[e[1]],ax=A[0]+A[2]/2,ay=A[1]+A[3]/2,bx=B[0]+B[2]/2,by=B[1]+B[3]/2,x1,y1,x2,y2;
+  if(Math.abs(by-ay)>=Math.abs(bx-ax)*.6){x1=ax;x2=bx;if(by>ay){y1=A[1]+A[3];y2=B[1]}else{y1=A[1];y2=B[1]+B[3]}}else{y1=ay;y2=by;if(bx>ax){x1=A[0]+A[2];x2=B[0]}else{x1=A[0];x2=B[0]+B[2]}}
+  s+='<path class="ed" d="M'+x1+' '+y1+'L'+x2+' '+y2+'" marker-end="url(#ar)"/>';
+  if(e[2])s+='<text x="'+((x1+x2)/2)+'" y="'+((y1+y2)/2-7)+'" style="fill:#e8f0ff;font-size:12px">'+e[2]+'</text>'});
+ for(var k in d.n){var n=d.n[k],L=n[4].split("|"),y=n[1]+n[3]/2-(L.length-1)*9+5;
+  s+='<rect class="nd" x="'+n[0]+'" y="'+n[1]+'" width="'+n[2]+'" height="'+n[3]+'" fill="'+NC[n[5]]+'"/>';
+  L.forEach(function(l,i){s+='<text x="'+(n[0]+n[2]/2)+'" y="'+(y+i*18)+'">'+l+'</text>'})}
+ return s+'</svg>'}
+window.addEventListener("hashchange",function(){tab="";ci=0;fl=false;render()});
+render();
+</script>
+</body>
+</html>

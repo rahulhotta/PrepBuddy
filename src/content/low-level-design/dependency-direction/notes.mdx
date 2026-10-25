@@ -1,0 +1,33 @@
+## Overview
+
+Dependency direction is about which part knows about which other part. When important business rules depend directly on changeable details such as a database or web framework, those details can become hard to replace.
+
+## Key ideas
+
+- A dependency arrow usually points from the code that uses something to the code it needs.
+- Keep core business rules independent of delivery and storage details when practical.
+- Small interfaces let a stable part describe what it needs without naming a specific vendor.
+- Dependency injection supplies an implementation from outside the class.
+- Do not add interfaces automatically; use them when they make a real boundary easier to change or test.
+
+## Example
+
+An order service needs to save orders. It can depend on an `OrderStore` contract, while a database adapter implements that contract. The business rule says what storage action is needed; the adapter handles database details.
+
+## Common mistakes
+
+- Business rules importing and creating a specific database client directly.
+- Adding interfaces with no meaningful alternative or test use.
+- Assuming dependency inversion means every dependency must point to one central package.
+- Hiding dependencies in global lookups rather than making them visible.
+
+## Interview angle
+
+Draw the dependency arrows and identify which parts change most often. Explain how a small contract can keep stable business rules independent of replaceable technical details.
+
+## Related topics
+
+- Dependency inversion principle
+- Dependency injection
+- Interfaces and Protocols
+- Coupling and cohesion

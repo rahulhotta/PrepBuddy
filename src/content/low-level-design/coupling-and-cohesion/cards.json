@@ -1,0 +1,6 @@
+[
+  { "id": "coupling-and-cohesion-card-01", "front": "What does cohesion describe?", "back": "How closely related the work inside a class is." },
+  { "id": "coupling-and-cohesion-card-02", "front": "What does coupling describe?", "back": "How much one part depends on another part." },
+  { "id": "coupling-and-cohesion-card-03", "front": "What kind of class is usually easier to change?", "back": "One with a focused purpose and few unnecessary dependencies." },
+  { "id": "coupling-and-cohesion-card-04", "front": "Should a design have zero coupling?", "back": "No. Collaboration requires dependencies; keep them clear and manageable." }
+]

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "object-oriented-design-qa-01",
+    "question": "What is Object-Oriented Design?",
+    "answer": "Object-Oriented Design structures software as cooperating objects, each combining data with the behaviour that operates on it.\n\nYou identify the concepts in the problem, give each a class with a clear responsibility, and let objects work together by calling each other's public methods. The aim is that rules live in one place and changes stay local.",
+    "difficulty": 1
+  },
+  {
+    "id": "object-oriented-design-qa-02",
+    "question": "What is an anemic domain model and why is it a problem?",
+    "answer": "It is a model where classes only hold data, and all behaviour lives in separate service or manager classes.\n\nThe problem is that the rules for an object are scattered across the code that uses it. Invariants (\"a loan cannot be returned twice\") are not enforced by the object itself, logic gets duplicated, and every change needs a search. Moving behaviour onto the object that owns the data fixes this.",
+    "difficulty": 2
+  },
+  {
+    "id": "object-oriented-design-qa-03",
+    "question": "How do you decide which class a method belongs to?",
+    "answer": "Put it on the class that has the information needed to do the work (the \"information expert\").\n\nExample: the late fee needs the due date, the return date and the daily rate. `Loan` holds the dates, so `Loan.late_fee()` is the natural home. If the rate varies by membership tier, `Loan` can ask its `Member` for the rate, rather than a third class pulling data out of both.",
+    "difficulty": 2
+  },
+  {
+    "id": "object-oriented-design-qa-04",
+    "question": "Scenario: an existing codebase has a 3,000-line `LibraryManager` class. How would you start improving its design?",
+    "answer": "Identify the separate responsibilities inside it and move each to the object that owns the relevant data, in small, tested steps.\n\n1. Add tests around current behaviour.\n2. Group methods by the data they touch: loans, members, catalogue, fees.\n3. Move fee logic to `Loan`, limit checks to `Member`, search to a `Catalogue` class.\n4. Leave `Library` as a thin coordinator that delegates.\n\nEach step is small and reversible, and the tests prove behaviour did not change.",
+    "difficulty": 3
+  }
+]

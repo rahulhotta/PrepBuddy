@@ -1,0 +1,32 @@
+## Overview
+
+Aggregation is a “has-a” relationship where the part can exist without the whole. The whole keeps a reference to the part, but does not control its entire lifetime.
+
+## Key ideas
+
+- Aggregation is a kind of association with a whole-and-part meaning.
+- A part can be shared by, or moved between, different whole objects.
+- Deleting the whole does not necessarily delete the part.
+- The exact meaning can vary between modeling methods; explain the lifetime rule in plain words.
+- In UML, aggregation is shown with a hollow diamond at the whole.
+
+## Example
+
+A `Team` has `Player` objects. A player can leave one team and join another, and still exists if the team is disbanded. The team is related to its players but does not own their entire lifetime.
+
+## Common mistakes
+
+- Using aggregation and composition as if they mean the same lifetime rule.
+- Adding a hollow diamond without explaining what happens to parts when the whole is removed.
+- Using aggregation when an ordinary association already describes the relationship clearly.
+
+## Interview angle
+
+Explain the part's lifetime: “The team refers to its players, but a player can exist and join another team if this team is removed.” That is more useful than relying on the word aggregation alone.
+
+## Related topics
+
+- Association
+- Composition
+- UML relationships and multiplicity
+- Object collaboration and message passing

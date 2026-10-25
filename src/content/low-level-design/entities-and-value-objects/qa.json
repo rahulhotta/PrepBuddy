@@ -1,0 +1,20 @@
+[
+  {
+    "id": "entities-and-value-objects-qa-01",
+    "question": "What is the main difference between an entity and a value object?",
+    "answer": "An entity is identified by its identity; a value object is identified by its values.\n\nA booking can keep the same ID when its time changes. A time slot with the same start and end values is equal to another matching time slot.",
+    "difficulty": 1
+  },
+  {
+    "id": "entities-and-value-objects-qa-02",
+    "question": "Why are value objects often immutable?",
+    "answer": "Immutability prevents a shared value from changing unexpectedly.\n\nIf a booking's time changes, creating a new `TimeSlot` makes the change explicit and avoids silently changing a value used elsewhere.",
+    "difficulty": 2
+  },
+  {
+    "id": "entities-and-value-objects-qa-03",
+    "question": "Scenario: a booking time changes but its booking number stays the same. Is the booking an entity or value object?",
+    "answer": "It is an entity, because the booking keeps its identity while one of its details changes.\n\nThe time slot itself may be a value object, since it is described by its start and end times.",
+    "difficulty": 2
+  }
+]

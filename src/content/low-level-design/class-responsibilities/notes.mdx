@@ -1,0 +1,33 @@
+## Overview
+
+A class responsibility is the work or knowledge that belongs to that class. Clear responsibilities make it easier to find a rule, test it, and change it safely.
+
+## Key ideas
+
+- Give each class a clear purpose that can be explained in a short sentence.
+- Put a rule with the object that owns the information needed to apply that rule.
+- A class may have several methods if they all support the same purpose.
+- If a class changes for many unrelated reasons, it may be doing too many jobs.
+- Avoid splitting every method into its own class; unnecessary pieces make a design harder to follow.
+
+## Example
+
+In a library app, `Loan` can know its due date and decide whether it is overdue. `Library` can coordinate borrowing and returning. `EmailSender` can send reminder messages. This keeps the fee rule out of the email code and email delivery out of the loan record.
+
+## Common mistakes
+
+- One large `LibrarySystem` class that handles members, loans, email, and storage.
+- Classes named `Helper` or `Manager` without a clear job.
+- Moving a rule away from the data it needs, forcing callers to inspect object internals.
+- Making tiny classes that only rename a single method call.
+
+## Interview angle
+
+For each class, say what it knows and what it does. If you cannot explain its purpose in one clear sentence, reconsider its responsibility or its name.
+
+## Related topics
+
+- Single Responsibility Principle
+- Coupling and cohesion
+- Entities and value objects
+- Object collaboration and message passing

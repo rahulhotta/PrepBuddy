@@ -1,0 +1,8 @@
+[
+  { "id": "constructors-and-attributes-card-01", "front": "__new__ vs __init__?", "back": "__new__ creates the object; __init__ initialises it and returns None." },
+  { "id": "constructors-and-attributes-card-02", "front": "Mutable default argument bug?", "back": "Defaults are evaluated once, so all instances share the same list or dict." },
+  { "id": "constructors-and-attributes-card-03", "front": "Fix for mutable defaults?", "back": "Default to None and create the object inside, or use field(default_factory=list)." },
+  { "id": "constructors-and-attributes-card-04", "front": "Where does dataclass validation go?", "back": "In __post_init__, which runs after the generated __init__." },
+  { "id": "constructors-and-attributes-card-05", "front": "Defensive copy?", "back": "Store your own copy of a caller's mutable argument so later changes cannot affect you." },
+  { "id": "constructors-and-attributes-card-06", "front": "Alternative constructor in Python?", "back": "A @classmethod such as from_dict() that builds arguments then calls cls(...)." }
+]

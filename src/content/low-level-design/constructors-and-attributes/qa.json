@@ -1,0 +1,26 @@
+[
+  {
+    "id": "constructors-and-attributes-qa-01",
+    "question": "What is the role of `__init__` in Python?",
+    "answer": "`__init__` initialises a newly created object: it sets instance attributes and validates arguments so the object starts in a valid state.\n\nIt does not create the object (that is `__new__`) and it must return `None`. Calling `Playlist(\"x\")` runs `__new__`, then `__init__`, then returns the object.",
+    "difficulty": 1
+  },
+  {
+    "id": "constructors-and-attributes-qa-02",
+    "question": "Why is `def __init__(self, items=[])` a bug?",
+    "answer": "Default values are evaluated once, when the function is defined, so every instance that uses the default shares the same list.\n\nAppending to one object's list changes all of them. Use `items: list[str] | None = None` and `self.items = list(items) if items is not None else []`, or `field(default_factory=list)` in a dataclass.",
+    "difficulty": 2
+  },
+  {
+    "id": "constructors-and-attributes-qa-03",
+    "question": "Should constructors do I/O, such as reading files or calling APIs?",
+    "answer": "Generally no. Constructors should be fast and predictable; I/O makes objects slow to create, hard to test and prone to failing halfway.\n\nRead the data elsewhere and pass it in, or provide a class method such as `Config.from_file(path)` that does the I/O and then calls the plain constructor.",
+    "difficulty": 2
+  },
+  {
+    "id": "constructors-and-attributes-qa-04",
+    "question": "Scenario: a teammate passes a list into your object, then later clears their list, and your object breaks. How do you prevent this?",
+    "answer": "Make a defensive copy in the constructor, and avoid returning the internal list directly.\n\n`self.songs = list(songs)` stores your own copy. For read access, expose a tuple or a copy (`tuple(self.songs)`) so callers cannot mutate your internal state behind your back.",
+    "difficulty": 2
+  }
+]

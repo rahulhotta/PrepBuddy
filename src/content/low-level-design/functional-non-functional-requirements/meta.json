@@ -1,0 +1,11 @@
+{
+  "id": "functional-non-functional-requirements",
+  "title": "Functional and non-functional requirements",
+  "tag": "Introduction",
+  "section": "introduction",
+  "category": "concept",
+  "order": 105,
+  "materials": ["explanation", "qa", "flashcards"],
+  "example": false,
+  "status": "complete"
+}

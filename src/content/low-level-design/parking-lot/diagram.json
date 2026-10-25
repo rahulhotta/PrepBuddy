@@ -1,0 +1,19 @@
+{
+  "title": "Parking lot entry flow",
+  "description": "A driver arrives at the entry gate. The gate asks the lot for a free spot, the lot issues a ticket for that spot, and at exit the pricing strategy turns the ticket into a fee.",
+  "width": 600,
+  "height": 260,
+  "nodes": [
+    { "id": "driver", "kind": "box", "x": 15, "y": 105, "width": 100, "height": 50, "label": ["Driver"], "color": 2 },
+    { "id": "gate", "kind": "box", "x": 160, "y": 105, "width": 110, "height": 50, "label": ["Entry", "Gate"], "color": 0 },
+    { "id": "lot", "kind": "box", "x": 320, "y": 30, "width": 120, "height": 50, "label": ["Parking Lot"], "color": 1 },
+    { "id": "ticket", "kind": "box", "x": 320, "y": 180, "width": 120, "height": 50, "label": ["Ticket"], "color": 3 },
+    { "id": "pricing", "kind": "box", "x": 480, "y": 105, "width": 105, "height": 50, "label": ["Pricing", "Strategy"], "color": 0 }
+  ],
+  "edges": [
+    { "from": "driver", "to": "gate", "type": "flow" },
+    { "from": "gate", "to": "lot", "type": "flow", "label": "find spot" },
+    { "from": "gate", "to": "ticket", "type": "flow", "label": "issue" },
+    { "from": "ticket", "to": "pricing", "type": "flow", "label": "at exit" }
+  ]
+}

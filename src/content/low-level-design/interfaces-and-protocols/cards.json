@@ -1,0 +1,8 @@
+[
+  { "id": "interfaces-and-protocols-card-01", "front": "Interface?", "back": "A contract: a named set of methods an object promises to provide." },
+  { "id": "interfaces-and-protocols-card-02", "front": "Protocol typing style?", "back": "Structural: matching methods is enough, no inheritance required." },
+  { "id": "interfaces-and-protocols-card-03", "front": "ABC typing style?", "back": "Nominal: an object qualifies by inheriting from the ABC." },
+  { "id": "interfaces-and-protocols-card-04", "front": "@runtime_checkable limit?", "back": "isinstance() only checks method names exist, not signatures." },
+  { "id": "interfaces-and-protocols-card-05", "front": "Combine protocols?", "back": "class Store(Readable, Writable, Protocol): ..." },
+  { "id": "interfaces-and-protocols-card-06", "front": "Why small protocols?", "back": "Functions ask only for what they use; more types and fakes qualify." }
+]

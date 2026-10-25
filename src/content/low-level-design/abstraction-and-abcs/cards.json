@@ -1,0 +1,7 @@
+[
+  { "id": "abstraction-and-abcs-card-01", "front": "Abstraction?", "back": "Expose what something does; hide how it does it." },
+  { "id": "abstraction-and-abcs-card-02", "front": "How to declare an ABC?", "back": "Inherit from abc.ABC and mark required methods with @abstractmethod." },
+  { "id": "abstraction-and-abcs-card-03", "front": "Instantiate an ABC with missing methods?", "back": "TypeError at construction time." },
+  { "id": "abstraction-and-abcs-card-04", "front": "Can an ABC have concrete methods?", "back": "Yes, often a workflow method that calls abstract steps." },
+  { "id": "abstraction-and-abcs-card-05", "front": "ABC vs Protocol?", "back": "ABC: explicit inheritance, can share code. Protocol: structural match, no shared code." }
+]

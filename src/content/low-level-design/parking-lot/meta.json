@@ -1,0 +1,11 @@
+{
+  "id": "parking-lot",
+  "title": "Design a Parking Lot",
+  "tag": "Classic LLD problem",
+  "section": "problems-beginner",
+  "category": "case-study",
+  "order": 1403,
+  "materials": ["case-study", "diagram"],
+  "example": false,
+  "status": "placeholder"
+}

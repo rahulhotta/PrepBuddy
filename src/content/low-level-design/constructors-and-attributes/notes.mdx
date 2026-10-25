@@ -1,0 +1,47 @@
+## Overview
+
+A constructor prepares a new object so it is ready to use.
+
+A constructor sets up a new object so that it is **valid from the moment it exists**. In Python, `ClassName(...)` first calls `__new__` to create the object and then `__init__` to initialise it. You almost always write only `__init__`.
+
+Inside `__init__` you assign **instance attributes** with `self.name = value`. These belong to this object alone. A good constructor checks its arguments, stores them in a usable form, and leaves the object in a state where every method works.
+
+## Key ideas
+
+- **`__init__` initialises, it does not return.** It must return `None`; the new object is returned by the class call.
+- **Validate early.** Reject bad arguments in the constructor (`raise ValueError(...)`) so you never have half-valid objects floating around.
+- **Mutable default arguments are evaluated once**, when the function is defined. `def __init__(self, songs=[])` shares one list across every instance. Use `None` and create a new list inside, or `field(default_factory=list)` in a dataclass.
+- **Defensive copies**: if the caller passes a list, store `list(songs)` so later changes to the caller's list do not silently change your object.
+- **Keyword-only parameters** (after `*`) make calls with many options readable and safe: `Playlist("road trip", max_songs=50)`.
+- **Alternative constructors** are usually `@classmethod`s such as `from_dict()` or `from_csv_row()`, keeping `__init__` simple.
+- **`dataclass`** generates `__init__`, `__repr__` and `__eq__` from annotated fields; put validation in `__post_init__`.
+- **Set every attribute in `__init__`**, even if only to `None`. Attributes appearing later in other methods make objects hard to reason about.
+
+## Example
+
+A playlist must have a non-empty name, a song list and a maximum size.
+
+- `BadPlaylist` uses `songs=[]` as a default, so adding a song to one playlist adds it to all of them.
+- `Playlist` uses `None` as the default, makes a defensive copy of any list passed in, validates the name and limit, and enforces the limit in `add()`.
+- `Track` is a dataclass whose `__post_init__` rejects a non-positive duration.
+
+## Common mistakes
+
+- **Mutable defaults** (`[]`, `{}`, `set()`) in constructor signatures.
+- **Doing heavy work in `__init__`** such as network calls or file reads; it makes objects slow and hard to test. Pass the data in, or use a factory method.
+- **Leaving objects half-initialised** and relying on callers to call `setup()` afterwards.
+- **Storing caller-owned mutable objects directly**, so external code can break your object's invariants.
+- **Too many positional parameters**: `Playlist("a", None, 50, True, False)` is unreadable; use keyword-only arguments or a parameter object.
+
+## Interview angle
+
+A classic question is "what is wrong with `def __init__(self, items=[])`?". Explain that defaults are evaluated once at definition time, so all instances share the list, and show the `None` fix or `default_factory`.
+
+In design exercises, showing validation in constructors and keeping objects always-valid is a strong signal that you think about invariants.
+
+## Related topics
+
+- Classes and objects
+- Instance, class and static methods
+- Properties, enums and dataclasses
+- Exceptions and custom exceptions

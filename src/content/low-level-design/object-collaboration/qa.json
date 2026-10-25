@@ -1,0 +1,20 @@
+[
+  {
+    "id": "object-collaboration-qa-01",
+    "question": "What does object collaboration mean?",
+    "answer": "Objects call one another's public methods to complete a task.\n\nFor example, checkout asks a cart for its total and asks a payment service to charge that amount.",
+    "difficulty": 1
+  },
+  {
+    "id": "object-collaboration-qa-02",
+    "question": "Why should an object use another object's public methods?",
+    "answer": "Public methods let the other object protect its data and rules.\n\nAsking `cart.total()` is safer than reaching into the cart's fields and calculating or changing its internal values.",
+    "difficulty": 2
+  },
+  {
+    "id": "object-collaboration-qa-03",
+    "question": "Scenario: checkout calculates product prices and writes directly into storage fields. What design issue might this show?",
+    "answer": "Checkout may be taking on work that belongs to other objects and depending on their internals.\n\nLet the cart calculate its total and let a repository save the order; checkout can coordinate those steps.",
+    "difficulty": 2
+  }
+]

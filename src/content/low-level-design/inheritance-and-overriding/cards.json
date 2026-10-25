@@ -1,0 +1,8 @@
+[
+  { "id": "inheritance-and-overriding-card-01", "front": "Inheritance models what relationship?", "back": "Is-a: the subclass can be used wherever the parent is expected." },
+  { "id": "inheritance-and-overriding-card-02", "front": "Two ways to override?", "back": "Replace the behaviour, or extend it by calling super().method() and adding to it." },
+  { "id": "inheritance-and-overriding-card-03", "front": "What is the MRO?", "back": "Method resolution order: the sequence of classes Python searches, shown by Class.__mro__." },
+  { "id": "inheritance-and-overriding-card-04", "front": "Forgot super().__init__()?", "back": "The parent's attributes are never set, causing AttributeError later." },
+  { "id": "inheritance-and-overriding-card-05", "front": "Overloading in Python?", "back": "Not by signature. Use default args, typing.overload or functools.singledispatchmethod." },
+  { "id": "inheritance-and-overriding-card-06", "front": "Wrong reason to inherit?", "back": "Only to reuse code when there is no true is-a relationship. Use composition." }
+]

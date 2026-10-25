@@ -1,0 +1,62 @@
+## Overview
+
+Properties help control access to data, enums name a fixed set of choices, and dataclasses reduce the code needed to define simple data objects.
+
+Three standard-library tools remove most of the boilerplate in Python domain models and make LLD code safer:
+
+- **Properties** (`@property`) let an attribute be computed or validated by code while callers still use plain attribute syntax (`order.total`, `order.status = PAID`).
+- **Enums** (`enum.Enum`) give a fixed set of named values (`OrderStatus.PAID`) instead of loose strings or integers, so typos fail fast and valid states are listed in one place.
+- **Dataclasses** (`@dataclass`) generate `__init__`, `__repr__` and `__eq__` (and optionally ordering, hashing and immutability) from annotated fields.
+
+## Key ideas
+
+**Properties**
+
+- A getter-only property is read-only. Add `@x.setter` to validate assignment.
+- Use them for derived values (`total`) and for guarding a field's rules, not for expensive work that surprises callers.
+- You can turn a public attribute into a property later without changing any caller, so start with plain attributes.
+
+**Enums**
+
+- Members are singletons: compare with `is` or `==`; iterate with `for s in OrderStatus`.
+- `auto()` assigns values when the actual value does not matter.
+- `StrEnum` (3.11+) members are also strings, which helps with JSON and databases.
+- Enums pair naturally with **state transitions**: a dictionary from each status to its allowed next statuses.
+
+**Dataclasses**
+
+- `field(default_factory=list)` avoids shared mutable defaults; `field(init=False)` excludes a field from the constructor.
+- `frozen=True` makes instances immutable (assignment raises `FrozenInstanceError`) and, with `eq=True`, hashable. Ideal for **value objects** such as money or coordinates.
+- `__post_init__` runs after the generated `__init__`, the place for validation.
+- `slots=True` (3.10+) reduces memory and blocks accidental new attributes. `order=True` adds comparison operators.
+- `kw_only=True` forces keyword arguments, making long constructors readable.
+
+## Example
+
+An order model:
+
+- `OrderStatus` is an enum, and `ALLOWED` maps each status to the statuses it may move to.
+- `Money` is a frozen dataclass value object: validated in `__post_init__`, immutable, compared by value, with `__add__` refusing mixed currencies.
+- `Order` is a regular dataclass. `total` is a computed property; `status` is a property whose setter enforces the allowed transitions.
+
+## Common mistakes
+
+- **Strings for states** (`"shiped"`) that silently create invalid values; use an enum.
+- **Mutable dataclass used as a dict key**: only frozen (or explicitly hashed) dataclasses are safely hashable.
+- **Heavy work in properties** (database queries), which looks like cheap attribute access to callers.
+- **Getter/setter properties that add nothing**: a property that just returns and sets the field is noise; use a plain attribute.
+- **`dataclass` on classes with real behaviour and invariants but no validation**: generated `__init__` accepts anything unless you add `__post_init__`.
+
+## Interview angle
+
+In LLD code, these tools signal fluency: enums for statuses and types (vehicle types, spot sizes, order states), frozen dataclasses for value objects, regular dataclasses for entities, and properties for derived values and guarded state. They make code shorter, so you spend interview time on design rather than boilerplate.
+
+Be ready to explain the difference between `frozen=True` and making fields private, and why frozen value objects are safe to share.
+
+## Related topics
+
+- Constructors and instance attributes
+- Encapsulation and access conventions
+- Identifying entities and value objects
+- State-machine diagrams
+- State

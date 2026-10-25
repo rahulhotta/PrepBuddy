@@ -1,0 +1,11 @@
+{
+  "id": "composition-over-inheritance",
+  "title": "Favor composition over inheritance",
+  "tag": "OOD Fundamentals",
+  "section": "ood-fundamentals",
+  "category": "principle",
+  "order": 309,
+  "materials": ["explanation", "qa", "flashcards"],
+  "example": false,
+  "status": "complete"
+}

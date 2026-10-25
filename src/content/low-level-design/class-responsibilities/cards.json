@@ -1,0 +1,6 @@
+[
+  { "id": "class-responsibilities-card-01", "front": "What is a class responsibility?", "back": "The work or knowledge that belongs to that class." },
+  { "id": "class-responsibilities-card-02", "front": "Where should a rule usually live?", "back": "Near the object that owns the information needed to apply the rule." },
+  { "id": "class-responsibilities-card-03", "front": "A warning sign of too many jobs?", "back": "The class changes for several unrelated reasons." },
+  { "id": "class-responsibilities-card-04", "front": "What should a class name communicate?", "back": "Its clear purpose in the problem domain." }
+]

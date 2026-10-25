@@ -1,0 +1,11 @@
+{
+  "id": "singleton",
+  "title": "Singleton",
+  "tag": "Creational pattern",
+  "section": "creational-patterns",
+  "category": "creational",
+  "order": 602,
+  "materials": ["qa", "flashcards", "diagram", "explanation"],
+  "example": true,
+  "status": "complete"
+}

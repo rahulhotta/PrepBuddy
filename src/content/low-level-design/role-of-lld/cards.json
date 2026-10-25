@@ -1,0 +1,7 @@
+[
+  { "id": "role-of-lld-card-01", "front": "Main job of LLD in a team?", "back": "Reduce the cost of building and changing software." },
+  { "id": "role-of-lld-card-02", "front": "How does LLD enable parallel work?", "back": "Agreed interfaces let people build each side independently against the same contract." },
+  { "id": "role-of-lld-card-03", "front": "How does LLD enable testing?", "back": "Interfaces plus injected dependencies let tests use fakes instead of real services." },
+  { "id": "role-of-lld-card-04", "front": "Risk of big design up front?", "back": "Long documents that go stale before code is written." },
+  { "id": "role-of-lld-card-05", "front": "How much design is enough?", "back": "Proportional to how central and long-lived the code is." }
+]

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "classes-and-objects-qa-01",
+    "question": "What is the difference between a class and an object?",
+    "answer": "A class is the blueprint that defines data and behaviour; an object is one instance created from it, with its own state.\n\n`Wallet` is the class; `Wallet(\"ana\")` and `Wallet(\"ben\")` are two objects. Methods are defined once on the class and shared; attribute values belong to each object.",
+    "difficulty": 1
+  },
+  {
+    "id": "classes-and-objects-qa-02",
+    "question": "What is `self` in Python?",
+    "answer": "It is the instance a method was called on, passed explicitly as the method's first parameter.\n\n`wallet.top_up(10)` is translated to `Wallet.top_up(wallet, 10)`. The name `self` is only a convention, but you should always use it.",
+    "difficulty": 1
+  },
+  {
+    "id": "classes-and-objects-qa-03",
+    "question": "What is the difference between `is` and `==`?",
+    "answer": "`is` checks identity (the same object in memory); `==` checks equality as defined by the class's `__eq__`.\n\nTwo separately created wallets with identical fields can be `==` (if `__eq__` compares fields) but never `is`. Use `is` for `None` checks (`if x is None`), and `==` for values.",
+    "difficulty": 1
+  },
+  {
+    "id": "classes-and-objects-qa-04",
+    "question": "Scenario: every new `Cart` object already contains items added to a previous cart. What is the likely bug?",
+    "answer": "The item list is a class attribute (or a mutable default argument), so all instances share one list.\n\n```python\nclass Cart:\n    items = []  # shared by every Cart\n```\n\nFix it by creating the list per instance in `__init__` (`self.items = []`), or with `field(default_factory=list)` in a dataclass.",
+    "difficulty": 2
+  }
+]

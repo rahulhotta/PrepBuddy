@@ -1,0 +1,11 @@
+{
+  "id": "coupling-and-cohesion",
+  "title": "Coupling and cohesion",
+  "tag": "OOD Fundamentals",
+  "section": "ood-fundamentals",
+  "category": "concept",
+  "order": 310,
+  "materials": ["explanation", "qa", "flashcards"],
+  "example": false,
+  "status": "complete"
+}

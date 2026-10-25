@@ -1,0 +1,11 @@
+{
+  "id": "observer",
+  "title": "Observer",
+  "tag": "Behavioral pattern",
+  "section": "behavioral-patterns",
+  "category": "behavioral",
+  "order": 807,
+  "materials": ["qa", "flashcards", "diagram", "explanation"],
+  "example": true,
+  "status": "complete"
+}

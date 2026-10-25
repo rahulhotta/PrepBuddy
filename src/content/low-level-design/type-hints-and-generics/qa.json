@@ -1,0 +1,26 @@
+[
+  {
+    "id": "type-hints-and-generics-qa-01",
+    "question": "Are type hints enforced by Python at runtime?",
+    "answer": "No. The interpreter stores annotations but does not check them; calling `double(\"ab\")` on a function hinted `n: int` simply runs.\n\nType hints are checked by static tools such as mypy and Pyright/Pylance, and used by editors for completion. For untrusted input, validate explicitly at runtime.",
+    "difficulty": 1
+  },
+  {
+    "id": "type-hints-and-generics-qa-02",
+    "question": "What problem do generics solve?",
+    "answer": "They let one implementation work with many types without losing type information.\n\nA `Repository[T]` written once can be used as `Repository[User]` and `Repository[Product]`, and the type checker knows `users.get(...)` returns `User | None`. Without generics you would either duplicate the class or return `Any` and lose checking.",
+    "difficulty": 2
+  },
+  {
+    "id": "type-hints-and-generics-qa-03",
+    "question": "Why annotate a parameter as `Sequence[Animal]` rather than `list[Animal]`?",
+    "answer": "Because it accepts more callers and avoids a variance trap.\n\n`Sequence` accepts lists, tuples and other read-only sequences. It is also covariant: a `Sequence[Dog]` counts as a `Sequence[Animal]`. A `list[Dog]` is not a `list[Animal]`, since the function could append a `Cat` to it, so annotating with `list` would reject valid read-only use.",
+    "difficulty": 3
+  },
+  {
+    "id": "type-hints-and-generics-qa-04",
+    "question": "Scenario: you need a cache that works for any key and value type, but keys must be hashable. How would you type it in Python 3.12?",
+    "answer": "Use type parameters with a bound on the key.\n\n```python\nfrom collections.abc import Hashable\n\nclass LRUCache[K: Hashable, V]:\n    def get(self, key: K) -> V | None: ...\n    def put(self, key: K, value: V) -> None: ...\n```\n\n`LRUCache[str, User]` then gives full checking on both keys and values, and unhashable key types are rejected by the type checker.",
+    "difficulty": 2
+  }
+]

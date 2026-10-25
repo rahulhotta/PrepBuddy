@@ -1,0 +1,8 @@
+[
+  { "id": "encapsulation-card-01", "front": "Encapsulation?", "back": "Data plus the rules about it in one object, changed only through methods that enforce the rules." },
+  { "id": "encapsulation-card-02", "front": "_name means?", "back": "Internal by convention. Not enforced by Python." },
+  { "id": "encapsulation-card-03", "front": "__name does what?", "back": "Name mangling to _ClassName__name, to avoid subclass clashes. Not security." },
+  { "id": "encapsulation-card-04", "front": "Read-only attribute in Python?", "back": "A @property with no setter over an internal _field." },
+  { "id": "encapsulation-card-05", "front": "Never return what from a getter?", "back": "An internal mutable collection. Return a tuple or a copy." },
+  { "id": "encapsulation-card-06", "front": "Tell, don't ask?", "back": "Ask the object to do the work (withdraw) instead of reading its data and changing it yourself." }
+]

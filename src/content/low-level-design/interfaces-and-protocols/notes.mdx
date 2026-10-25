@@ -1,0 +1,52 @@
+## Overview
+
+An interface is a small promise about which actions an object can perform.
+
+An **interface** is a contract: a named set of methods that an object promises to provide. Code that depends on an interface works with any object that keeps the promise, which is what makes designs pluggable and testable.
+
+Python has no `interface` keyword. It offers two ways to express one:
+
+- **Abstract base classes** (`abc.ABC`): *nominal* typing. An object satisfies the interface by **inheriting** from it.
+- **Protocols** (`typing.Protocol`): *structural* typing. An object satisfies the interface by **having the right methods**, with no inheritance at all. This is duck typing that a type checker can verify.
+
+## Key ideas
+
+- **Declare a protocol** by subclassing `Protocol` and writing method signatures with `...` bodies.
+- **No registration needed**: any class with matching methods satisfies it, including classes you do not control (standard library, third-party).
+- **Type checkers (mypy, Pyright/Pylance) enforce protocols statically.** At runtime nothing is checked unless you add `@runtime_checkable`, which allows `isinstance()` but only checks that the method names exist, not their signatures.
+- **Small, focused protocols** (`Readable`, `Writable`) compose well; a function asks only for what it uses. This is the Interface Segregation Principle in practice.
+- **Combine protocols** by inheriting from several of them plus `Protocol`: `class Store(Readable, Writable, Protocol): ...`.
+- **Choose**:
+  - *Protocol* when you only need a shape, want to accept outside types, or are writing a library;
+  - *ABC* when implementations should share code, or you want instantiation-time errors for missing methods.
+
+## Example
+
+A login feature stores sessions in a key-value store.
+
+- `Readable` has `get(key)`; `Writable` has `put(key, value)`; `Store` combines both and is `@runtime_checkable`.
+- `MemoryStore` implements both methods without inheriting from anything.
+- `ReadOnlyConfig` only implements `get`.
+- `remember_login()` asks for a `Writable`; `is_logged_in()` asks only for a `Readable`, so a read-only config can be used for it.
+
+## Common mistakes
+
+- **Fat interfaces** that force implementations to stub methods they never support.
+- **Relying on `@runtime_checkable` for validation**: it ignores parameter and return types.
+- **Inheriting from a Protocol in implementations** by habit; it is allowed but unnecessary, and it hides the structural intent.
+- **Defining an interface for a single implementation with no foreseeable second**: it adds indirection without benefit.
+- **Interfaces that leak implementation details**, such as `get_sql_connection()` on a "storage" interface.
+
+## Interview angle
+
+Expect "How do you define an interface in Python?" Strong answer: "Either an ABC, if I want shared code and inheritance, or a `typing.Protocol`, if I want structural typing: any class with the right methods qualifies, checked by the type checker." Mention that Protocols make dependency injection and test doubles trivial: a fake only needs the same methods.
+
+In LLD problems, declare interfaces for the variation points (storage, notification, pricing) and keep each one small.
+
+## Related topics
+
+- Abstraction and abstract base classes
+- Polymorphism and duck typing
+- Program to an interface
+- Interface Segregation Principle
+- Defining interfaces and contracts

@@ -1,0 +1,50 @@
+## Overview
+
+The kind of method you choose tells readers what information that method can use.
+
+Python has three kinds of method, distinguished by **what they receive as their first argument**:
+
+| Kind | Decorator | First argument | Typical use |
+|---|---|---|---|
+| Instance method | none | `self`, the object | Behaviour that reads or changes one object's state |
+| Class method | `@classmethod` | `cls`, the class | Alternative constructors, class-wide state or configuration |
+| Static method | `@staticmethod` | nothing | A helper that belongs with the class conceptually but needs neither the object nor the class |
+
+Choosing the right kind communicates intent: a reader immediately knows whether the method can touch object state, class state, or neither.
+
+## Key ideas
+
+- **Instance methods** are the default and the most common. They see the whole object through `self`.
+- **Class methods** receive the class the method was **called on**. If a subclass calls `from_fahrenheit()`, `cls` is the subclass, so the method builds the right type. This is why alternative constructors should be class methods returning `cls(...)`, not hard-coded class names.
+- **Static methods** are plain functions placed in the class namespace. Use them for small, pure helpers tightly tied to the class (a validation rule, a unit conversion). If a helper is useful elsewhere, a module-level function is often better.
+- **Class attributes** (shared state) are naturally read and written through `cls` in class methods.
+- In type hints, return `Self` (from `typing`) from class methods that build instances, so subclasses are typed correctly.
+
+## Example
+
+A `Temperature` class stores degrees Celsius.
+
+- `to_fahrenheit()` is an instance method: it needs this object's value.
+- `from_fahrenheit()` is a class method: it is a second way to construct a temperature. Called on the subclass `LabTemperature`, it returns a `LabTemperature`.
+- `is_physical()` is a static method: it checks a number against absolute zero without needing any object or class state. The constructor uses it to validate input.
+- `created` is a class attribute counting how many temperatures were built.
+
+## Common mistakes
+
+- **Static method where a class method is needed**: a static "factory" that returns `Temperature(...)` ignores subclasses.
+- **Class methods that modify shared state unexpectedly**, creating hidden global state that tests must reset.
+- **Using static methods as a namespace dump** for unrelated utilities; a module is the Python namespace for that.
+- **Instance methods that never use `self`**: a hint that the method belongs elsewhere or should be static.
+
+## Interview angle
+
+A common question: "When would you use a class method instead of a static method?" Answer: when the method needs the class itself, most often as an alternative constructor that must respect subclasses (`dict.fromkeys`, `datetime.fromtimestamp` are standard-library examples).
+
+In LLD problems, alternative constructors such as `Order.from_cart(cart)` or `Config.from_env()` keep the main `__init__` simple and make object creation readable.
+
+## Related topics
+
+- Classes and objects
+- Constructors and instance attributes
+- Inheritance and method overriding
+- Factory Method

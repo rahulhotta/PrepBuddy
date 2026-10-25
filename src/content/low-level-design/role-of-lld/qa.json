@@ -1,0 +1,26 @@
+[
+  {
+    "id": "role-of-lld-qa-01",
+    "question": "What role does Low-Level Design play in a software team?",
+    "answer": "It turns requirements into a code structure that is cheap to build, test and change, and that several people can work on at once.\n\nConcretely, it agrees responsibilities and interfaces before code exists, so work can be split, reviews are easier, and later features are additions rather than rewrites.",
+    "difficulty": 1
+  },
+  {
+    "id": "role-of-lld-qa-02",
+    "question": "How does good LLD make code easier to test?",
+    "answer": "By depending on interfaces and receiving dependencies from outside, so tests can substitute fakes.\n\nIf `OrderService` creates its own `SmtpEmailSender`, every test sends an email or needs patching. If it receives a `Notifier` in its constructor, a test passes a `FakeNotifier` that records calls, and the test is fast and isolated.",
+    "difficulty": 2
+  },
+  {
+    "id": "role-of-lld-qa-03",
+    "question": "How much design is enough before writing code?",
+    "answer": "Enough to agree on the main responsibilities, interfaces and flows; proportional to how central and long-lived the code is.\n\nA throwaway script needs none. A shared module or public API needs a short design note, a diagram and a review. Avoid weeks of upfront documents; design, build a thin slice, and adjust as you learn.",
+    "difficulty": 2
+  },
+  {
+    "id": "role-of-lld-qa-04",
+    "question": "Scenario: two developers must build a feature together by Friday. How can LLD help them work in parallel?",
+    "answer": "Agree the interfaces between their parts first, then each implements one side against that contract.\n\nFor example, one builds `PaymentGateway` implementations while the other builds the checkout flow that calls `PaymentGateway.charge(amount, token)`. Until the real gateway exists, the checkout developer uses a fake. Integration on Friday is plugging the real implementation in, not discovering mismatched assumptions.",
+    "difficulty": 2
+  }
+]

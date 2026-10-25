@@ -1,0 +1,8 @@
+[
+  { "id": "exceptions-card-01", "front": "try/except else block runs when?", "back": "Only if the try block raised nothing." },
+  { "id": "exceptions-card-02", "front": "finally block runs when?", "back": "Always, after try/except/else, for cleanup." },
+  { "id": "exceptions-card-03", "front": "Custom exception hierarchy shape?", "back": "One base per domain (InventoryError) with specific subclasses (OutOfStock, UnknownSku)." },
+  { "id": "exceptions-card-04", "front": "raise X from exc?", "back": "Chains exceptions: X.__cause__ is exc, and both show in the traceback." },
+  { "id": "exceptions-card-05", "front": "Why avoid except Exception: pass?", "back": "It hides real bugs and leaves state unknown." },
+  { "id": "exceptions-card-06", "front": "Domain error vs programming error?", "back": "Domain: business rule failed (custom exception). Programming: API misuse (ValueError, TypeError)." }
+]

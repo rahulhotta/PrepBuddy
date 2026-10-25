@@ -1,0 +1,33 @@
+## Overview
+
+Objects collaborate when they call each other's public methods to complete a task. Each object should ask for an action rather than take over another object's internal work.
+
+## Key ideas
+
+- A method call is a message: the caller asks another object to do something.
+- Keep each message focused on a clear action or question.
+- The receiver should protect its own rules and data.
+- A workflow often passes through a few objects, each with a distinct job.
+- Too many calls through unrelated objects make a change harder to follow.
+
+## Example
+
+To place an order, `Checkout` asks `Cart` for its total, asks `PaymentService` to charge that amount, then asks `OrderRepository` to save the order. Checkout coordinates the flow, but it does not calculate every product price or write directly into repository internals.
+
+## Common mistakes
+
+- One object reaching into another object's fields and changing them directly.
+- A “god object” that performs all the work itself.
+- Long chains of calls where an object asks several other objects for data and then makes their decisions.
+- Giving objects vague methods such as `process()` without explaining the action.
+
+## Interview angle
+
+Walk through one use case by naming each caller and receiver: “Checkout asks the cart for a total, then asks the payment service to charge it.” This reveals missing responsibilities and unclear dependencies.
+
+## Related topics
+
+- Class responsibilities
+- Association and dependency
+- Encapsulation
+- Sequence diagrams

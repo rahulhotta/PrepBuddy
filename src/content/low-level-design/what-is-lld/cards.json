@@ -1,0 +1,7 @@
+[
+  { "id": "what-is-lld-card-01", "front": "LLD in one sentence?", "back": "The design of classes, interfaces and their interactions inside one component, detailed enough to code." },
+  { "id": "what-is-lld-card-02", "front": "Scope of LLD?", "back": "One service, module or feature: classes and objects, not servers or networks." },
+  { "id": "what-is-lld-card-03", "front": "Core question LLD answers?", "back": "Who knows what and who does what: responsibilities and collaboration between objects." },
+  { "id": "what-is-lld-card-04", "front": "Main LLD deliverables?", "back": "Class diagram, method signatures, main workflows, error rules and trade-offs." },
+  { "id": "what-is-lld-card-05", "front": "What does good LLD optimise for?", "back": "Correctness plus ease of change: readable, testable and extensible code." }
+]

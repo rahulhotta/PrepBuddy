@@ -1,0 +1,55 @@
+## Overview
+
+Think of HLD as a map of the whole system. LLD zooms in on one part of that map and shows how its code will work.
+
+High-Level Design (HLD) and Low-Level Design (LLD) describe the same system at two zoom levels.
+
+- **HLD** is the map of the whole system: which services exist, how they communicate, where data is stored, and how the system scales and survives failures.
+- **LLD** zooms into one of those boxes and designs its insides: classes, interfaces, methods, object relationships and the exact flow of a use case.
+
+HLD answers "what are the big pieces and how do they fit?"; LLD answers "how is this piece built so it is correct and easy to change?"
+
+## Key ideas
+
+| | High-Level Design | Low-Level Design |
+|---|---|---|
+| Unit of design | Services, databases, queues, caches | Classes, interfaces, methods, objects |
+| Main concerns | Scalability, availability, latency, consistency, cost | Responsibilities, coupling, cohesion, extensibility, testability |
+| Typical artefacts | Architecture diagram, data flow, API list, capacity estimates | Class diagram, sequence diagram, method signatures, code |
+| Typical decisions | SQL vs NoSQL, sync vs async, sharding, caching | Interface vs concrete class, composition vs inheritance, which pattern |
+| Audience | Architects, many teams | Developers on one team |
+| Interview signal | Can you reason about systems at scale? | Can you write well-structured, extensible code? |
+
+- The two are **complementary**: HLD sets boundaries and contracts between components; LLD respects those contracts inside each component.
+- Some topics appear in both with a different meaning. "Caching" in HLD is a Redis cluster; in LLD it is an `LRUCache` class with `get` and `put`.
+- In practice HLD usually comes first, but LLD findings can push back on it (for example, discovering that two services share so much logic they should be one).
+
+## Example
+
+Feature: "Users can book movie tickets."
+
+**HLD view**: a mobile app calls an API gateway; a Booking service and a Payment service sit behind it; seats are held in a database with row-level locking; a message queue sends confirmation emails; a cache serves show listings.
+
+**LLD view of the Booking service**: `BookingController` validates the request and calls `BookingService`. `BookingService` asks `SeatHoldManager` to lock seats for ten minutes, uses a `PricingPolicy` to compute the total, and saves a `Booking` through `BookingRepository`. `Booking` moves through `HELD`, `CONFIRMED` and `EXPIRED` states and rejects invalid transitions.
+
+Same feature, two levels: the HLD never mentions `SeatHoldManager`; the LLD never mentions the load balancer.
+
+## Common mistakes
+
+- **Answering an LLD question with HLD**: drawing services and databases when the interviewer wants classes and code.
+- **Answering an HLD question with LLD**: diving into class hierarchies when asked how to handle millions of users.
+- **Treating them as independent**: an LLD that ignores the component's contract (its API, its data ownership) will not fit the system.
+- **Assuming LLD is "just coding"**: LLD is design; the code is how you prove it.
+
+## Interview angle
+
+Start by confirming which level is wanted: "Should I focus on the class design inside one service, or the overall architecture?" If it is LLD, mention any HLD assumptions in one sentence ("assume a single service with a relational store") and then stay at class level.
+
+A crisp answer to "LLD vs HLD?": *"HLD decides the components of a system and how they interact at scale; LLD designs the classes and interactions inside one component so it can be implemented cleanly. HLD optimises for scale and reliability, LLD for correctness and maintainability."*
+
+## Related topics
+
+- What is Low-Level Design?
+- Role of LLD in software engineering
+- Functional and non-functional requirements
+- Controller, service and repository layers

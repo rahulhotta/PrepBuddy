@@ -1,0 +1,50 @@
+[
+  {
+    "id": "singleton-qa-01",
+    "question": "What is the Singleton pattern?",
+    "answer": "Singleton guarantees that a class has exactly one instance and gives the whole program one way to reach it.\n\nThe class controls its own creation: the constructor (in Python, `__new__`) returns the existing instance if there is one, and only builds a new one the first time.\n\nTypical candidates are things where a second copy would be a bug: a feature-flag store read by every screen, a connection pool, a hardware device driver.",
+    "difficulty": 1
+  },
+  {
+    "id": "singleton-qa-02",
+    "question": "Why do many engineers consider Singleton an anti-pattern?",
+    "answer": "Because it is global mutable state with a nicer name: it hides dependencies, couples code to one concrete class, and makes tests interfere with each other.\n\n- **Hidden dependencies**: a function that calls `FeatureFlags()` inside does not show that need in its signature.\n- **Testing**: state set in one test leaks into the next, and you cannot easily substitute a fake.\n- **Two jobs in one class**: it does its real work *and* manages its own lifetime, which breaks single responsibility.\n- **Assumptions break**: \"only one\" often stops being true later (per tenant, per region, per test).\n\nThe usual fix is to create one instance at startup and pass it in (dependency injection).",
+    "difficulty": 2
+  },
+  {
+    "id": "singleton-qa-03",
+    "question": "How do you make a lazily created Singleton thread-safe in Python?",
+    "answer": "Guard creation with a lock and check for an existing instance twice: once before taking the lock (fast path) and once inside it (in case another thread won the race).\n\n```python\nif cls._instance is None:\n    with cls._lock:\n        if cls._instance is None:\n            cls._instance = super().__new__(cls)\n```\n\nSimpler alternatives avoid the problem entirely:\n\n- **Create it eagerly** at module import. Python's import system already makes module initialisation run once, even with threads.\n- **`functools.cache`** on a factory function. Under heavy contention the function might run twice, so keep it free of side effects or add a lock.",
+    "difficulty": 3
+  },
+  {
+    "id": "singleton-qa-04",
+    "question": "Classic Singleton class, module-level instance, or functools.cache: how do you choose in Python?",
+    "answer": "Prefer a module-level instance or a cached factory; use the classic class only when constructing the class must always yield the same object.\n\n- **Module-level instance** (`settings = Settings(...)`): simplest. Modules are imported once and cached in `sys.modules`, so every importer shares it. Created eagerly.\n- **`@functools.cache` factory** (`get_settings()`): lazy, easy to reset in tests with `cache_clear()`, and the class itself stays an ordinary class.\n- **Classic `__new__` Singleton**: the class enforces it, even when someone calls the constructor directly. More code, and subclassing and `__init__` become traps.\n\nIn an interview, explain the classic version, then say which Python form you would actually ship and why.",
+    "difficulty": 2
+  },
+  {
+    "id": "singleton-qa-05",
+    "question": "How does a Singleton compare to dependency injection with a single shared instance?",
+    "answer": "Both give the program one instance; the difference is **who decides**. A Singleton decides for itself and is fetched globally. With dependency injection, the composition root creates one instance and passes it to whoever needs it.\n\nWith injection:\n\n- Dependencies are visible in constructors (`UploadService(settings)`).\n- Tests pass a fake or a differently configured object without touching globals.\n- \"Only one\" becomes a configuration decision you can change later.\n\nSo the modern answer is often: keep the *single instance*, drop the *Singleton class*.",
+    "difficulty": 2
+  },
+  {
+    "id": "singleton-qa-06",
+    "question": "When should you not use Singleton?",
+    "answer": "Do not use it to make something conveniently global, and do not use it for objects that hold per-user, per-request or per-tenant data.\n\nOther cases:\n\n- The object is cheap and stateless: just create it, or use plain functions.\n- You will need different configurations later (tests, regions, tenants).\n- The code runs in several processes (workers, `multiprocessing`): each process gets its own instance, so \"one\" is already false.\n\nIf the only goal is to share one object, create it once at startup and inject it.",
+    "difficulty": 2
+  },
+  {
+    "id": "singleton-qa-07",
+    "question": "Scenario: tests pass on their own but fail when run together, and the cause is a Singleton. How do you fix it?",
+    "answer": "The Singleton carries state from one test to the next. Reset it around every test, then reduce how much code reaches for it directly.\n\n1. Short term: an autouse pytest fixture that calls a reset hook (`FeatureFlags.reset_for_tests()`, or `get_settings.cache_clear()`) before and after each test.\n2. Medium term: change functions to accept the object as a parameter, so tests pass their own instance.\n3. Long term: create the instance at the composition root and inject it everywhere; the Singleton class can then become an ordinary class.\n\nMention that test order dependence is a classic symptom of hidden global state.",
+    "difficulty": 3
+  },
+  {
+    "id": "singleton-qa-08",
+    "question": "What are the Python-specific traps when writing a classic Singleton?",
+    "answer": "The biggest is `__init__`: Python calls it after `__new__` on *every* construction, so `FeatureFlags()` would re-run initialisation and wipe the shared state.\n\nOthers:\n\n- **Subclasses** share or overwrite the parent's `_instance` unless you key instances by class.\n- **`copy.copy`, `deepcopy` and `pickle`** can create second instances unless you define `__reduce__` or `__copy__`.\n- **Metaclass Singletons** work but are harder to read; a module or cached function is usually clearer.\n\nThe example avoids `__init__` entirely and initialises state once inside `__new__`.",
+    "difficulty": 3
+  }
+]

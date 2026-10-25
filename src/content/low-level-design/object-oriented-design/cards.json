@@ -1,0 +1,7 @@
+[
+  { "id": "object-oriented-design-card-01", "front": "OOD in one sentence?", "back": "Structuring software as cooperating objects that each own their data and the behaviour on it." },
+  { "id": "object-oriented-design-card-02", "front": "Nouns and verbs in requirements?", "back": "Nouns suggest classes; verbs suggest methods or collaborations." },
+  { "id": "object-oriented-design-card-03", "front": "Anemic model?", "back": "Classes with data only; behaviour scattered in services. Rules are duplicated and unenforced." },
+  { "id": "object-oriented-design-card-04", "front": "God object?", "back": "One class that knows and does everything. Split it by responsibility." },
+  { "id": "object-oriented-design-card-05", "front": "Where should a method live?", "back": "On the class that owns the data the method needs (information expert)." }
+]

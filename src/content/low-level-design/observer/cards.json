@@ -1,0 +1,12 @@
+[
+  { "id": "observer-card-01", "front": "Observer: intent?", "back": "A one-to-many dependency: when the subject changes, all registered observers are notified automatically." },
+  { "id": "observer-card-02", "front": "Subject's three operations?", "back": "attach(observer), detach(observer) and notify(event)." },
+  { "id": "observer-card-03", "front": "What does an observer implement?", "back": "One method, usually update(event), called by the subject on each change." },
+  { "id": "observer-card-04", "front": "Push vs pull?", "back": "Push sends the data with the notification. Pull only signals a change; observers query the subject." },
+  { "id": "observer-card-05", "front": "Lapsed listener problem?", "back": "Observers never detached stay referenced by the subject, leaking memory and receiving stale events." },
+  { "id": "observer-card-06", "front": "Why iterate over a copy in notify()?", "back": "So an observer can detach itself (or others) during notification without skipping anyone." },
+  { "id": "observer-card-07", "front": "Observer vs pub/sub?", "back": "Observer: subject calls observers directly. Pub/sub: a broker decouples publishers and subscribers." },
+  { "id": "observer-card-08", "front": "Principle behind Observer?", "back": "Loose coupling: the subject depends only on the observer interface, never on concrete listeners." },
+  { "id": "observer-card-09", "front": "Pythonic Observer?", "back": "A list of callables; subscribe() returns an unsubscribe function." },
+  { "id": "observer-card-10", "front": "One observer raises: what breaks?", "back": "A plain loop stops, so later observers miss the event. Isolate, collect, or fail fast on purpose." }
+]

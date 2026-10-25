@@ -1,0 +1,58 @@
+## Overview
+
+Start by understanding the problem, then design and test a small working solution. Do not rush straight to code.
+
+An LLD interview usually gives you 45 to 60 minutes and a short, vague prompt such as "design a vending machine" or "design a meeting room scheduler". The interviewer is not looking for one correct answer. They want to watch you **turn ambiguity into a clear, working object model** and explain your choices.
+
+A repeatable process keeps you from freezing or diving into code too early. The Case study tab has the same steps as a checklist you can practise with.
+
+## Key ideas
+
+A practical sequence, with rough timings for a 45-minute round:
+
+1. **Clarify requirements (5 min).** Ask about core features, users, scale, and what is out of scope. Write a short list of functional and non-functional requirements and confirm it.
+2. **Identify entities and actors (5 min).** Pull out the nouns: people, things, events. Separate entities (have identity) from value objects (defined by their values).
+3. **Assign responsibilities (5 min).** For each class, one sentence: what it knows and what it does. Spot what varies and plan an interface for it.
+4. **Define relationships and a class diagram (5 to 10 min).** Who owns whom, who uses whom, and multiplicities. Keep it readable; key methods only.
+5. **Walk through the main flow (5 min).** Narrate the calls for the main use case, like a sequence diagram. This often reveals missing classes or methods.
+6. **Implement the core (10 to 15 min).** Code the central classes and the main flow cleanly, with type hints. Stub the rest.
+7. **Handle edge cases and errors (5 min).** Invalid input, concurrency, empty or full states, cancellations.
+8. **Discuss extensions and trade-offs (remaining time).** How you would add a new type or feature; what you chose not to do and why.
+
+Throughout: **think aloud**, check in with the interviewer at each step, and keep a visible list of assumptions.
+
+## Example
+
+Prompt: "Design a meeting room scheduler."
+
+- *Clarify*: rooms have capacity; bookings have start and end times; no overlapping bookings per room; recurring meetings out of scope; single office.
+- *Entities*: `Room`, `Booking`, `User`; `TimeSlot` as a value object.
+- *Responsibilities*: `Room` knows its bookings and answers `is_free(slot)`; `Scheduler` finds a room with enough capacity and books it; `TimeSlot.overlaps(other)` holds the overlap rule.
+- *Varies*: room selection rule (smallest fitting room, nearest room), so a `RoomSelectionStrategy`.
+- *Main flow*: `Scheduler.book(user, slot, attendees)` filters rooms by capacity, asks each `is_free`, applies the strategy, creates the `Booking`.
+- *Edge cases*: back-to-back meetings (end equals start is allowed), two users booking the last room at once (lock per room), invalid slots (end before start).
+- *Extensions*: recurring bookings as a generator of `TimeSlot`s; notifications via Observer.
+
+## Common mistakes
+
+- **Coding in the first five minutes**, before requirements are agreed.
+- **Silent thinking**: the interviewer cannot give credit for reasoning they cannot hear.
+- **Trying to model everything**: twenty classes with no working flow scores worse than six classes that run.
+- **Ignoring hints**: when the interviewer asks "what if two people book at once?", that is the next thing to address.
+- **Pattern name-dropping** without explaining what problem the pattern solves here.
+- **Never testing the design**: not walking through a flow or edge case before declaring it done.
+
+## Interview angle
+
+Interviewers usually score along a few lines: requirement gathering, object modelling and responsibilities, use of principles and patterns where they help, code quality, handling of edge cases, and communication. The process above touches each one deliberately.
+
+Phrases that help: "Let me confirm scope before I design", "I'll put this behind an interface because it's likely to change", "Let me walk through the booking flow to check the design", and "Given more time, I would...".
+
+## Related topics
+
+- Gathering requirements
+- Clarifying scope and assumptions
+- Identifying actors and use cases
+- Drawing the class diagram
+- Testing and explaining trade-offs
+- Mock interview checklist

@@ -1,0 +1,33 @@
+## Overview
+
+An entity is an object that stays the same thing even when some of its details change. A value object is described by its values; two with the same values are considered equal.
+
+## Key ideas
+
+- Entities have identity, often represented by an ID. A customer remains the same customer after changing their name.
+- Value objects are compared by their contents. A date range with the same start and end represents the same value.
+- Value objects are often immutable: instead of changing one, create a new value.
+- The same concept can be an entity or a value object depending on the rules of the application.
+- Do not give every piece of data its own ID unless the domain needs to track it over time.
+
+## Example
+
+A booking system may treat `Booking` as an entity with a booking ID and changing status. `TimeSlot` can be a value object: two slots with the same start and end times are equal. If the meeting time changes, the booking remains the same booking but gets a different time slot.
+
+## Common mistakes
+
+- Comparing entities only by their current fields instead of their stable identity.
+- Giving value objects mutable state that can change after they are shared.
+- Assuming every noun in a prompt must become a separate class.
+- Choosing a category without checking how the object is identified and compared.
+
+## Interview angle
+
+Ask whether the system must recognize the object as the same one after its details change. If yes, it is likely an entity. If only its values matter, it is likely a value object.
+
+## Related topics
+
+- Class responsibilities
+- Properties, enums and dataclasses
+- Domain modeling
+- Composition

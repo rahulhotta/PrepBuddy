@@ -1,0 +1,6 @@
+[
+  { "id": "dependency-relationship-card-01", "front": "What is a dependency?", "back": "Another object or class that a class needs to do its work." },
+  { "id": "dependency-relationship-card-02", "front": "Does using an object mean owning it?", "back": "No. A dependency can be used without controlling its lifetime." },
+  { "id": "dependency-relationship-card-03", "front": "Why pass dependencies into a class?", "back": "It makes dependencies visible and easier to replace in tests." },
+  { "id": "dependency-relationship-card-04", "front": "What should a class depend on?", "back": "The smallest useful contract, rather than unnecessary implementation details." }
+]

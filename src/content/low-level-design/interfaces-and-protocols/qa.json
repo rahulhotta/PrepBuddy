@@ -1,0 +1,26 @@
+[
+  {
+    "id": "interfaces-and-protocols-qa-01",
+    "question": "How do you define an interface in Python?",
+    "answer": "With an abstract base class (`abc.ABC` plus `@abstractmethod`) or with `typing.Protocol`.\n\nAn ABC is nominal: implementations must inherit from it. A Protocol is structural: any class with matching methods satisfies it, and a static type checker verifies that.",
+    "difficulty": 1
+  },
+  {
+    "id": "interfaces-and-protocols-qa-02",
+    "question": "What is the difference between nominal and structural typing?",
+    "answer": "Nominal typing decides compatibility by declared inheritance (\"is this a subclass of `Store`?\"); structural typing decides it by shape (\"does it have `get` and `put` with compatible signatures?\").\n\nABCs are nominal; Protocols are structural. Structural typing lets you accept classes you did not write, such as standard library or third-party objects.",
+    "difficulty": 2
+  },
+  {
+    "id": "interfaces-and-protocols-qa-03",
+    "question": "What does `@runtime_checkable` do, and what are its limits?",
+    "answer": "It lets you use `isinstance(obj, MyProtocol)` at runtime.\n\nThe check only confirms that the required attribute names exist; it does not verify parameters, return types or behaviour. Use it for light dispatch, not as validation. Static type checking remains the main enforcement.",
+    "difficulty": 2
+  },
+  {
+    "id": "interfaces-and-protocols-qa-04",
+    "question": "Scenario: a function only reads from a cache, but its parameter type is a large `Cache` interface with ten methods. What would you change?",
+    "answer": "Narrow the parameter to a small protocol containing only what the function uses.\n\n```python\nclass Readable(Protocol):\n    def get(self, key: str) -> str | None: ...\n\ndef is_logged_in(store: Readable, user: str) -> bool: ...\n```\n\nNow read-only stores and simple test fakes are valid arguments, and the function's needs are documented by its signature.",
+    "difficulty": 2
+  }
+]

@@ -1,0 +1,49 @@
+## Overview
+
+Composition builds an object from smaller objects. Delegation means asking one of those smaller objects to do part of the work.
+
+**Composition** builds an object out of other objects: a `Document` *has a* `History` and *has a* `SpellChecker`. **Delegation** is what the outer object does with those parts: when asked to `undo()`, the document passes the work to its history object.
+
+Together they are the main alternative to inheritance for reusing behaviour. Instead of becoming a subclass of something to get its methods, an object holds a collaborator and forwards calls to it. The result is smaller classes, looser coupling, and parts that can be swapped at runtime.
+
+## Key ideas
+
+- **Has-a vs is-a**: composition models "has a" (a document has an undo history); inheritance models "is a".
+- **Explicit delegation**: write a method that forwards (`def undo(self): self._history.undo()`). Clear and type-checkable; you choose exactly what to expose.
+- **Automatic delegation**: implement `__getattr__` to forward any attribute not found on the wrapper to the wrapped object. Handy for wrappers (logging, auditing, caching), but it hides the interface from readers and type checkers, so use it sparingly.
+- **Owned vs injected parts**:
+  - an *owned* part is created by the outer object and lives and dies with it (the document's history);
+  - an *injected* part is passed in and may be shared (one spell checker for many documents). Injection makes testing and swapping easy.
+- **Swap at runtime**: replacing `doc._checker` with a medical-dictionary checker changes behaviour without new subclasses.
+- **Avoids class explosion**: with inheritance, "document with spellcheck", "document with history", "document with both" become separate subclasses; with composition they are combinations of parts.
+- Many patterns are composition plus delegation: Strategy, Decorator, Proxy, Adapter, State.
+
+## Example
+
+A text editor document:
+
+- creates its own `History` and delegates `undo()` to it;
+- receives a `SpellChecker` and delegates `typos()` to it;
+- is wrapped by `AuditedDocument`, which records calls to `write()` explicitly and forwards everything else (such as `text` and `typos()`) through `__getattr__`.
+
+## Common mistakes
+
+- **Forwarding everything by hand** when only a few operations are needed; expose what callers actually use.
+- **Leaky composition**: returning the inner object (`doc.history`) so callers start talking to it directly, breaking encapsulation (and the Law of Demeter).
+- **`__getattr__` everywhere**: magic forwarding that hides which methods exist and confuses tools and readers.
+- **Infinite recursion in `__getattr__`** when it accesses an attribute that is not set yet (for example during unpickling). Access the inner object via `self.__dict__` or ensure it is set first.
+- **Creating collaborators inside the constructor** when they should be injected, making tests hard.
+
+## Interview angle
+
+"Favour composition over inheritance" is a frequent discussion point. Explain the trade-off concretely: composition gives runtime flexibility and loose coupling at the cost of some forwarding code; inheritance gives automatic reuse but ties the subclass to the parent's interface and implementation.
+
+In design answers, describe relationships precisely: "The `Document` owns its `History` (composition) and receives a `SpellChecker` (dependency injection); `undo()` delegates to the history."
+
+## Related topics
+
+- Composition (UML relationship)
+- Inheritance vs composition
+- Favor composition over inheritance
+- Decorator
+- Proxy

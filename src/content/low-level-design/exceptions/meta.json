@@ -1,0 +1,11 @@
+{
+  "id": "exceptions",
+  "title": "Exceptions and custom exceptions",
+  "tag": "Python fundamentals",
+  "section": "python-fundamentals",
+  "category": "concept",
+  "order": 211,
+  "materials": ["explanation", "qa", "flashcards"],
+  "example": true,
+  "status": "complete"
+}

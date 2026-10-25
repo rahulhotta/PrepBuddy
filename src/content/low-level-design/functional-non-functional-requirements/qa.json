@@ -1,0 +1,26 @@
+[
+  {
+    "id": "functional-non-functional-requirements-qa-01",
+    "question": "What is the difference between functional and non-functional requirements?",
+    "answer": "Functional requirements say what the system does; non-functional requirements say how well it does it.\n\n- Functional: \"users can cancel a booking\".\n- Non-functional: \"cancellation completes in under 500 ms\", \"no double booking under concurrent requests\", \"new booking types can be added without changing existing code\".",
+    "difficulty": 1
+  },
+  {
+    "id": "functional-non-functional-requirements-qa-02",
+    "question": "Which non-functional requirements matter most in a low-level design?",
+    "answer": "The ones that change class-level decisions: correctness under concurrency, extensibility, testability, performance of core operations, and input validation and security.\n\nScale-out concerns like replication or multi-region failover belong to high-level design. In LLD you care whether `book_seat()` is thread-safe and whether a new pricing rule needs edits to existing classes.",
+    "difficulty": 2
+  },
+  {
+    "id": "functional-non-functional-requirements-qa-03",
+    "question": "How do you turn a vague requirement like \"it must be fast\" into something useful?",
+    "answer": "Make it measurable and tie it to a specific operation.\n\nAsk which operation, under what load, and what threshold: \"seat availability lookups must return in under 50 ms for a hall of 500 seats.\" That tells you to keep availability in an in-memory structure with O(1) or O(log n) access instead of scanning every seat.",
+    "difficulty": 2
+  },
+  {
+    "id": "functional-non-functional-requirements-qa-04",
+    "question": "Scenario: in a parking-lot interview, list two functional and two non-functional requirements and say how each affects your design.",
+    "answer": "Functional:\n\n1. *Park a vehicle in a suitable spot* leads to `ParkingLot.park(vehicle) -> Ticket` and a spot-finding strategy.\n2. *Pay on exit by duration* leads to a `PricingPolicy` used by `ExitGate`.\n\nNon-functional:\n\n1. *Two entry gates may assign spots at the same time* means spot allocation must be atomic (a lock or a thread-safe free-spot structure).\n2. *New vehicle types (e.g. electric with charging) will be added* means `Vehicle` and `Spot` types sit behind abstractions, and the spot-matching rule is pluggable.",
+    "difficulty": 3
+  }
+]

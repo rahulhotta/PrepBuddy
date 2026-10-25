@@ -1,0 +1,6 @@
+[
+  { "id": "entities-and-value-objects-card-01", "front": "What identifies an entity?", "back": "Its identity, often represented by a stable ID." },
+  { "id": "entities-and-value-objects-card-02", "front": "What identifies a value object?", "back": "Its values; matching values mean the objects are equal." },
+  { "id": "entities-and-value-objects-card-03", "front": "Why make value objects immutable?", "back": "To prevent shared values from changing unexpectedly." },
+  { "id": "entities-and-value-objects-card-04", "front": "Can an entity's details change?", "back": "Yes. It remains the same entity if its identity stays the same." }
+]

@@ -1,0 +1,20 @@
+[
+  {
+    "id": "aggregation-qa-01",
+    "question": "What does aggregation mean?",
+    "answer": "Aggregation is a whole-and-part relationship where the part can live independently of the whole.\n\nA team can refer to players, but a player can still exist after leaving the team.",
+    "difficulty": 1
+  },
+  {
+    "id": "aggregation-qa-02",
+    "question": "How is aggregation different from composition?",
+    "answer": "In aggregation, parts can exist independently; in composition, the whole controls the parts' lifetime more strongly.\n\nA player can leave a team. A page section that exists only as part of one document is a stronger composition example.",
+    "difficulty": 2
+  },
+  {
+    "id": "aggregation-qa-03",
+    "question": "Scenario: a team is disbanded, but its players remain in the system. What relationship might describe this?",
+    "answer": "Aggregation can describe this whole-and-part relationship.\n\nThe team refers to players, but does not control their existence. Explain the lifetime rule even if the diagram uses UML notation.",
+    "difficulty": 2
+  }
+]

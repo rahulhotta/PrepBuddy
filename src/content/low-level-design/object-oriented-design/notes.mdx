@@ -1,0 +1,52 @@
+## Overview
+
+In simple terms, OOD groups related data and actions into objects that work together.
+
+Object-Oriented Design (OOD) is a way of structuring software as a set of **objects that combine data with the behaviour that acts on that data**, and that cooperate by calling each other's methods.
+
+Instead of a program being a list of functions passing dictionaries around, OOD asks: *which things exist in this problem, what does each one know, and what can each one do?* Each answer becomes a class with a clear responsibility. Most LLD interviews are, in practice, OOD exercises.
+
+## Key ideas
+
+- **Objects own their data.** A `Loan` knows its due date and computes its own late fee; callers do not reach inside and calculate it themselves.
+- **Behaviour lives next to the data it needs.** This keeps rules in one place, so a change to the fine policy is one edit, not a hunt through the codebase.
+- **Objects collaborate through messages** (method calls) and rely on each other's public interface, not on their internals.
+- **Abstraction and interfaces** let you depend on "something that can notify" rather than on a specific email class.
+- **The four pillars** (encapsulation, abstraction, inheritance, polymorphism) are the language tools; **principles** such as single responsibility and low coupling tell you how to use them well.
+- **OOD is modelling.** Good class names come from the problem domain (`Member`, `Book`, `Loan`), not from technical plumbing (`DataManager`, `Helper`).
+
+## Example
+
+A small library: members borrow books and pay a fee when they return them late.
+
+A procedural version keeps loans as dictionaries, and every caller that needs the fee repeats the "days late times daily rate" calculation. When the library caps the fee, every copy must be found and changed.
+
+The object-oriented version gives `Loan` the data **and** the rule:
+
+- `Book` (title, ISBN) and `Member` (name, borrowing limit) are entities.
+- `Loan` holds a book, a member, a due date and a return date, and exposes `is_overdue(today)` and `late_fee(today)`.
+- `Library` coordinates: it checks the member's limit, creates loans and records returns.
+
+The Python example below shows this: the fee rule exists once, inside `Loan`, and `Library` simply asks for it.
+
+## Common mistakes
+
+- **Anemic objects**: classes that are just bags of fields with getters and setters, while all the logic lives in a "manager" or "service" that pokes at them.
+- **God objects**: one class (often called `System` or `Manager`) that knows and does everything.
+- **Inheritance everywhere**: building deep hierarchies to reuse code, when composition would be simpler and more flexible.
+- **Modelling technology instead of the domain**: classes named after frameworks or layers rather than concepts the business talks about.
+- **Exposing internals**: returning mutable internal lists or letting callers set any field, which breaks the object's rules.
+
+## Interview angle
+
+Interviewers want to see you find the **nouns** (candidate classes) and **verbs** (candidate methods) in the requirements, then place each behaviour on the object that has the data for it. Say why: "`Loan` computes the late fee because it owns the dates and the rate; `Library` should not need to know the formula."
+
+Be ready to define OOD briefly: *"Designing a system as cooperating objects that each encapsulate data and the behaviour on that data, organised so responsibilities are clear and changes stay local."*
+
+## Related topics
+
+- The four pillars of OOP
+- Class responsibilities
+- Identifying entities and value objects
+- Object collaboration and message passing
+- Composition and delegation

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "properties-enums-dataclasses-qa-01",
+    "question": "When would you use a property instead of a plain attribute?",
+    "answer": "When the value is derived from other data (`order.total`) or when assignment must be validated (`order.status = ...` must follow allowed transitions).\n\nStart with plain attributes; because property syntax looks identical to callers, you can switch to a property later without breaking anyone.",
+    "difficulty": 1
+  },
+  {
+    "id": "properties-enums-dataclasses-qa-02",
+    "question": "Why use an Enum instead of string constants for statuses?",
+    "answer": "An enum defines the complete set of valid values in one place, so typos raise errors instead of silently creating new states, and tools can autocomplete and check them.\n\nIt also lets you attach behaviour or data to states and iterate over all of them, which is useful for transition tables and validation.",
+    "difficulty": 1
+  },
+  {
+    "id": "properties-enums-dataclasses-qa-03",
+    "question": "What does `@dataclass(frozen=True)` give you, and when is it the right choice?",
+    "answer": "It makes instances immutable (assignment raises `FrozenInstanceError`) and, together with the generated `__eq__`, hashable, so they can be dictionary keys and set members.\n\nUse it for value objects such as `Money`, `TimeSlot` or `Coordinate`: they are defined by their values, safe to share, and never change after creation.",
+    "difficulty": 2
+  },
+  {
+    "id": "properties-enums-dataclasses-qa-04",
+    "question": "Scenario: orders sometimes jump from SHIPPED back to PENDING because of a bug. How would you prevent this in the model?",
+    "answer": "Make status an enum and allow changes only through a guarded setter (or a `transition_to` method) that checks a table of allowed transitions.\n\n```python\nALLOWED = {PENDING: {PAID, CANCELLED}, PAID: {SHIPPED, CANCELLED}, SHIPPED: set(), CANCELLED: set()}\n\n@status.setter\ndef status(self, new: OrderStatus) -> None:\n    if new not in ALLOWED[self._status]:\n        raise ValueError(...)\n    self._status = new\n```\n\nInvalid transitions now fail loudly at the point of the bug.",
+    "difficulty": 2
+  }
+]

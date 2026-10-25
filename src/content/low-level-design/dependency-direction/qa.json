@@ -1,0 +1,20 @@
+[
+  {
+    "id": "dependency-direction-qa-01",
+    "question": "What does dependency direction describe?",
+    "answer": "It describes which parts of a design know about or rely on other parts.\n\nA service that calls a storage contract depends on that contract; a database adapter can implement it.",
+    "difficulty": 1
+  },
+  {
+    "id": "dependency-direction-qa-02",
+    "question": "Why keep business rules away from database details?",
+    "answer": "It can make the rules easier to test and the database easier to replace.\n\nAn order service can use a small store contract while different adapters handle a test store or a production database.",
+    "difficulty": 2
+  },
+  {
+    "id": "dependency-direction-qa-03",
+    "question": "Scenario: an order rule directly creates a vendor-specific database client. What change could reduce this dependency?",
+    "answer": "Move database work behind a storage contract and provide the database implementation from outside.\n\nThe order rule then depends on the action it needs, not on a vendor-specific client.",
+    "difficulty": 2
+  }
+]

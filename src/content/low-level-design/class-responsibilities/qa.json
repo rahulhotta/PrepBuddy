@@ -1,0 +1,20 @@
+[
+  {
+    "id": "class-responsibilities-qa-01",
+    "question": "What is a class responsibility?",
+    "answer": "It is the work or knowledge that belongs to a class.\n\nFor example, a `Loan` can know its due date and determine whether it is overdue. A clear responsibility makes related rules easier to find and test.",
+    "difficulty": 1
+  },
+  {
+    "id": "class-responsibilities-qa-02",
+    "question": "How can you tell that a class may have too many responsibilities?",
+    "answer": "It changes for several unrelated reasons or handles unrelated parts of the system.\n\nA class that calculates loan fees, sends email, and writes database records is a good candidate for separating into focused collaborators.",
+    "difficulty": 2
+  },
+  {
+    "id": "class-responsibilities-qa-03",
+    "question": "Scenario: where should the overdue rule live if it depends on a loan's due date?",
+    "answer": "Usually in `Loan`, because the loan owns the due date needed to apply the rule.\n\nThis avoids making another class reach into the loan's data and keeps the rule near the information it uses.",
+    "difficulty": 2
+  }
+]

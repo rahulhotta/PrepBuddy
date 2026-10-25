@@ -1,0 +1,8 @@
+[
+  { "id": "approaching-lld-interviews-card-01", "front": "First step in an LLD interview?", "back": "Clarify requirements and scope, and confirm them with the interviewer." },
+  { "id": "approaching-lld-interviews-card-02", "front": "Where do candidate classes come from?", "back": "The nouns in the requirements: actors, things and events." },
+  { "id": "approaching-lld-interviews-card-03", "front": "Why walk through the main flow?", "back": "It tests the design and reveals missing classes or methods before coding." },
+  { "id": "approaching-lld-interviews-card-04", "front": "What to implement under time pressure?", "back": "The central classes and the main use case; stub the rest." },
+  { "id": "approaching-lld-interviews-card-05", "front": "When to introduce an interface?", "back": "Where the requirements say behaviour will vary or grow." },
+  { "id": "approaching-lld-interviews-card-06", "front": "Biggest communication rule?", "back": "Think aloud and check in at every step." }
+]

@@ -1,0 +1,11 @@
+{
+  "id": "encapsulation",
+  "title": "Encapsulation and access conventions",
+  "tag": "Python fundamentals",
+  "section": "python-fundamentals",
+  "category": "concept",
+  "order": 204,
+  "materials": ["explanation", "qa", "flashcards"],
+  "example": true,
+  "status": "complete"
+}

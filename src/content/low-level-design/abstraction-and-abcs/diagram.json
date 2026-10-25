@@ -1,0 +1,15 @@
+{
+  "title": "PaymentMethod abstraction",
+  "description": "PaymentMethod is an abstract base class with an abstract name property, an abstract authorize method and a concrete pay method that calls authorize. CardPayment and GiftCard inherit from it and implement the abstract parts; GiftCard also keeps its own balance.",
+  "width": 640,
+  "height": 340,
+  "nodes": [
+    { "id": "pm", "kind": "class", "x": 170, "y": 20, "width": 300, "name": "PaymentMethod", "stereotype": "abstract", "methods": ["+ name: str  {abstract}", "+ authorize(amount) -> bool  {abstract}", "+ pay(amount) -> str"] },
+    { "id": "card", "kind": "class", "x": 20, "y": 230, "width": 260, "name": "CardPayment", "fields": ["- last4: str"], "methods": ["+ authorize(amount) -> bool"] },
+    { "id": "gift", "kind": "class", "x": 360, "y": 230, "width": 260, "name": "GiftCard", "fields": ["- _balance: Decimal"], "methods": ["+ authorize(amount) -> bool"] }
+  ],
+  "edges": [
+    { "from": "card", "to": "pm", "type": "inheritance" },
+    { "from": "gift", "to": "pm", "type": "inheritance" }
+  ]
+}

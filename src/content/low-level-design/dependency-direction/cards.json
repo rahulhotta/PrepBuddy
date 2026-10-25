@@ -1,0 +1,6 @@
+[
+  { "id": "dependency-direction-card-01", "front": "What is dependency direction?", "back": "Which parts of a design know about or rely on other parts." },
+  { "id": "dependency-direction-card-02", "front": "What can a small interface provide?", "back": "A stable contract between business rules and technical details." },
+  { "id": "dependency-direction-card-03", "front": "What does dependency injection do?", "back": "Supplies an object with a dependency from outside it." },
+  { "id": "dependency-direction-card-04", "front": "Should every dependency have an interface?", "back": "No. Add one when it improves a real boundary, test, or expected change." }
+]

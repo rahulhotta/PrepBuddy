@@ -1,0 +1,11 @@
+{
+  "id": "approaching-lld-interviews",
+  "title": "How to approach an LLD interview problem",
+  "tag": "Introduction",
+  "section": "introduction",
+  "category": "concept",
+  "order": 107,
+  "materials": ["explanation", "case-study", "qa", "flashcards", "diagram"],
+  "example": false,
+  "status": "complete"
+}

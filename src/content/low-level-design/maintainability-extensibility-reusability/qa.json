@@ -1,0 +1,26 @@
+[
+  {
+    "id": "maintainability-extensibility-reusability-qa-01",
+    "question": "Define maintainability, extensibility and reusability.",
+    "answer": "Maintainability is how easily code can be understood and safely changed; extensibility is how easily new behaviour can be added; reusability is how easily code can be used elsewhere without copying.\n\nThey are related but distinct: code can be easy to read (maintainable) yet require editing a central function for every new case (not extensible).",
+    "difficulty": 1
+  },
+  {
+    "id": "maintainability-extensibility-reusability-qa-02",
+    "question": "What design techniques improve extensibility?",
+    "answer": "Programming to interfaces, isolating what varies, and composing behaviour so new cases are new classes rather than edits.\n\nTypical tools: a `Protocol` or abstract base class for the varying behaviour, a registry or factory to choose implementations, and patterns such as Strategy, Decorator and Observer. The test: adding a case should not require changing existing, tested code.",
+    "difficulty": 2
+  },
+  {
+    "id": "maintainability-extensibility-reusability-qa-03",
+    "question": "Is more abstraction always better for these qualities?",
+    "answer": "No. Every abstraction costs reading time and indirection, and abstractions built for changes that never happen hurt maintainability.\n\nAdd extension points where change is likely (stated requirements, known roadmap, things that already vary) and keep the rest simple. You can introduce an interface later, when a second case actually appears.",
+    "difficulty": 2
+  },
+  {
+    "id": "maintainability-extensibility-reusability-qa-04",
+    "question": "Scenario: every time a new report format is requested, a developer edits a 200-line `export()` function. How would you improve it?",
+    "answer": "Extract each format into its own class behind a shared interface, and select it from a registry.\n\n1. Define `Exporter` with `export(report) -> str`.\n2. Move each `if format == ...` branch into its own class (`CsvExporter`, `JsonExporter`).\n3. Move shared calculations into the `Report` itself so exporters only format.\n4. Replace the branching with `EXPORTERS[format].export(report)`.\n\nNew formats are now new classes, each tested on its own.",
+    "difficulty": 2
+  }
+]

@@ -1,0 +1,50 @@
+[
+  {
+    "id": "observer-qa-01",
+    "question": "What is the Observer pattern?",
+    "answer": "Observer lets one object (the **subject**) notify any number of dependent objects (the **observers**) when its state changes, without knowing their concrete types.\n\nObservers register with the subject through `attach()`. When something changes, the subject loops over its list and calls `update()` on each one. Observers can be added or removed at runtime.\n\nExample: an `OrderTracker` notifies email, SMS and analytics observers whenever an order's status changes. Adding a push-notification channel means writing one new observer; the tracker is untouched.",
+    "difficulty": 1
+  },
+  {
+    "id": "observer-qa-02",
+    "question": "Push model or pull model: what is the difference and which would you pick?",
+    "answer": "In the **push** model the subject sends the changed data with the notification; in the **pull** model it only says \"something changed\" and each observer asks the subject for what it needs.\n\n- Push: `update(OrderEvent(order_id, status))`. Simple and efficient, and observers do not need a reference back to the subject. The risk is sending too much or too little.\n- Pull: `update(subject)` then `subject.get_status(...)`. Flexible, but observers are coupled to the subject's API and may read a state that has already moved on.\n\nA good default is to push a small, immutable event object. It carries what most observers need and cannot be changed by one observer before the next reads it.",
+    "difficulty": 2
+  },
+  {
+    "id": "observer-qa-03",
+    "question": "How is Observer different from publish/subscribe?",
+    "answer": "In Observer the subject holds direct references to its observers and calls them itself; in publish/subscribe a **broker** (event bus, message queue) sits between publishers and subscribers, so neither knows the other exists.\n\nConsequences of the broker:\n\n- Publishers and subscribers can live in different processes or services.\n- Delivery can be asynchronous, buffered and retried.\n- Subscribers usually filter by topic rather than registering with one object.\n\nObserver is the in-process building block; pub/sub is the same idea scaled out with an intermediary.",
+    "difficulty": 2
+  },
+  {
+    "id": "observer-qa-04",
+    "question": "Observer or Mediator: when would you choose each?",
+    "answer": "Use Observer when one source broadcasts changes to many independent listeners; use Mediator when many objects need to coordinate with each other and you want that coordination logic in one place.\n\nIn Observer the communication is one-to-many and the observers do not affect each other. In Mediator the communication is many-to-many, and the mediator decides who reacts and in what order, for example a booking screen where choosing a date updates available rooms, which updates the price and enables the pay button.\n\nThe two often combine: components can notify the mediator through Observer-style events.",
+    "difficulty": 2
+  },
+  {
+    "id": "observer-qa-05",
+    "question": "When should you not use Observer?",
+    "answer": "Avoid it when there is only one fixed dependent, when the order of reactions matters, or when you need to know the result of the reaction.\n\n- One known dependent: a direct call is easier to read and debug.\n- Strict ordering or transactions: observers are conceptually independent; relying on list order is fragile.\n- You need a return value or confirmation: notifications are fire-and-forget.\n- Chains of observers that trigger other subjects can create cascades that are hard to trace and can even loop.\n\nIn those cases prefer explicit calls, a Mediator, or a workflow object that sequences the steps.",
+    "difficulty": 2
+  },
+  {
+    "id": "observer-qa-06",
+    "question": "Scenario: a long-running service slowly uses more memory, and you find thousands of observers attached to a subject. What happened and how do you fix it?",
+    "answer": "This is the **lapsed listener** problem: objects attached as observers but were never detached, so the subject's list keeps them alive forever.\n\nFixes, from most to least explicit:\n\n1. Return an unsubscribe handle from `subscribe()` and call it when the observer's owner is closed. A context manager makes this automatic.\n2. Tie the subscription to a lifecycle (request, screen, session) that detaches everything on exit.\n3. Hold observers weakly with `weakref.WeakSet`, or `weakref.WeakMethod` for bound methods, so the subject does not keep them alive.\n\nMention the trade-off of weak references: an observer created inline (like a lambda) may be collected immediately and silently stop receiving events.",
+    "difficulty": 3
+  },
+  {
+    "id": "observer-qa-07",
+    "question": "Scenario: one observer raises an exception during notify(). What happens, and what should happen?",
+    "answer": "With a plain loop, the exception stops the loop, so every observer after the failing one misses the event, and the error surfaces in the subject's caller.\n\nOptions:\n\n- **Isolate failures**: wrap each `update()` call, log the error, and continue. Good for independent side effects such as notifications.\n- **Collect and re-raise**: notify everyone, then raise an `ExceptionGroup` with all failures, so nothing is lost and the caller still knows.\n- **Fail fast**: let it propagate when observers are part of one transaction and a partial update is worse than none.\n\nSay which you chose and why; the interviewer is testing whether you noticed the problem.",
+    "difficulty": 3
+  },
+  {
+    "id": "observer-qa-08",
+    "question": "How would you write Observer idiomatically in Python?",
+    "answer": "Register plain callables instead of observer classes, and have `subscribe()` return a function that unsubscribes.\n\n```python\nunsubscribe = hub.subscribe(lambda e: print(e.status))\n...\nunsubscribe()\n```\n\nAny function, bound method or object with `__call__` can be a listener, so there is no `Observer` base class to inherit from. Keep the class-based version when observers carry state and several methods, or when the interviewer wants to see the classic roles.",
+    "difficulty": 2
+  }
+]

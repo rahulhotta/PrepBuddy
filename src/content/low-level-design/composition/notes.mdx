@@ -1,0 +1,32 @@
+## Overview
+
+Composition is a strong whole-and-part relationship. The whole owns or manages its parts, and those parts usually do not make sense on their own in this model.
+
+## Key ideas
+
+- Composition is often described as “has-a”: a document has sections.
+- The whole controls creation, use, or lifetime of the parts.
+- A part should not be shared between unrelated wholes if the model says it belongs to just one.
+- In programming, composition can also mean building behaviour by combining smaller objects; use the context to tell which meaning is intended.
+- In UML, a filled diamond marks the whole side of a composition.
+
+## Example
+
+A `Playlist` can own its ordered list of `PlaylistEntry` objects. Removing an entry removes it from that playlist; it does not affect another playlist. If the entries exist only as part of that playlist in the model, composition is a useful way to describe the relationship.
+
+## Common mistakes
+
+- Using composition for every field, even when the part has an independent lifecycle.
+- Confusing UML composition with the broader programming idea of combining objects.
+- Drawing a filled diamond without stating who creates and removes the parts.
+
+## Interview angle
+
+Explain who owns the part and what happens when the whole is deleted. Use composition when that ownership rule is important to the design.
+
+## Related topics
+
+- Association
+- Aggregation
+- Composition and delegation
+- UML relationships and multiplicity

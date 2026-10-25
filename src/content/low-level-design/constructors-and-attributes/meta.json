@@ -1,0 +1,11 @@
+{
+  "id": "constructors-and-attributes",
+  "title": "Constructors and instance attributes",
+  "tag": "Python fundamentals",
+  "section": "python-fundamentals",
+  "category": "concept",
+  "order": 202,
+  "materials": ["explanation", "qa", "flashcards"],
+  "example": true,
+  "status": "complete"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "object-oriented-design",
+  "title": "Object-Oriented Design (OOD)",
+  "tag": "Introduction",
+  "section": "introduction",
+  "category": "concept",
+  "order": 103,
+  "materials": ["explanation", "qa", "flashcards", "diagram"],
+  "example": true,
+  "status": "complete"
+}

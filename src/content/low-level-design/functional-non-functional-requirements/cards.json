@@ -1,0 +1,7 @@
+[
+  { "id": "functional-non-functional-requirements-card-01", "front": "Functional requirement?", "back": "What the system does: a feature or behaviour a user can observe." },
+  { "id": "functional-non-functional-requirements-card-02", "front": "Non-functional requirement?", "back": "How well the system does it: performance, reliability, security, maintainability and so on." },
+  { "id": "functional-non-functional-requirements-card-03", "front": "LLD-level NFRs to always consider?", "back": "Thread safety, extensibility, testability, input validation and core-operation performance." },
+  { "id": "functional-non-functional-requirements-card-04", "front": "What makes an NFR useful?", "back": "It is measurable and tied to a specific operation, for example p95 under 200 ms." },
+  { "id": "functional-non-functional-requirements-card-05", "front": "Constraint vs requirement?", "back": "A constraint is a fixed decision you must accept, like a language version or an existing API." }
+]

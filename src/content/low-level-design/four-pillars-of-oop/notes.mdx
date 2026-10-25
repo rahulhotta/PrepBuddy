@@ -1,0 +1,33 @@
+## Overview
+
+The four pillars are four tools for organizing object-oriented code: encapsulation, abstraction, inheritance, and polymorphism. Together, they help keep rules in the right place and let code change without rewriting everything.
+
+## Key ideas
+
+- **Encapsulation** keeps data and the rules for changing it together.
+- **Abstraction** gives callers a simple way to use something without exposing its inner steps.
+- **Inheritance** lets a class specialize another class when it truly is a kind of that class.
+- **Polymorphism** lets the same code work with different objects that support the same actions.
+- These are tools, not goals. A small function may be clearer than adding a class or hierarchy.
+
+## Example
+
+In a delivery app, a `Parcel` can protect its delivery status by allowing changes only through methods such as `mark_shipped()`. A `DeliveryService` can request delivery without knowing how a courier route is chosen. Different delivery options can share a common `deliver()` action, so the service calls the same method for each option.
+
+## Common mistakes
+
+- Treating the four pillars as a checklist that every design must use.
+- Using inheritance just to reuse a few lines of code.
+- Calling every hidden field “encapsulation” even when callers can still break the object's rules.
+- Adding abstractions before there is a real variation to support.
+
+## Interview angle
+
+Explain each pillar with one sentence and one example. Then connect it to the design: “The parcel owns its status rules, so callers cannot mark a delivered parcel as pending.”
+
+## Related topics
+
+- Encapsulation and access conventions
+- Abstraction and abstract base classes
+- Inheritance and method overriding
+- Polymorphism and duck typing

@@ -1,0 +1,6 @@
+[
+  { "id": "object-collaboration-card-01", "front": "How do objects collaborate?", "back": "They call one another's public methods to complete a task." },
+  { "id": "object-collaboration-card-02", "front": "What is a method call in this model?", "back": "A message asking another object to do something." },
+  { "id": "object-collaboration-card-03", "front": "Who should protect an object's rules?", "back": "The object that owns the relevant data." },
+  { "id": "object-collaboration-card-04", "front": "What can a long call chain signal?", "back": "Responsibilities or relationships may be too tangled." }
+]

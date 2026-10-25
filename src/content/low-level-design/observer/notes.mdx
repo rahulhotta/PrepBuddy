@@ -1,0 +1,77 @@
+## Intent
+
+In simple terms, Observer lets one object tell all its interested listeners when something changes.
+
+Let one object broadcast changes to any number of interested objects, which can join and leave at any time, without the broadcaster depending on who they are.
+
+## Problem
+
+An online shop tracks each order's status: paid, shipped, delivered. Several parts of the system care: the customer gets an email, a text message goes out when the parcel ships, analytics records every change, and next quarter someone will add push notifications.
+
+If the tracker calls `send_email()`, `send_sms()` and `record_analytics()` directly, it depends on every channel. Each new channel edits the tracker, and the tracker cannot be tested without all of them. Turning a channel off for one customer means more flags inside the tracker.
+
+## Solution
+
+Give every interested party the same small interface, `update(event)`, and let them register with the tracker. The tracker keeps a list and, when a status changes, calls `update()` on each entry. It knows nothing else about them.
+
+- New channel: write one observer and attach it. The tracker does not change.
+- Per-customer preferences: attach or detach observers at runtime.
+- Testing: attach a recording observer and assert on what it received.
+
+The event passed to `update()` is a small immutable object (`OrderEvent`), so one observer cannot change what the next one sees.
+
+## Structure
+
+- **Subject** (`Subject`): keeps the observer list and offers `attach()`, `detach()` and `notify()`.
+- **Concrete subject** (`OrderTracker`): owns the state and calls `notify()` when it changes.
+- **Observer** (`Observer`): the interface with `update(event)`.
+- **Concrete observers** (`EmailNotifier`, `SmsNotifier`, `AnalyticsRecorder`): react in their own way, and may ignore events they do not care about.
+
+## When to use
+
+- A change in one object must be reflected in others, and you do not know in advance how many or which.
+- Listeners should be added and removed at runtime.
+- The source should stay reusable without knowing about its consumers: UI widgets, domain events, cache invalidation, progress reporting.
+
+## Trade-offs
+
+Gains: loose coupling between source and listeners, easy extension, and listeners that can be tested and deployed independently.
+
+Costs: control flow becomes implicit, since reading the subject does not tell you what happens on a change. Notification order is usually unspecified. Cascades (an observer updating another subject) can be hard to trace or can loop. Every subscription is a reference that has to be released, or it leaks.
+
+## Interview pitfalls
+
+- **Lapsed listeners.** Explain how observers are detached: unsubscribe handles, lifecycles, or weak references.
+- **Modifying the list while notifying.** Iterate over a copy, or an observer that detaches itself will cause another to be skipped.
+- **One failing observer.** Decide whether to isolate, collect or propagate errors; do not leave it to chance.
+- **Notifying on no change.** Check that the state really changed, or observers get noisy duplicates.
+- **Relying on order.** If B must run after A, that is a workflow, not Observer.
+- **Threading.** If `notify()` runs on another thread, observers must be thread-safe, and the list needs a lock.
+
+## Related patterns
+
+- **Publish/subscribe**: the same idea with a broker between publishers and subscribers, often across processes.
+- **Mediator**: centralises many-to-many coordination; components often notify the mediator with Observer-style events.
+- **MVC**: views observe the model, which is one of the classic uses of Observer.
+- **Command**: events can be represented as command objects that observers execute or queue.
+
+## Pythonic note
+
+In Python an observer is often just a callable. Any function, bound method or object with `__call__` can be registered, so there is no need for an `Observer` base class:
+
+```python
+def subscribe(self, listener: Listener) -> Callable[[], None]:
+    self._listeners.append(listener)
+
+    def unsubscribe() -> None:
+        if listener in self._listeners:
+            self._listeners.remove(listener)
+
+    return unsubscribe
+```
+
+Returning an unsubscribe function makes the lifetime explicit and is easy to wrap in a context manager. For listeners whose lifetime you do not control, `weakref.WeakSet` (objects) or `weakref.WeakMethod` (bound methods) let the subject hold them without keeping them alive.
+
+Watch dataclass observers: the default generated `__eq__` makes two observers with the same fields compare equal, so `attach()` would treat them as duplicates. Use `@dataclass(eq=False)` to keep identity semantics.
+
+Keep the class-based version when observers carry state and several methods, when you want an explicit interface for documentation and type checking, or when the interviewer asks for the classic pattern. Present the roles first, then mention the callable version as the idiomatic simplification.

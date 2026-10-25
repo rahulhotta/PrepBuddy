@@ -1,0 +1,32 @@
+[
+  {
+    "id": "approaching-lld-interviews-qa-01",
+    "question": "What steps do you follow in an LLD interview?",
+    "answer": "Clarify requirements, identify entities, assign responsibilities, draw relationships, walk the main flow, implement the core, handle edge cases, then discuss extensions and trade-offs.\n\nEach step is short and checked with the interviewer before moving on. The point is to make your reasoning visible and to have something that works by the end.",
+    "difficulty": 1
+  },
+  {
+    "id": "approaching-lld-interviews-qa-02",
+    "question": "Why should you avoid writing code in the first few minutes?",
+    "answer": "Because the prompt is deliberately vague, and code written before scope is agreed often solves the wrong problem.\n\nRequirement questions also earn credit on their own: they show you think about users, edge cases and constraints. Five minutes of clarification usually saves fifteen minutes of rewriting.",
+    "difficulty": 1
+  },
+  {
+    "id": "approaching-lld-interviews-qa-03",
+    "question": "How do you decide where to use interfaces or patterns during the interview?",
+    "answer": "Look for behaviour the requirements say will vary or grow, and put only that behaviour behind an interface.\n\nExamples: pricing rules, payment methods, notification channels, selection strategies. Name the reason out loud (\"promotions are mentioned, so pricing will change\"). Avoid adding patterns that do not answer a stated or likely change.",
+    "difficulty": 2
+  },
+  {
+    "id": "approaching-lld-interviews-qa-04",
+    "question": "Scenario: 30 minutes in, you realise your class design has a flaw. What do you do?",
+    "answer": "Say so, explain the flaw, and fix the smallest part of the design that resolves it.\n\nFor example: \"I gave `Booking` the overlap check, but overlap is about time ranges, so `TimeSlot.overlaps()` is a better home; it also lets `Room` reuse it.\" Interviewers value noticing and correcting problems; hiding them, or restarting from scratch, costs far more.",
+    "difficulty": 2
+  },
+  {
+    "id": "approaching-lld-interviews-qa-05",
+    "question": "What do interviewers typically score in an LLD round?",
+    "answer": "Requirement gathering, object modelling and responsibilities, sensible use of principles and patterns, code quality, edge-case handling, and communication.\n\nA working core with clear classes and a good discussion of trade-offs scores better than a large diagram with no code.",
+    "difficulty": 1
+  }
+]

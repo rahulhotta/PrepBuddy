@@ -1,0 +1,49 @@
+## Overview
+
+Type hints describe the values code expects. Generics let one piece of code work with different types while keeping those descriptions useful.
+
+**Type hints** annotate what kinds of values variables, parameters and return values hold: `def charge(amount: Decimal) -> bool`. Python itself **does not enforce them at runtime**; they are read by type checkers (mypy, Pyright/Pylance), editors and humans. They turn many bugs into editor warnings and make interfaces self-documenting.
+
+**Generics** let one class or function work with many types while keeping type information: a `Repository[User]` returns `User` objects, a `Repository[Product]` returns `Product` objects, from a single implementation. Python 3.12 added compact syntax for them: `class Repository[T]: ...` and `def first[T](items: Sequence[T]) -> T | None`.
+
+## Key ideas
+
+- **Basics**: built-in generics (`list[str]`, `dict[str, int]`, `tuple[int, ...]`), unions with `|` (`str | None`), and `collections.abc` types for parameters (`Iterable`, `Sequence`, `Mapping`, `Callable`).
+- **Accept broad, return specific**: parameters as `Iterable[Order]` (anything iterable), return values as `list[Order]` (what you actually produce).
+- **Type parameters** (3.12 syntax): `class Box[T]:`, `def first[T](...)`. Older code uses `TypeVar("T")` and `Generic[T]`; both mean the same.
+- **Bounds and constraints**: `class Repository[T: HasId]` means T must satisfy `HasId`; `[T: (int, float)]` restricts T to listed types.
+- **Protocols as bounds** combine generics with structural typing: any entity with an `id` can be stored.
+- **Type aliases**: `type UserId = str` (3.12) names a type for readability.
+- **`Self`, `ClassVar`, `Final`, `Literal`** express common intents: returning the same class, class-level constants, values that must not be reassigned, and fixed string choices.
+- **Hints are not validation.** For untrusted input (HTTP, files) validate at runtime; hints describe what the code expects after validation.
+
+## Example
+
+A generic in-memory repository:
+
+- `HasId` is a protocol requiring an `id` property.
+- `Repository[T: HasId]` stores any such entity and returns the right type from `get()` and `all()`.
+- `User` and `Product` are frozen dataclasses stored in separate typed repositories.
+- `first[T]()` is a generic function; `Pair[K, V]` is a generic type alias used by `swap()`.
+- `double("ab")` returns `"abab"`, showing that the runtime ignores the `int` hint; only a type checker would complain.
+
+## Common mistakes
+
+- **`Any` everywhere**, which silently switches type checking off.
+- **Over-specific parameter types** (`list[Order]` when any iterable works), which reject valid callers.
+- **Mutable container variance surprises**: a `list[Dog]` is not a `list[Animal]`, because lists can be written to. Use `Sequence[Animal]` for read-only parameters.
+- **Believing hints validate input** from users or APIs.
+- **Missing `| None`** on values that can be absent, hiding `None` bugs.
+
+## Interview angle
+
+Clean type hints make LLD code read like a specification: interviewers can see contracts at a glance. Use them on every public method in your solution, and use generics where a component is genuinely type-agnostic (repositories, caches, event buses, result types).
+
+Expect questions like "are type hints enforced?" (no, they are for tools), "what is a TypeVar / type parameter for?", and "why `Sequence` instead of `list` for a parameter?".
+
+## Related topics
+
+- Interfaces and Protocols
+- Repository pattern
+- Design an In-Memory Cache with LRU
+- Defining interfaces and contracts

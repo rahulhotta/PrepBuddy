@@ -1,0 +1,7 @@
+[
+  { "id": "instance-class-static-methods-card-01", "front": "Instance method receives?", "back": "self: the object it was called on." },
+  { "id": "instance-class-static-methods-card-02", "front": "Class method receives?", "back": "cls: the class it was called on, which may be a subclass." },
+  { "id": "instance-class-static-methods-card-03", "front": "Static method receives?", "back": "Nothing implicit. It is a plain function in the class namespace." },
+  { "id": "instance-class-static-methods-card-04", "front": "Best use of @classmethod?", "back": "Alternative constructors that return cls(...), so subclasses work." },
+  { "id": "instance-class-static-methods-card-05", "front": "Return type for a classmethod factory?", "back": "typing.Self, so subclasses are typed correctly." }
+]

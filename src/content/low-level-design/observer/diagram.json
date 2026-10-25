@@ -1,0 +1,21 @@
+{
+  "title": "Observer class diagram",
+  "description": "Subject keeps a list of Observer objects and notifies each of them. OrderTracker inherits from Subject and calls notify when an order's status changes. EmailNotifier, SmsNotifier and AnalyticsRecorder implement the Observer interface, each reacting to update in its own way.",
+  "width": 820,
+  "height": 340,
+  "nodes": [
+    { "id": "subject", "kind": "class", "x": 20, "y": 20, "width": 230, "name": "Subject", "fields": ["- observers: list[Observer]"], "methods": ["+ attach(o)", "+ detach(o)", "+ notify(event)"] },
+    { "id": "observer", "kind": "class", "x": 450, "y": 20, "width": 230, "name": "Observer", "stereotype": "interface", "methods": ["+ update(event: OrderEvent)"] },
+    { "id": "tracker", "kind": "class", "x": 20, "y": 230, "width": 230, "name": "OrderTracker", "fields": ["- status: dict[str, str]"], "methods": ["+ set_status(id, status)"] },
+    { "id": "email", "kind": "class", "x": 300, "y": 230, "width": 160, "name": "EmailNotifier", "fields": ["- address: str"], "methods": ["+ update(event)"] },
+    { "id": "sms", "kind": "class", "x": 470, "y": 230, "width": 160, "name": "SmsNotifier", "fields": ["- phone: str"], "methods": ["+ update(event)"] },
+    { "id": "analytics", "kind": "class", "x": 640, "y": 230, "width": 170, "name": "AnalyticsRecorder", "fields": ["- seen: list"], "methods": ["+ update(event)"] }
+  ],
+  "edges": [
+    { "from": "subject", "to": "observer", "type": "aggregation", "label": "notifies 0..*" },
+    { "from": "tracker", "to": "subject", "type": "inheritance" },
+    { "from": "email", "to": "observer", "type": "implements" },
+    { "from": "sms", "to": "observer", "type": "implements" },
+    { "from": "analytics", "to": "observer", "type": "implements" }
+  ]
+}

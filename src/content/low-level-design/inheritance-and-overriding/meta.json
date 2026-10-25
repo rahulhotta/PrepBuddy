@@ -1,0 +1,11 @@
+{
+  "id": "inheritance-and-overriding",
+  "title": "Inheritance and method overriding",
+  "tag": "Python fundamentals",
+  "section": "python-fundamentals",
+  "category": "concept",
+  "order": 205,
+  "materials": ["explanation", "qa", "flashcards", "diagram"],
+  "example": true,
+  "status": "complete"
+}

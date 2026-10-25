@@ -1,0 +1,26 @@
+{
+  "title": "LLD interview flow",
+  "description": "An LLD interview flows through eight steps: clarify requirements, identify entities, assign responsibilities, draw relationships, walk the main flow, implement the core, handle edge cases, and discuss extensions and trade-offs. Walking the flow can send you back to adjust responsibilities.",
+  "width": 760,
+  "height": 260,
+  "nodes": [
+    { "id": "s1", "kind": "box", "x": 10, "y": 30, "width": 160, "height": 56, "label": ["1. Clarify", "requirements"], "color": 2 },
+    { "id": "s2", "kind": "box", "x": 200, "y": 30, "width": 160, "height": 56, "label": ["2. Identify", "entities"], "color": 0 },
+    { "id": "s3", "kind": "box", "x": 390, "y": 30, "width": 160, "height": 56, "label": ["3. Assign", "responsibilities"], "color": 0 },
+    { "id": "s4", "kind": "box", "x": 580, "y": 30, "width": 160, "height": 56, "label": ["4. Draw", "relationships"], "color": 1 },
+    { "id": "s5", "kind": "box", "x": 580, "y": 170, "width": 160, "height": 56, "label": ["5. Walk the", "main flow"], "color": 1 },
+    { "id": "s6", "kind": "box", "x": 390, "y": 170, "width": 160, "height": 56, "label": ["6. Implement", "the core"], "color": 3 },
+    { "id": "s7", "kind": "box", "x": 200, "y": 170, "width": 160, "height": 56, "label": ["7. Edge cases", "and errors"], "color": 3 },
+    { "id": "s8", "kind": "box", "x": 10, "y": 170, "width": 160, "height": 56, "label": ["8. Extensions", "and trade-offs"], "color": 2 }
+  ],
+  "edges": [
+    { "from": "s1", "to": "s2", "type": "flow" },
+    { "from": "s2", "to": "s3", "type": "flow" },
+    { "from": "s3", "to": "s4", "type": "flow" },
+    { "from": "s4", "to": "s5", "type": "flow" },
+    { "from": "s5", "to": "s6", "type": "flow" },
+    { "from": "s6", "to": "s7", "type": "flow" },
+    { "from": "s7", "to": "s8", "type": "flow" },
+    { "from": "s5", "to": "s3", "type": "dependency", "label": "revise" }
+  ]
+}

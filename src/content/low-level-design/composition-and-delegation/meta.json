@@ -1,0 +1,11 @@
+{
+  "id": "composition-and-delegation",
+  "title": "Composition and delegation",
+  "tag": "Python fundamentals",
+  "section": "python-fundamentals",
+  "category": "concept",
+  "order": 209,
+  "materials": ["explanation", "qa", "flashcards", "diagram"],
+  "example": true,
+  "status": "complete"
+}

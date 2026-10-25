@@ -1,0 +1,24 @@
+{
+  "title": "Singleton class diagram",
+  "description": "FeatureFlags stores its only instance and a lock as class-level fields. Its __new__ method returns that stored instance, creating it on the first call. CheckoutPage and AdminPanel both depend on FeatureFlags and, because every call returns the same object, a flag enabled in the admin panel is immediately visible to the checkout page.",
+  "width": 800,
+  "height": 330,
+  "nodes": [
+    {
+      "id": "flags",
+      "kind": "class",
+      "x": 255,
+      "y": 20,
+      "width": 290,
+      "name": "FeatureFlags",
+      "fields": ["- _instance: FeatureFlags (class)", "- _lock: Lock (class)", "- _flags: dict[str, bool]"],
+      "methods": ["+ __new__() -> FeatureFlags", "+ enable(name)", "+ is_enabled(name) -> bool"]
+    },
+    { "id": "checkout", "kind": "class", "x": 40, "y": 240, "width": 200, "name": "CheckoutPage", "methods": ["+ render()"] },
+    { "id": "admin", "kind": "class", "x": 560, "y": 240, "width": 200, "name": "AdminPanel", "methods": ["+ toggle(name)"] }
+  ],
+  "edges": [
+    { "from": "checkout", "to": "flags", "type": "dependency", "label": "same instance" },
+    { "from": "admin", "to": "flags", "type": "dependency", "label": "same instance" }
+  ]
+}

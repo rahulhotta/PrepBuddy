@@ -1,0 +1,49 @@
+## Overview
+
+Polymorphism lets the same code work with different objects, as long as each object can perform the action the code needs.
+
+**Polymorphism** means one piece of code can work with objects of different types, as long as they support the operations it uses. The caller writes `sink.write(text)` once; each kind of sink does its own thing.
+
+**Duck typing** is Python's default flavour of polymorphism: "if it walks like a duck and quacks like a duck, treat it as a duck." Python does not check an object's class before calling a method; it just calls the method. Any object with a suitable `write()` is a valid sink, whether or not it inherits from anything.
+
+## Key ideas
+
+- **Polymorphism removes type switches.** Instead of `if isinstance(sink, Console): ... elif isinstance(sink, File): ...`, each type implements the method and the caller calls it.
+- **Three ways it shows up in Python**:
+  - *subclass polymorphism*: overriding a method from a base class;
+  - *duck typing*: unrelated classes that share a method name and meaning;
+  - *protocol polymorphism with built-ins*: implementing `__len__`, `__iter__`, `__eq__`, `__add__` and friends so `len()`, `for`, `==` and `+` work on your objects.
+- **EAFP** ("easier to ask forgiveness than permission"): try the operation and handle the error, rather than checking types first. It fits duck typing.
+- **Type checking without inheritance**: `typing.Protocol` lets a type checker verify that an argument has the needed methods, while keeping duck typing at runtime.
+- **Same name, same meaning**: duck typing only works if every implementation honours the same contract. A `write()` that deletes files is not a valid sink just because the name matches.
+
+## Example
+
+A `publish()` function sends report lines to any object with a `write(text)` method.
+
+- `ConsoleSink` prints each line with a prefix.
+- `MemorySink` stores lines and implements `__len__`, so `len(sink)` works.
+- `io.StringIO` from the standard library also works, with no changes and no shared base class, because it has a compatible `write()`.
+
+`publish()` never checks types; adding a new sink requires no edits to it.
+
+## Common mistakes
+
+- **`isinstance` ladders** that must be edited whenever a new type appears.
+- **Mismatched contracts**: two classes share a method name but differ in arguments or meaning, so swapping them breaks callers.
+- **Catching too broadly** in EAFP style (`except Exception`), hiding real bugs inside the call.
+- **Assuming polymorphism needs inheritance**; in Python it rarely does.
+- **Forgetting dunder methods**, so objects cannot be used naturally with `len()`, `in`, iteration or comparison.
+
+## Interview angle
+
+Define polymorphism as "one interface, many implementations" and give a Python-specific angle: duck typing plus `Protocol` for static checking. Mention that it is what makes Strategy, State, Command and most other patterns possible.
+
+If asked "how would you add a new output type?", the polymorphic answer is "write a class with `write()` and pass it in; `publish` doesn't change."
+
+## Related topics
+
+- Inheritance and method overriding
+- Interfaces and Protocols
+- Replacing conditionals with polymorphism
+- Strategy

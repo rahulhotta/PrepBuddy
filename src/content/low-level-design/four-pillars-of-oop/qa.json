@@ -1,0 +1,20 @@
+[
+  {
+    "id": "four-pillars-of-oop-qa-01",
+    "question": "What are the four pillars of OOP?",
+    "answer": "Encapsulation, abstraction, inheritance, and polymorphism are the four commonly taught pillars.\n\nThey help organize data and behaviour, hide unnecessary details, reuse specialized behaviour, and let different objects be used through the same operations.",
+    "difficulty": 1
+  },
+  {
+    "id": "four-pillars-of-oop-qa-02",
+    "question": "How are encapsulation and abstraction different?",
+    "answer": "Encapsulation protects an object's data and rules; abstraction gives callers a simpler view of what the object can do.\n\nA parcel can protect status changes through methods (encapsulation), while a delivery service calls `deliver()` without knowing the route-planning details (abstraction).",
+    "difficulty": 2
+  },
+  {
+    "id": "four-pillars-of-oop-qa-03",
+    "question": "Scenario: two payment types both support `charge(amount)`. Which pillar lets checkout call them the same way?",
+    "answer": "Polymorphism lets checkout call the same operation on different payment objects.\n\nEach payment type provides `charge(amount)` according to the same contract, so checkout does not need a separate type check for every payment method.",
+    "difficulty": 2
+  }
+]

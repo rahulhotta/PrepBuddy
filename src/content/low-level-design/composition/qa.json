@@ -1,0 +1,20 @@
+[
+  {
+    "id": "composition-qa-01",
+    "question": "What does composition mean in a whole-and-part relationship?",
+    "answer": "Composition means the whole strongly owns or manages its parts.\n\nA playlist can own its entries; removing an entry removes it from that playlist.",
+    "difficulty": 1
+  },
+  {
+    "id": "composition-qa-02",
+    "question": "How does composition differ from aggregation?",
+    "answer": "Composition describes stronger ownership and usually a dependent part lifetime; aggregation allows parts to exist independently.\n\nA player can remain after a team is disbanded, while a part modeled as belonging only to one document may be removed with that document.",
+    "difficulty": 2
+  },
+  {
+    "id": "composition-qa-03",
+    "question": "Scenario: deleting a document should also remove its sections. What relationship fits?",
+    "answer": "Composition fits if the sections belong only to that document in the model.\n\nState the lifecycle rule directly so the design is clear even if readers do not know UML diamond notation.",
+    "difficulty": 2
+  }
+]

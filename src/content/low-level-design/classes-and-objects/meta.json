@@ -1,0 +1,11 @@
+{
+  "id": "classes-and-objects",
+  "title": "Classes and objects",
+  "tag": "Python fundamentals",
+  "section": "python-fundamentals",
+  "category": "concept",
+  "order": 201,
+  "materials": ["explanation", "qa", "flashcards"],
+  "example": true,
+  "status": "complete"
+}

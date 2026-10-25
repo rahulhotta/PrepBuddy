@@ -1,0 +1,51 @@
+## Overview
+
+Inheritance lets one class reuse and adapt another class's behaviour when the child really is a kind of the parent.
+
+**Inheritance** lets a class (the subclass or child) be defined as a specialised version of another (the base class or parent). The subclass gets the parent's attributes and methods and can add new ones or **override** existing ones to behave differently.
+
+Inheritance models an **"is-a"** relationship: a `Manager` *is an* `Employee`. Anywhere code expects an `Employee`, a `Manager` must work correctly. That substitutability, not code reuse, is the real reason to inherit.
+
+## Key ideas
+
+- **Syntax**: `class Manager(Employee):`. Every Python class ultimately inherits from `object`.
+- **Overriding** means defining a method with the same name in the subclass. Python looks up methods on the object's class first, then its parents.
+- **Two ways to override**:
+  - *replace* the behaviour entirely;
+  - *extend* it by calling the parent version with `super().method(...)` and adding to the result.
+- **`super().__init__(...)`** must be called in a subclass constructor that adds its own setup, or the parent's attributes will be missing.
+- **Method resolution order (MRO)**: the order Python searches classes for a method, visible as `Class.__mro__`. With multiple inheritance, Python uses the C3 linearisation, and `super()` follows the MRO, not just the direct parent.
+- **Template-style calls**: a base-class method can call another method that subclasses override (`describe()` calls `monthly_pay()`), so the base defines the flow and subclasses fill in a detail.
+- **Liskov substitution**: overrides must keep the parent's promises (same meaning of parameters and return values, no surprising exceptions).
+- **Prefer shallow hierarchies.** Deep chains and multiple inheritance of state become hard to follow; composition is often a better tool.
+
+## Example
+
+Staff are paid monthly.
+
+- `Employee.monthly_pay()` divides the annual salary by twelve; `describe()` uses it.
+- `Manager` **extends** `monthly_pay()` by adding a bonus to `super().monthly_pay()`, and calls `super().__init__()` before storing the bonus.
+- `Intern` **replaces** `monthly_pay()` with a fixed stipend.
+- A list of mixed staff can be processed with one loop; each object uses its own version of `monthly_pay()`.
+
+## Common mistakes
+
+- **Inheriting to reuse code** when there is no real "is-a" relationship (a `Stack` inheriting from `list` exposes `insert` and `sort`, breaking stack rules).
+- **Forgetting `super().__init__()`**, leaving parent attributes undefined.
+- **Overrides that break the parent's contract**: raising `NotImplementedError` for a method callers rely on, or changing what a return value means.
+- **Deep hierarchies** where behaviour is spread across five levels and nobody knows which version runs.
+- **Calling a hard-coded parent** (`Employee.monthly_pay(self)`) instead of `super()`, which breaks under multiple inheritance.
+
+## Interview angle
+
+Be ready to explain overriding vs overloading (Python has no method overloading by signature; use default arguments or `functools.singledispatch`), what `super()` does, and when inheritance is the wrong choice.
+
+A strong position: "I use inheritance for genuine is-a relationships with substitutable behaviour, usually from an abstract base class. For reusing behaviour, I prefer composition."
+
+## Related topics
+
+- Polymorphism and duck typing
+- Abstraction and abstract base classes
+- Inheritance vs composition
+- Liskov Substitution Principle
+- Template Method

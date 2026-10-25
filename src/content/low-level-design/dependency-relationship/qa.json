@@ -1,0 +1,20 @@
+[
+  {
+    "id": "dependency-relationship-qa-01",
+    "question": "What is a dependency between classes?",
+    "answer": "One class depends on another when it needs that other class to do its work.\n\nA report service depends on a store if it calls the store to save a report.",
+    "difficulty": 1
+  },
+  {
+    "id": "dependency-relationship-qa-02",
+    "question": "How can passing a dependency into a class help testing?",
+    "answer": "A test can pass a simple fake instead of using the real dependency.\n\nA report service can receive an in-memory store in a test and verify that it saved the expected report.",
+    "difficulty": 2
+  },
+  {
+    "id": "dependency-relationship-qa-03",
+    "question": "Does a dependency mean that one class owns the other?",
+    "answer": "No. A class can use another object without controlling its lifetime.\n\nFor example, a service can use a shared clock or storage object that is created elsewhere.",
+    "difficulty": 1
+  }
+]

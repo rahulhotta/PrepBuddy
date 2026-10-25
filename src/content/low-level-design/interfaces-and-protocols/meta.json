@@ -1,0 +1,11 @@
+{
+  "id": "interfaces-and-protocols",
+  "title": "Interfaces and Protocols",
+  "tag": "Python fundamentals",
+  "section": "python-fundamentals",
+  "category": "concept",
+  "order": 208,
+  "materials": ["explanation", "qa", "flashcards"],
+  "example": true,
+  "status": "complete"
+}

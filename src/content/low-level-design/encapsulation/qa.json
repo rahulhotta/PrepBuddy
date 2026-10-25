@@ -1,0 +1,26 @@
+[
+  {
+    "id": "encapsulation-qa-01",
+    "question": "What is encapsulation?",
+    "answer": "Encapsulation is keeping an object's data and the rules about it together, and allowing changes only through methods that enforce those rules.\n\nIt protects invariants (such as \"balance never below the overdraft limit\") and lets the internal representation change without breaking callers.",
+    "difficulty": 1
+  },
+  {
+    "id": "encapsulation-qa-02",
+    "question": "How do `_name` and `__name` differ in Python?",
+    "answer": "`_name` is a convention meaning \"internal, do not use from outside\"; Python does not enforce it. `__name` inside a class triggers name mangling: it is stored as `_ClassName__name`.\n\nName mangling exists to prevent accidental clashes with attributes in subclasses. It is not a security feature; the mangled name is still reachable.",
+    "difficulty": 2
+  },
+  {
+    "id": "encapsulation-qa-03",
+    "question": "Why are getters and setters for every field not good encapsulation?",
+    "answer": "Because they still let callers read and overwrite any value, just with more code; the object's rules are not protected.\n\nBetter: expose behaviour that keeps invariants (`deposit`, `withdraw`), use read-only properties for data callers need to see, and use a property setter only when assignment is a natural operation that needs validation.",
+    "difficulty": 2
+  },
+  {
+    "id": "encapsulation-qa-04",
+    "question": "Scenario: a `Team` class returns `self.members` directly, and other code keeps appending to it without checks. How do you fix this?",
+    "answer": "Return a read-only view and add methods that enforce the rules.\n\n```python\n@property\ndef members(self) -> tuple[Member, ...]:\n    return tuple(self._members)\n\ndef add(self, member: Member) -> None:\n    if len(self._members) >= self.max_size:\n        raise TeamFull(...)\n    self._members.append(member)\n```\n\nNow the only way to change membership goes through `add`, which enforces the size limit.",
+    "difficulty": 2
+  }
+]

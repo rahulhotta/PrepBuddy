@@ -1,0 +1,70 @@
+## Overview
+
+These qualities describe how easy code is to understand, change, and use again after it has been written.
+
+These three qualities describe how a design behaves **over time**, after the first version ships:
+
+- **Maintainability**: how easily people can understand, fix and safely change the code.
+- **Extensibility**: how easily new behaviour can be added, ideally by adding code rather than editing existing code.
+- **Reusability**: how easily a piece of code can be used in another context without copying it.
+
+Most LLD principles and patterns exist to improve one or more of these. In an interview, they are the "why" behind your design choices.
+
+## Key ideas
+
+**Maintainability** comes from:
+
+- small classes and functions with one clear job (high cohesion);
+- few, explicit dependencies between parts (low coupling);
+- clear names and consistent structure;
+- tests that make changes safe.
+
+**Extensibility** comes from:
+
+- programming to interfaces, so new implementations can be plugged in;
+- the open/closed principle: open for extension, closed for modification;
+- isolating the parts that are likely to change (pricing rules, output formats, notification channels).
+
+**Reusability** comes from:
+
+- general, well-named abstractions with no hidden dependencies on a specific caller;
+- composition: building behaviour from small pieces that can be combined differently;
+- keeping domain logic free of framework and I/O details.
+
+**Balance**: each quality has a cost. Every interface and extension point is code someone must read. Design for the changes you can reasonably expect, not every change you can imagine (see YAGNI).
+
+## Example
+
+An invoicing feature must export invoices. Version one supports CSV and JSON; the product team expects more formats.
+
+- *Maintainable*: the `Invoice` computes its own total once; exporters only format. A bug in totals is fixed in one place.
+- *Extensible*: an `Exporter` protocol with `export(invoice) -> str`. Exporters are registered in a dictionary by name. Adding Markdown is one new class plus one registration; no existing class is edited.
+- *Reusable*: the same exporters work for a nightly batch job and an HTTP endpoint, because they take an `Invoice` and return text, and know nothing about files or requests.
+
+The Python example below adds a Markdown exporter at runtime without touching the CSV or JSON code.
+
+## Common mistakes
+
+- **Speculative generality**: plugin systems and abstract factories for variation that never arrives.
+- **Copy-paste reuse**: duplicating code instead of extracting a shared function, so fixes must be applied twice.
+- **Reuse through inheritance**: subclassing a class only to borrow some of its methods, which couples the two tightly.
+- **Hidden dependencies**: a "reusable" helper that secretly reads global configuration or a database.
+- **Calling something extensible because it has many `if` branches**: if every new case edits the same function, it is not extensible.
+
+## Interview angle
+
+Use these words to justify decisions, and attach each to a concrete likely change:
+
+- "I'm putting pricing behind an interface because the requirements mention promotions; that keeps it **extensible**."
+- "The `Invoice` owns its total, so there is one place to fix it; that's about **maintainability**."
+- "The exporter doesn't know about HTTP, so the batch job can **reuse** it."
+
+If asked "how would you add X?", the ideal answer is "add one class and register it", which shows the design is open for extension.
+
+## Related topics
+
+- Open/Closed Principle
+- Coupling and cohesion
+- DRY: Don't Repeat Yourself
+- YAGNI: You Aren't Gonna Need It
+- Avoiding overengineering

@@ -1,0 +1,20 @@
+[
+  {
+    "id": "composition-over-inheritance-qa-01",
+    "question": "What does “favor composition over inheritance” mean?",
+    "answer": "Prefer combining objects when that gives a clearer or more flexible design than subclassing.\n\nA document can use a spell-checker object instead of creating a subclass for every spell-checking language.",
+    "difficulty": 1
+  },
+  {
+    "id": "composition-over-inheritance-qa-02",
+    "question": "When is inheritance a better fit?",
+    "answer": "Use inheritance when the child truly is a kind of the parent and can keep the parent's behaviour promises.\n\nA manager can be an employee if code expecting an employee can use a manager correctly.",
+    "difficulty": 2
+  },
+  {
+    "id": "composition-over-inheritance-qa-03",
+    "question": "Scenario: adding a new language creates another document subclass. What alternative could reduce those subclasses?",
+    "answer": "Give the document a spell-checker collaborator and provide a checker for each language.\n\nThis uses composition so language behaviour can vary separately from document behaviour.",
+    "difficulty": 2
+  }
+]

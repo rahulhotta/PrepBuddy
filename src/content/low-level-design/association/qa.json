@@ -1,0 +1,20 @@
+[
+  {
+    "id": "association-qa-01",
+    "question": "What is association between classes?",
+    "answer": "Association means objects of one class are connected to or use objects of another class.\n\nA patient and a doctor can be connected through appointments. Association alone does not tell us that either owns the other.",
+    "difficulty": 1
+  },
+  {
+    "id": "association-qa-02",
+    "question": "Does association imply ownership?",
+    "answer": "No. Association describes a connection, not ownership or lifetime.\n\nA doctor and patient can be associated through an appointment, but both people exist independently of that appointment.",
+    "difficulty": 1
+  },
+  {
+    "id": "association-qa-03",
+    "question": "What does multiplicity describe in an association?",
+    "answer": "It describes how many objects on one side can connect to an object on the other side.\n\nFor example, one customer may have many orders, while each order belongs to one customer.",
+    "difficulty": 2
+  }
+]

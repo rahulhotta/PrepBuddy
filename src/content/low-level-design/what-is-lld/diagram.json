@@ -1,0 +1,19 @@
+{
+  "title": "From requirement to code",
+  "description": "Low-level design turns requirements into code in stages: clarify the requirements, identify entities, assign responsibilities to classes and interfaces, define relationships and workflows, then implement and test.",
+  "width": 760,
+  "height": 150,
+  "nodes": [
+    { "id": "req", "kind": "box", "x": 10, "y": 50, "width": 120, "height": 56, "label": ["Requirements"], "color": 2 },
+    { "id": "ent", "kind": "box", "x": 160, "y": 50, "width": 120, "height": 56, "label": ["Entities"], "color": 0 },
+    { "id": "cls", "kind": "box", "x": 310, "y": 50, "width": 130, "height": 56, "label": ["Classes and", "interfaces"], "color": 1 },
+    { "id": "rel", "kind": "box", "x": 470, "y": 50, "width": 130, "height": 56, "label": ["Relationships", "and flows"], "color": 3 },
+    { "id": "code", "kind": "box", "x": 630, "y": 50, "width": 120, "height": 56, "label": ["Code and", "tests"], "color": 0 }
+  ],
+  "edges": [
+    { "from": "req", "to": "ent", "type": "flow" },
+    { "from": "ent", "to": "cls", "type": "flow" },
+    { "from": "cls", "to": "rel", "type": "flow" },
+    { "from": "rel", "to": "code", "type": "flow" }
+  ]
+}

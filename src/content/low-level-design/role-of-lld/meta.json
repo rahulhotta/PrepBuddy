@@ -1,0 +1,11 @@
+{
+  "id": "role-of-lld",
+  "title": "Role of LLD in software engineering",
+  "tag": "Introduction",
+  "section": "introduction",
+  "category": "concept",
+  "order": 104,
+  "materials": ["explanation", "qa", "flashcards"],
+  "example": false,
+  "status": "complete"
+}

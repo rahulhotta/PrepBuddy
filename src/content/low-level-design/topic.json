@@ -1,0 +1,27 @@
+{
+  "id": "low-level-design",
+  "title": "Low Level Design",
+  "blurb": "Object-oriented design, principles, patterns and classic interview problems, with every example in Python.",
+  "accent": "yellow",
+  "icon": "lld",
+  "order": 1,
+  "sections": [
+    { "id": "introduction", "title": "Introduction to LLD" },
+    { "id": "python-fundamentals", "title": "Python Fundamentals for LLD" },
+    { "id": "ood-fundamentals", "title": "Object-Oriented Design Fundamentals" },
+    { "id": "uml", "title": "UML and Design Diagrams" },
+    { "id": "design-principles", "title": "Core Design Principles" },
+    { "id": "creational-patterns", "title": "Creational Design Patterns" },
+    { "id": "structural-patterns", "title": "Structural Design Patterns" },
+    { "id": "behavioral-patterns", "title": "Behavioral Design Patterns" },
+    { "id": "clean-code", "title": "Clean Code and Refactoring" },
+    { "id": "complete-solution", "title": "Designing a Complete LLD Solution" },
+    { "id": "concurrency", "title": "Concurrency and Thread Safety" },
+    { "id": "api-persistence", "title": "API and Persistence Design" },
+    { "id": "testing", "title": "Testing LLD Code" },
+    { "id": "problems-beginner", "title": "LLD Interview Problems: Beginner" },
+    { "id": "problems-intermediate", "title": "LLD Interview Problems: Intermediate" },
+    { "id": "problems-advanced", "title": "LLD Interview Problems: Advanced" },
+    { "id": "revision", "title": "Revision and Interview Preparation" }
+  ]
+}

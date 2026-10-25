@@ -1,0 +1,48 @@
+## Overview
+
+Keep an object's data and the rules for changing that data together.
+
+**Encapsulation** means an object keeps its data and the rules about that data together, and only lets the outside world change it **through methods that protect those rules**. Callers say *what* they want (`account.withdraw(20)`); the object decides *whether and how*.
+
+Python does not have `private` or `protected` keywords. It relies on **naming conventions** and a few tools (properties, name mangling, immutable types) to signal and support what is internal. The goal is the same as in any language: protect invariants and keep internals free to change.
+
+## Key ideas
+
+- **Invariants** are rules that must always hold (a balance never goes below the overdraft limit). Encapsulation is how an object guarantees them.
+- **Conventions**:
+  - `name`: public, part of the object's API.
+  - `_name`: internal, "please do not touch from outside". Tools and readers respect it; Python does not enforce it.
+  - `__name`: **name mangling**. Inside class `Account`, `self.__audit` is stored as `_Account__audit`. Its purpose is to avoid accidental clashes in subclasses, not real security.
+- **Properties** (`@property`) expose read access to internal state, or wrap assignment with validation, without changing the caller's syntax.
+- **Read-only views**: return a tuple or a copy instead of the internal list, so callers cannot mutate internal state.
+- **Tell, don't ask**: prefer methods that perform an action (`account.withdraw(x)`) over getters that let callers compute and set state themselves.
+- **Immutability** (frozen dataclasses, tuples) is the strongest encapsulation: nothing can change after creation.
+
+## Example
+
+An `Account` holds a balance that must respect an overdraft limit.
+
+- `_balance` is internal; `balance` is a read-only property, so `account.balance = 1000` fails.
+- `deposit()` and `withdraw()` are the only ways to change the balance, and both validate.
+- The audit trail is name-mangled (`__audit`) and exposed only as a tuple through `history`, so callers cannot rewrite it.
+
+## Common mistakes
+
+- **Getters and setters for everything**: `get_balance()` and `set_balance()` give no protection; they just add ceremony. Expose behaviour, not raw fields.
+- **Returning internal mutable collections**: callers can append to or clear them and break invariants.
+- **Treating `__name` as security**: anyone can still reach `_Account__audit`. It is a collision-avoidance tool.
+- **Reaching into `_internal` attributes from other classes** "just this once", which couples them to implementation details.
+- **Public attributes with rules**: if a field has constraints, make it a property or set it only through a method.
+
+## Interview angle
+
+Expect "how does Python do private attributes?". A precise answer: "By convention: a single leading underscore marks internal names. Double underscores trigger name mangling to avoid subclass clashes. Nothing is truly private; we rely on conventions, properties and immutability to protect invariants."
+
+In design problems, show encapsulation by keeping state changes inside the owning class (`ParkingSpot.occupy(vehicle)` rather than `spot.vehicle = v; spot.free = False` from outside).
+
+## Related topics
+
+- Classes and objects
+- Properties, enums and dataclasses
+- The four pillars of OOP
+- Principle of Least Knowledge

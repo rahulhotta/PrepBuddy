@@ -1,0 +1,26 @@
+[
+  {
+    "id": "polymorphism-and-duck-typing-qa-01",
+    "question": "What is polymorphism?",
+    "answer": "Polymorphism is the ability of one piece of code to work with objects of different types through a shared interface, with each type supplying its own behaviour.\n\n`sink.write(text)` works for a console, a file or a memory buffer; the caller does not need to know which one it has.",
+    "difficulty": 1
+  },
+  {
+    "id": "polymorphism-and-duck-typing-qa-02",
+    "question": "What is duck typing?",
+    "answer": "Duck typing means an object is suitable if it has the methods and behaviour the code uses, regardless of its class or ancestry.\n\nPython does not check types before a method call; it just calls the method. So `io.StringIO`, a custom `MemorySink` and an open file can all be passed to code that calls `.write()`.",
+    "difficulty": 1
+  },
+  {
+    "id": "polymorphism-and-duck-typing-qa-03",
+    "question": "How can you get type-checker support while keeping duck typing?",
+    "answer": "Define a `typing.Protocol` describing the required methods and annotate parameters with it.\n\n```python\nclass SupportsWrite(Protocol):\n    def write(self, text: str) -> object: ...\n```\n\nAny class with a compatible `write()` satisfies the protocol structurally, with no inheritance needed, and the type checker flags objects that do not.",
+    "difficulty": 2
+  },
+  {
+    "id": "polymorphism-and-duck-typing-qa-04",
+    "question": "Scenario: a function has a growing `if isinstance(...)` chain to handle each payment type. How do you refactor it?",
+    "answer": "Move each branch's behaviour into a method on the corresponding type, give them a shared interface, and call the method directly.\n\nBefore: `if isinstance(p, Card): ... elif isinstance(p, Wallet): ...`. After: `p.charge(amount)`, with `Card.charge` and `Wallet.charge` holding the old branches. New payment types are new classes; the function no longer changes.",
+    "difficulty": 2
+  }
+]

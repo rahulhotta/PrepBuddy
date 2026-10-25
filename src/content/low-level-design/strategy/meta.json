@@ -1,0 +1,11 @@
+{
+  "id": "strategy",
+  "title": "Strategy",
+  "tag": "Behavioral pattern",
+  "section": "behavioral-patterns",
+  "category": "behavioral",
+  "order": 809,
+  "materials": ["qa", "flashcards", "diagram", "explanation"],
+  "example": true,
+  "status": "complete"
+}

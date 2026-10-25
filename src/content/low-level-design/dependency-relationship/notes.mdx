@@ -1,0 +1,33 @@
+## Overview
+
+A dependency exists when one class needs another class to do some work. If the helper changes, the class that uses it may need to change too.
+
+## Key ideas
+
+- A class can depend on another by calling its methods, receiving it as an argument, or creating it.
+- Dependencies are normal; the goal is to keep them clear and manageable.
+- Passing a dependency in makes it easier to replace with a different implementation or a test double.
+- Depending on a small interface is usually more flexible than depending on a detailed concrete class.
+- A dependency is not the same as ownership: a class can use an object without owning its lifetime.
+
+## Example
+
+A `ReportService` depends on a `ReportStore` to save reports. If the store is passed into the service, tests can provide an in-memory fake instead of a real database. The service needs the ability to save, not the details of the database.
+
+## Common mistakes
+
+- Creating a real database client inside every service, hiding how the service depends on storage.
+- Passing a large object when the class needs only one small operation.
+- Treating every dependency as a problem; some dependencies are simple and stable.
+- Confusing “uses” with “owns.”
+
+## Interview angle
+
+Name the dependency and explain what the class needs from it. Then say whether you would pass it in and why, especially if tests or alternate implementations matter.
+
+## Related topics
+
+- Association
+- Dependency injection
+- Dependency direction
+- Interfaces and Protocols

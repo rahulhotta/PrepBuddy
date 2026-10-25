@@ -1,0 +1,26 @@
+[
+  {
+    "id": "what-is-lld-qa-01",
+    "question": "What is Low-Level Design?",
+    "answer": "Low-Level Design is the design of the classes, interfaces and interactions inside a single component, detailed enough to implement.\n\nIt decides responsibilities (who does what), data (who knows what), contracts (which interfaces exist) and collaboration (how objects call each other to complete a use case). The goal is code that is correct, testable and easy to change.",
+    "difficulty": 1
+  },
+  {
+    "id": "what-is-lld-qa-02",
+    "question": "What are the typical outputs of a low-level design?",
+    "answer": "A class diagram, key method signatures, the main workflows, and rules for errors and edge cases.\n\n- **Class diagram**: classes, interfaces and relationships.\n- **Signatures**: the public methods with parameter and return types.\n- **Workflows**: the sequence of calls for each main use case.\n- **Rules**: validation, error handling, state transitions.\n- **Trade-offs**: what was chosen, what was rejected and why.",
+    "difficulty": 1
+  },
+  {
+    "id": "what-is-lld-qa-03",
+    "question": "Why does Low-Level Design matter if the code works anyway?",
+    "answer": "Because most of a system's cost is in changing it later, and design decides how expensive change is.\n\nA design with clear responsibilities and contracts lets you add a feature by adding a class, test parts in isolation, and let several people work without stepping on each other. Code that \"works\" but mixes every concern in one place gets slower and riskier to change with every release.",
+    "difficulty": 2
+  },
+  {
+    "id": "what-is-lld-qa-04",
+    "question": "Scenario: you are given \"design a coupon system\" and ten minutes. What do you produce first?",
+    "answer": "A short list of clarified requirements, then the core entities and their responsibilities, before any code.\n\n1. Clarify: coupon types (percentage, fixed, free shipping), stacking rules, expiry, usage limits.\n2. Entities: `Coupon`, `Cart`, `Customer`, `Redemption`.\n3. Behaviour that varies: the discount rule, so a `DiscountRule` interface with one implementation per coupon type.\n4. Main flow: `CouponService.apply(cart, code)` validates, computes the discount, records a `Redemption`.\n5. Edge cases: expired code, limit reached, coupon not applicable to cart items.\n\nThat skeleton is enough to sketch a diagram and start coding the core flow.",
+    "difficulty": 2
+  }
+]

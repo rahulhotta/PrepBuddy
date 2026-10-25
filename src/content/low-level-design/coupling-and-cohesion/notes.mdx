@@ -1,0 +1,33 @@
+## Overview
+
+Cohesion describes how closely related the work inside one class is. Coupling describes how much one class depends on the details of another. A useful design usually aims for focused classes with few unnecessary dependencies.
+
+## Key ideas
+
+- High cohesion: a class's parts support one clear purpose.
+- Low coupling: a class uses small, stable contracts instead of another class's internals.
+- These qualities work together: splitting a class can improve focus, but too many links between the new classes can increase coupling.
+- Some coupling is necessary. Objects must work together to deliver a feature.
+- Judge the design by how easy it is to understand and change, not by a numeric score alone.
+
+## Example
+
+An invoice class that calculates totals, stores invoice state, and sends email has unrelated jobs. Move email delivery to a notifier, and let the invoice focus on invoice data and rules. Pass the notifier in through a small interface so the invoice workflow is not tied to one email provider.
+
+## Common mistakes
+
+- Splitting code into many classes without reducing dependencies.
+- Assuming zero coupling is possible or desirable.
+- Calling a class cohesive just because it has few methods.
+- Using broad “utility” classes that collect unrelated behaviour.
+
+## Interview angle
+
+Point to a concrete change: “If the email provider changes, only the notifier should need to change.” Then explain how focused responsibilities and small contracts help localize that change.
+
+## Related topics
+
+- Class responsibilities
+- Single Responsibility Principle
+- Dependency direction
+- Maintainability, extensibility and reusability

@@ -1,0 +1,22 @@
+{
+  "title": "Mock interview",
+  "intro": "Practise this sheet's existing Q&A in random order, 10 questions at a time. Answer aloud or think through your answer, then reveal the model answer. Questions do not repeat during an interview.",
+  "start": "START MOCK INTERVIEW",
+  "stop": "END INTERVIEW",
+  "empty": "There are no Q&A questions in this sheet yet. Add Q&A material to start a mock interview.",
+  "set": "Set",
+  "question": "Question",
+  "of": "of",
+  "reveal": "REVEAL MODEL ANSWER",
+  "hide": "HIDE MODEL ANSWER",
+  "answer": "Model answer",
+  "next": "NEXT QUESTION",
+  "finishSet": "FINISH SET",
+  "setComplete": "Set complete",
+  "continuePrompt": "Would you like to keep going with the next set of up to 10 questions?",
+  "continue": "CONTINUE TO NEXT SET",
+  "complete": "Interview complete",
+  "completeMessage": "You have reached every available Q&A question in this sheet. End the interview to start again with a fresh shuffle.",
+  "reviewed": "Questions visited",
+  "remaining": "Questions remaining"
+}

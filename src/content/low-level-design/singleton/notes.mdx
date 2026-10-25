@@ -1,0 +1,79 @@
+## Intent
+
+In simple terms, Singleton makes sure a class creates one shared object instead of many separate copies.
+
+Make sure a class has only one instance, and give the rest of the program a single, well-known way to get it.
+
+## Problem
+
+A web app uses feature flags to switch features on per environment. The admin panel turns `dark_mode` on, and the checkout page must see that change straight away.
+
+If each part of the app creates its own flag store, they drift apart: the admin panel updates its copy and the checkout page keeps reading a stale one. Passing the store to every function by hand feels heavy in a small codebase, so the team wants "the" flag store that everyone shares.
+
+The same need appears for connection pools, hardware drivers and caches, where a second copy wastes resources or causes real bugs.
+
+## Solution
+
+Let the class control its own creation. It keeps a class-level reference to its only instance. The first time someone constructs it, it builds the instance and stores it; every later construction returns the stored one.
+
+In Python, creation happens in `__new__`, so that is where the check goes. A lock with a second check inside it (double-checked locking) makes the first creation safe when several threads arrive at once. State is initialised once inside `__new__`, and there is no `__init__`, because Python would run `__init__` again on every call.
+
+## Structure
+
+- **Singleton** (`FeatureFlags`):
+  - a class-level field holding the only instance (`_instance`);
+  - a lock guarding first creation (`_lock`);
+  - a creation hook that returns the stored instance (`__new__`);
+  - its actual behaviour (`enable()`, `is_enabled()`).
+- **Clients** (`CheckoutPage`, `AdminPanel`): construct or fetch the singleton and always get the same object.
+
+## When to use
+
+- There must be exactly one instance for correctness, not just convenience: one device handle, one pool per process.
+- The instance is expensive to create and should be created lazily.
+- You cannot change how the object is reached (for example, legacy code that constructs it directly everywhere).
+
+For new code, first ask whether creating one instance at startup and passing it in would do. It usually does.
+
+## Trade-offs
+
+Gains: one instance guaranteed, lazy creation, and easy access from anywhere.
+
+Costs: it is global mutable state. Dependencies are hidden inside functions instead of showing in their parameters. Tests share state unless you reset it, and replacing it with a fake is awkward. The class has two jobs, its real behaviour and managing its own lifetime. "Exactly one" is also weaker than it sounds: it is one per process, so worker processes each have their own.
+
+## Interview pitfalls
+
+- **Forgetting thread safety** for lazy creation, or describing double-checked locking without the second check.
+- **Putting setup in `__init__`**, which runs on every call and resets the state.
+- **Calling it the answer for "shared config".** Mention dependency injection and why it is usually preferred.
+- **Ignoring tests.** Say how you would reset or replace it.
+- **Assuming one per machine.** Singletons are per process.
+- **Using it for per-user or per-request data**, which must never be global.
+
+## Related patterns
+
+- **Factory Method / Abstract Factory**: a factory is often the one object that exists once, and it may hand out singletons.
+- **Facade**: a single facade object is often shared application-wide.
+- **Flyweight**: also shares instances, but many shared objects keyed by their state rather than one.
+- **Dependency injection** (not a GoF pattern): the usual replacement; one instance created at the composition root and passed in.
+
+## Pythonic note
+
+Python already has a built-in singleton: the **module**. A module runs once on first import and is cached in `sys.modules`, so an object created at module level is shared by every importer, and module initialisation is thread-safe:
+
+```python
+# flags.py
+feature_flags = FeatureFlags()
+```
+
+For lazy creation, put `functools.cache` on a factory. The class stays ordinary, and tests reset it with `cache_clear()`:
+
+```python
+@cache
+def get_settings() -> Settings:
+    return Settings(region="eu-west", max_upload_mb=25)
+```
+
+Better still, have the code that needs the object accept it as a parameter (`UploadService(settings)`) and decide at startup how many exist. You keep the *single instance* without the *Singleton class*.
+
+The classic `__new__` version is still the right answer when the interviewer asks you to implement the pattern itself, when the class must guarantee one instance even if someone calls its constructor directly, or when you are retrofitting legacy code that constructs the object all over the place. Show it, explain the lock and the missing `__init__`, then say which Python form you would ship.

@@ -1,0 +1,11 @@
+{
+  "id": "class-responsibilities",
+  "title": "Class responsibilities",
+  "tag": "OOD Fundamentals",
+  "section": "ood-fundamentals",
+  "category": "principle",
+  "order": 302,
+  "materials": ["explanation", "qa", "flashcards"],
+  "example": false,
+  "status": "complete"
+}

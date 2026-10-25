@@ -1,0 +1,60 @@
+## Overview
+
+In simple terms, LLD is a code-level plan for one feature. It names the objects, explains each one's job, and shows how they work together.
+
+Low-Level Design (LLD) is the step where you decide **what code will exist inside one component**: which classes and interfaces there are, what each one is responsible for, what data it holds, which methods it exposes, and how the objects work together to carry out a use case.
+
+If a system design says "there is a Booking service that talks to a database", the low-level design answers "inside the Booking service there is a `BookingService` that uses a `SeatInventory`, a `PricingPolicy` and a `BookingRepository`, and here is how they call each other when a user reserves a seat."
+
+The output of LLD is concrete enough to code from: a class diagram, method signatures, the main workflows, and the rules for errors and edge cases.
+
+## Key ideas
+
+- **Scope is one component or feature.** LLD works at the level of classes, objects and functions, not servers, networks or data centres.
+- **Responsibilities first, code second.** The core decision is who knows what and who does what. Good LLD gives every class one clear job.
+- **Contracts between parts.** Interfaces (in Python, abstract base classes or `Protocol`s) define what one part promises another, so parts can change independently.
+- **Relationships matter.** Which objects own others (composition), which merely use others (dependency), and which share references (association/aggregation) decides lifetime, coupling and testability.
+- **Change is the main enemy.** LLD aims for code that is easy to extend, test and read when requirements move. Principles (SOLID, DRY, KISS) and patterns are tools for that, not goals in themselves.
+- **Deliverables:** class diagram, key method signatures, sequence of calls for the main flow, error handling rules, and a short list of trade-offs.
+
+## Example
+
+Requirement: "Riders can book a ride, see the fare before confirming, and cancel within two minutes for free."
+
+A low-level design might produce:
+
+- `Rider`, `Driver`, `Ride` (entities with identity) and `Location`, `Money` (value objects).
+- `FareCalculator` interface with `StandardFare` and `SurgeFare` implementations, so pricing rules can change without touching booking code.
+- `RideService.request(rider, pickup, dropoff) -> Quote` and `RideService.confirm(quote) -> Ride`.
+- `Ride` holds its own status and refuses illegal transitions (you cannot cancel a completed ride).
+- `CancellationPolicy.fee(ride, now) -> Money`, returning zero inside the two-minute window.
+
+None of this mentions servers or databases; it is all about the shape of the code.
+
+## Common mistakes
+
+- **Jumping straight to code** without naming entities and responsibilities, which produces one large class that does everything.
+- **Drawing only boxes**: a class list without methods or interactions is not a design.
+- **Pattern-first thinking**: forcing patterns in to look clever instead of solving the stated requirement.
+- **Ignoring errors and edge cases** (double booking, cancellations, invalid input), which are where designs usually break.
+- **Mixing in high-level concerns** such as load balancers or sharding when the question is about classes.
+
+## Interview angle
+
+An LLD interview checks whether you can turn vague requirements into a clean object model and working code. Interviewers look for:
+
+1. clarifying questions before designing;
+2. well-named classes with clear, single responsibilities;
+3. sensible use of interfaces where behaviour varies;
+4. a walkthrough of the main flow and at least one tricky case;
+5. honest discussion of trade-offs and how the design would change.
+
+A strong one-line answer to "what is LLD?": *"It is the design of the classes, interfaces and interactions inside a component, detailed enough to implement, with the goal of code that is correct, testable and easy to change."*
+
+## Related topics
+
+- LLD vs HLD
+- Object-Oriented Design
+- How to approach an LLD interview problem
+- Class responsibilities
+- Class diagrams

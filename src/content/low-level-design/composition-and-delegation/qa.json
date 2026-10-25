@@ -1,0 +1,26 @@
+[
+  {
+    "id": "composition-and-delegation-qa-01",
+    "question": "What is the difference between composition and delegation?",
+    "answer": "Composition is the structure (an object holds other objects as parts); delegation is the behaviour (the object forwards some of its work to those parts).\n\n`Document` holding a `History` is composition; `Document.undo()` calling `self._history.undo()` is delegation.",
+    "difficulty": 1
+  },
+  {
+    "id": "composition-and-delegation-qa-02",
+    "question": "Why is composition often preferred to inheritance for reuse?",
+    "answer": "It couples less and is more flexible: the outer class depends only on the part's public interface, chooses what to expose, and can swap parts at runtime.\n\nInheritance exposes the parent's entire interface, ties the subclass to the parent's implementation details, and fixes behaviour at class-definition time. Combining several reused behaviours through inheritance also multiplies subclasses.",
+    "difficulty": 2
+  },
+  {
+    "id": "composition-and-delegation-qa-03",
+    "question": "When would you use `__getattr__` for delegation, and what are the risks?",
+    "answer": "Use it for thin wrappers (logging, auditing, caching, remote proxies) that should behave like the wrapped object except for a few methods.\n\nRisks: readers and type checkers cannot see the forwarded interface, typos turn into confusing errors from the inner object, and careless implementations can recurse infinitely when the inner attribute is missing. Prefer explicit methods when the interface is small.",
+    "difficulty": 3
+  },
+  {
+    "id": "composition-and-delegation-qa-04",
+    "question": "Scenario: you have `Report`, `PdfReport`, `EmailedReport` and now need `EmailedPdfReport`. How would composition help?",
+    "answer": "Separate the varying concerns into parts and combine them instead of subclassing each combination.\n\n`Report` holds a `Formatter` (PDF, HTML, CSV) and a list of `Delivery` objects (email, upload). An emailed PDF is `Report(formatter=PdfFormatter(), deliveries=[EmailDelivery(...)])`. New formats or channels are new parts; no class is needed for each combination.",
+    "difficulty": 2
+  }
+]

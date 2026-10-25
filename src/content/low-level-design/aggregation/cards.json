@@ -1,0 +1,6 @@
+[
+  { "id": "aggregation-card-01", "front": "What is aggregation?", "back": "A whole-and-part relationship where parts can exist independently." },
+  { "id": "aggregation-card-02", "front": "Can an aggregated part be shared?", "back": "Yes. It can be shared or moved between wholes." },
+  { "id": "aggregation-card-03", "front": "How is aggregation drawn in UML?", "back": "With a hollow diamond on the whole side." },
+  { "id": "aggregation-card-04", "front": "What matters more than the diamond?", "back": "The stated rule for the part's lifetime." }
+]
